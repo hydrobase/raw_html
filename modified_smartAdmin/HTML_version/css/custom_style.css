@@ -519,3 +519,19 @@ Add Device Mods
         bottom: 62px;
     }
 }
+/*=================
+End Add Device Mods
+=================*/
+
+/*===========
+Form Mods
+===========*/
+.smart-form .checkbox input:checked:hover + i:after {
+    content: '\f00c';
+}
+
+.pin_form .form-control{
+    width: 17px;
+    height:17px;
+    margin-bottom: 8px;
+}
