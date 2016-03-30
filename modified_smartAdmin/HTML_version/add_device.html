@@ -935,12 +935,12 @@ Use search to find needed section.
                 <h4 class="modal-title">Add A New Device</h4>
             </div>
             <div class="modal-body">
-                <form class="smart-form">
+                <form class="smart-form" id="new_device_form">
                     <fieldset>
                         <section>
                             <label class="label">Device Name</label>
                             <label class="input">
-                                <input type="text" class="input-sm">
+                                <input name="device_name" type="text" class="input-sm">
                             </label>
                         </section>
                         <section>
@@ -1024,52 +1024,45 @@ Use search to find needed section.
                             <div class="col col-3">
                                 <section>
                                     <label class="label">Water Pump</label>
-                                    <label class="input state-disabled">
-                                        <input type="text" class="input-xs" placeholder="Pin #" disabled="disabled">
+                                    <label class="input">
+                                        <input name="water_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
                                     </label>
                                 </section>
                             </div>
                             <div class="col col-3">
                                 <section>
                                     <label class="label">Nutrient Pump</label>
-                                    <label class="input state-disabled">
-                                        <input type="text" class="input-xs" placeholder="Pin #" disabled="disabled">
+                                    <label class="input">
+                                        <input name="nutrient_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
                                     </label>
                                 </section>
                             </div>
                             <div class="col col-3">
                                 <section>
                                     <label class="label">pH Upper</label>
-                                    <label class="input state-disabled">
-                                        <input type="text" class="input-xs" placeholder="Pin #" disabled="disabled">
+                                    <label class="input">
+                                        <input name="phUpper_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
                                     </label>
                                 </section>
                             </div>
                             <div class="col col-3">
                                 <section>
                                     <label class="label">pH Downer</label>
-                                    <label class="input state-disabled">
-                                        <input type="text" class="input-xs" placeholder="Pin #" disabled="disabled">
+                                    <label class="input">
+                                        <input name="phDowner_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
                                     </label>
                                 </section>
                             </div>
                         </fieldset>
                     </section>
-                    <footer>
-                        <button type="submit" class="btn btn-primary">
-                            Submit
-                        </button>
-                        <button type="button" class="btn btn-default" onclick="window.history.back();">
-                            Back
-                        </button>
-                    </footer>
+                    <div class="modal-footer">
+                        <button style="margin-top: 20px" type="submit" for="" class="btn btn-primary btn-xs">Save New Device</button>
+                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                    </div>
                 </form>
             </div>
 
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary btn-xs">Save New Device</button>
-                <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
-            </div>
+
         </div>
 
     </div>
