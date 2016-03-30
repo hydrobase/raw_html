@@ -441,254 +441,7 @@ Use search to find needed section.
             </div>
         </div>
         <!-- widget grid -->
-        <section id="widget-grid" class="">
-            <!-- row -->
-            <div class="row">
-                <article class="col-sm-12">
-                    <!-- new widget -->
-                    <div class="jarviswidget" id="wid-id-0" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
-                        <!-- widget options:
-                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-                        data-widget-colorbutton="false"
-                        data-widget-editbutton="false"
-                        data-widget-togglebutton="false"
-                        data-widget-deletebutton="false"
-                        data-widget-fullscreenbutton="false"
-                        data-widget-custombutton="false"
-                        data-widget-collapsed="true"
-                        data-widget-sortable="false"
-
-                        -->
-                        <header>
-                            <span class="widget-icon"> <i class="glyphicon glyphicon-stats txt-color-darken"></i> </span>
-                            <h2>Live Feeds </h2>
-
-                            <ul class="nav nav-tabs pull-right in" id="myTab">
-                                <li class="active">
-                                    <a data-toggle="tab" href="#s1"><i class="fa fa-clock-o"></i> <span class="hidden-mobile hidden-tablet">Live Stats</span></a>
-                                </li>
-
-                                <li>
-                                    <a data-toggle="tab" href="#s2"><i class="fa fa-facebook"></i> <span class="hidden-mobile hidden-tablet">Social Network</span></a>
-                                </li>
-
-                                <li>
-                                    <a data-toggle="tab" href="#s3"><i class="fa fa-dollar"></i> <span class="hidden-mobile hidden-tablet">Revenue</span></a>
-                                </li>
-                            </ul>
-
-                        </header>
-
-                        <!-- widget div-->
-                        <div class="no-padding">
-                            <!-- widget edit box -->
-                            <div class="jarviswidget-editbox">
-
-                                test
-                            </div>
-                            <!-- end widget edit box -->
-
-                            <div class="widget-body">
-                                <!-- content -->
-                                <div id="myTabContent" class="tab-content">
-                                    <div class="tab-pane fade active in padding-10 no-padding-bottom" id="s1">
-                                        <div class="row no-space">
-                                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-														<span class="demo-liveupdate-1"> <span class="onoffswitch-title">Live switch</span> <span class="onoffswitch">
-																<input type="checkbox" name="start_interval" class="onoffswitch-checkbox" id="start_interval">
-																<label class="onoffswitch-label" for="start_interval">
-                                                                    <span class="onoffswitch-inner" data-swchon-text="ON" data-swchoff-text="OFF"></span>
-                                                                    <span class="onoffswitch-switch"></span> </label> </span> </span>
-                                                <div id="updating-chart" class="chart-large txt-color-blue"></div>
-
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 show-stats">
-
-                                                <div class="row">
-                                                    <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> My Tasks <span class="pull-right">130/200</span> </span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-color-blueDark" style="width: 65%;"></div>
-                                                        </div> </div>
-                                                    <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> Transfered <span class="pull-right">440 GB</span> </span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-color-blue" style="width: 34%;"></div>
-                                                        </div> </div>
-                                                    <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> Bugs Squashed<span class="pull-right">77%</span> </span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-color-blue" style="width: 77%;"></div>
-                                                        </div> </div>
-                                                    <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12"> <span class="text"> User Testing <span class="pull-right">7 Days</span> </span>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-color-greenLight" style="width: 84%;"></div>
-                                                        </div> </div>
-
-                                                    <span class="show-stat-buttons"> <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> <a href="javascript:void(0);" class="btn btn-default btn-block hidden-xs">Generate PDF</a> </span> <span class="col-xs-12 col-sm-6 col-md-6 col-lg-6"> <a href="javascript:void(0);" class="btn btn-default btn-block hidden-xs">Report a bug</a> </span> </span>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="show-stat-microcharts">
-                                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-
-                                                <div class="easy-pie-chart txt-color-orangeDark" data-percent="33" data-pie-size="50">
-                                                    <span class="percent percent-sign">35</span>
-                                                </div>
-                                                <span class="easy-pie-title"> Server Load <i class="fa fa-caret-up icon-color-bad"></i> </span>
-                                                <ul class="smaller-stat hidden-sm pull-right">
-                                                    <li>
-                                                        <span class="label bg-color-greenLight"><i class="fa fa-caret-up"></i> 97%</span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="label bg-color-blueLight"><i class="fa fa-caret-down"></i> 44%</span>
-                                                    </li>
-                                                </ul>
-                                                <div class="sparkline txt-color-greenLight hidden-sm hidden-md pull-right" data-sparkline-type="line" data-sparkline-height="33px" data-sparkline-width="70px" data-fill-color="transparent">
-                                                    130, 187, 250, 257, 200, 210, 300, 270, 363, 247, 270, 363, 247
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                                                <div class="easy-pie-chart txt-color-greenLight" data-percent="78.9" data-pie-size="50">
-                                                    <span class="percent percent-sign">78.9 </span>
-                                                </div>
-                                                <span class="easy-pie-title"> Disk Space <i class="fa fa-caret-down icon-color-good"></i></span>
-                                                <ul class="smaller-stat hidden-sm pull-right">
-                                                    <li>
-                                                        <span class="label bg-color-blueDark"><i class="fa fa-caret-up"></i> 76%</span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="label bg-color-blue"><i class="fa fa-caret-down"></i> 3%</span>
-                                                    </li>
-                                                </ul>
-                                                <div class="sparkline txt-color-blue hidden-sm hidden-md pull-right" data-sparkline-type="line" data-sparkline-height="33px" data-sparkline-width="70px" data-fill-color="transparent">
-                                                    257, 200, 210, 300, 270, 363, 130, 187, 250, 247, 270, 363, 247
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                                                <div class="easy-pie-chart txt-color-blue" data-percent="23" data-pie-size="50">
-                                                    <span class="percent percent-sign">23 </span>
-                                                </div>
-                                                <span class="easy-pie-title"> Transfered <i class="fa fa-caret-up icon-color-good"></i></span>
-                                                <ul class="smaller-stat hidden-sm pull-right">
-                                                    <li>
-                                                        <span class="label bg-color-darken">10GB</span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="label bg-color-blueDark"><i class="fa fa-caret-up"></i> 10%</span>
-                                                    </li>
-                                                </ul>
-                                                <div class="sparkline txt-color-darken hidden-sm hidden-md pull-right" data-sparkline-type="line" data-sparkline-height="33px" data-sparkline-width="70px" data-fill-color="transparent">
-                                                    200, 210, 363, 247, 300, 270, 130, 187, 250, 257, 363, 247, 270
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                                                <div class="easy-pie-chart txt-color-darken" data-percent="36" data-pie-size="50">
-                                                    <span class="percent degree-sign">36 <i class="fa fa-caret-up"></i></span>
-                                                </div>
-                                                <span class="easy-pie-title"> Temperature <i class="fa fa-caret-down icon-color-good"></i></span>
-                                                <ul class="smaller-stat hidden-sm pull-right">
-                                                    <li>
-                                                        <span class="label bg-color-red"><i class="fa fa-caret-up"></i> 124</span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="label bg-color-blue"><i class="fa fa-caret-down"></i> 40 F</span>
-                                                    </li>
-                                                </ul>
-                                                <div class="sparkline txt-color-red hidden-sm hidden-md pull-right" data-sparkline-type="line" data-sparkline-height="33px" data-sparkline-width="70px" data-fill-color="transparent">
-                                                    2700, 3631, 2471, 2700, 3631, 2471, 1300, 1877, 2500, 2577, 2000, 2100, 3000
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <!-- end s1 tab pane -->
-
-                                    <div class="tab-pane fade" id="s2">
-                                        <div class="widget-body-toolbar bg-color-white">
-
-                                            <form class="form-inline" role="form">
-
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="s123">Show From</label>
-                                                    <input type="email" class="form-control input-sm" id="s123" placeholder="Show From">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="email" class="form-control input-sm" id="s124" placeholder="To">
-                                                </div>
-
-                                                <div class="btn-group hidden-phone pull-right">
-                                                    <a class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown"><i class="fa fa-cog"></i> More <span class="caret"> </span> </a>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li>
-                                                            <a href="javascript:void(0);"><i class="fa fa-file-text-alt"></i> Export to PDF</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:void(0);"><i class="fa fa-question-sign"></i> Help</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                            </form>
-
-                                        </div>
-                                        <div class="padding-10">
-                                            <div id="statsChart" class="chart-large has-legend-unique"></div>
-                                        </div>
-
-                                    </div>
-                                    <!-- end s2 tab pane -->
-
-                                    <div class="tab-pane fade" id="s3">
-
-                                        <div class="widget-body-toolbar bg-color-white smart-form" id="rev-toggles">
-
-                                            <div class="inline-group">
-
-                                                <label for="gra-0" class="checkbox">
-                                                    <input type="checkbox" name="gra-0" id="gra-0" checked="checked">
-                                                    <i></i> Target </label>
-                                                <label for="gra-1" class="checkbox">
-                                                    <input type="checkbox" name="gra-1" id="gra-1" checked="checked">
-                                                    <i></i> Actual </label>
-                                                <label for="gra-2" class="checkbox">
-                                                    <input type="checkbox" name="gra-2" id="gra-2" checked="checked">
-                                                    <i></i> Signups </label>
-                                            </div>
-
-                                            <div class="btn-group hidden-phone pull-right">
-                                                <a class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown"><i class="fa fa-cog"></i> More <span class="caret"> </span> </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li>
-                                                        <a href="javascript:void(0);"><i class="fa fa-file-text-alt"></i> Export to PDF</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="javascript:void(0);"><i class="fa fa-question-sign"></i> Help</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="padding-10">
-                                            <div id="flotcontainer" class="chart-large has-legend-unique"></div>
-                                        </div>
-                                    </div>
-                                    <!-- end s3 tab pane -->
-                                </div>
-
-                                <!-- end content -->
-                            </div>
-
-                        </div>
-                        <!-- end widget div -->
-                    </div>
-                    <!-- end widget -->
-
-                </article>
-            </div>
-            <!-- end row -->
+        <section id="widget-grid">
             <!-- start row -->
             <div class="row">
                 <article class="col-sm-12 col-md-12 col-lg-6">
@@ -947,11 +700,11 @@ Use search to find needed section.
                             <label class="label">Did You Use Our Kit?</label>
                             <div class="inline-group">
                                 <label class="radio">
-                                    <input type="radio" name="yes_kit">
+                                    <input type="radio" name="kit" value="true" id="kit_yes">
                                     <i></i>Yes
                                 </label>
                                 <label class="radio">
-                                    <input type="radio" name="no_kit">
+                                    <input type="radio" name="kit" value="false" id="kit_no">
                                     <i></i>No
                                 </label>
                             </div>
@@ -982,37 +735,37 @@ Use search to find needed section.
                                 <div class="row">
                                     <div class="col col-6">
                                         <label class="checkbox">
-                                            <input type="checkbox" name="Lux">
+                                            <input type="checkbox" name="Lux" id="lux_checkbox">
                                                 <i></i>Lux
                                         </label>
                                         <label class="checkbox">
-                                            <input type="checkbox" name="Water_Temp">
+                                            <input type="checkbox" name="Water_Temp" id="waterTemp_checkbox">
                                                 <i></i>Water Temperature
                                         </label>
                                         <label class="checkbox">
-                                            <input type="checkbox" name="Air_Temp">
+                                            <input type="checkbox" name="Air_Temp" id="airTemp_checkbox">
                                                 <i></i>Air Temperature
                                         </label>
                                         <label class="checkbox">
-                                            <input type="checkbox" name="Humi">
+                                            <input type="checkbox" name="Humi" id="humidity_checkbox">
                                                 <i></i>Humidity
                                         </label>
                                     </div>
                                     <div class="col col-6">
                                         <label class="checkbox">
-                                            <input type="checkbox" name="pH">
+                                            <input type="checkbox" name="pH" id="ph_checkbox">
                                                 <i></i>pH
                                         </label>
                                         <label class="checkbox">
-                                            <input type="checkbox" name="EC">
+                                            <input type="checkbox" name="EC" id="ec_checkbox">
                                                 <i></i>EC
                                         </label>
                                         <label class="checkbox">
-                                            <input type="checkbox" name="TDS">
+                                            <input type="checkbox" name="TDS" id="tds_checkbox">
                                                 <i></i>Total Dissolved Solids
                                         </label>
                                         <label class="checkbox">
-                                            <input type="checkbox" name="PS">
+                                            <input type="checkbox" name="PS" id="ps_checkbox">
                                                 <i></i>Practical Salinity
                                         </label>
                                     </div>
@@ -1021,45 +774,750 @@ Use search to find needed section.
                         </fieldset>
 
                         <fieldset>
-                            <div class="col col-3">
-                                <section>
-                                    <label class="label">Water Pump</label>
-                                    <label class="input">
-                                        <input name="water_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
-                                    </label>
-                                </section>
-                            </div>
-                            <div class="col col-3">
-                                <section>
-                                    <label class="label">Nutrient Pump</label>
-                                    <label class="input">
-                                        <input name="nutrient_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
-                                    </label>
-                                </section>
-                            </div>
-                            <div class="col col-3">
-                                <section>
-                                    <label class="label">pH Upper</label>
-                                    <label class="input">
-                                        <input name="phUpper_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
-                                    </label>
-                                </section>
-                            </div>
-                            <div class="col col-3">
-                                <section>
-                                    <label class="label">pH Downer</label>
-                                    <label class="input">
-                                        <input name="phDowner_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
-                                    </label>
-                                </section>
-                            </div>
+                            <section>
+                                <label class="label"><h4>Actuators</h4></label>
+                                <div class="col col-3">
+                                    <section>
+                                        <label class="label">Water Pump</label>
+                                        <label class="input">
+                                            <input name="water_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col col-3">
+                                    <section>
+                                        <label class="label">Nutrient Pump</label>
+                                        <label class="input">
+                                            <input name="nutrient_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col col-3">
+                                    <section>
+                                        <label class="label">pH Upper</label>
+                                        <label class="input">
+                                            <input name="phUpper_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col col-3">
+                                    <section>
+                                        <label class="label">pH Downer</label>
+                                        <label class="input">
+                                            <input name="phDowner_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
+                                        </label>
+                                    </section>
+                                </div>
+                            </section>
                         </fieldset>
                     </section>
                     <div class="modal-footer">
-                        <button style="margin-top: 20px" type="submit" for="" class="btn btn-primary btn-xs">Save New Device</button>
+                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save New Device</button>
                         <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
+                <div style="margin-top: 20px" class="modal-footer" id="base_sketch">
+                    <div class="jarviswidget jarviswidget-color-greenDark" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
+                        <!-- widget options:
+                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                            data-widget-colorbutton="false"
+                            data-widget-editbutton="false"
+                            data-widget-togglebutton="false"
+                            data-widget-deletebutton="false"
+                            data-widget-fullscreenbutton="false"
+                            data-widget-custombutton="false"
+                            data-widget-collapsed="true"
+                            data-widget-sortable="false"
+
+                        -->
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code"></i> </span>
+                            <h2><strong>Arduino Code</strong></h2>
+
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <pre style="height: 200px">
+/**********************************************************************************
+ ***********************************************************************************
+ * Start Temp-Humid Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+#include "DHT.h"
+#define DHTPIN 2     // what digital pin we're connected to
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+/***********************************************************************************
+ ***********************************************************************************
+ * End Temp-Humid Sensor Set-Up
+ ***********************************************************************************
+ ***********************************************************************************/
+
+/**********************************************************************************
+ ***********************************************************************************
+ * Start Water Temp Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+#include &lt;OneWire.h&gt;
+int DS18S20_Pin = 4;
+OneWire ds(DS18S20_Pin);
+/***********************************************************************************
+ ***********************************************************************************
+ * End Water Temp Sensor Set-Up
+ ***********************************************************************************
+ ***********************************************************************************/
+
+/**********************************************************************************
+ ***********************************************************************************
+ * Start Ethernet+PubNub Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+#include &lt;SPI.h&gt;
+#include &lt;Ethernet.h&gt;
+#include &lt;PubNub.h&gt;
+#include &lt;aJSON.h&gt;
+
+// Some Ethernet shields have a MAC address printed on a sticker on the shield;
+// fill in that address here, or choose your own at random:
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+
+char pubkey[] = "pub-c-5bef0e0e-e177-4a94-b06f-ce3c1355e5cd";
+char subkey[] = "sub-c-3c8b80da-de67-11e5-abb9-0619f8945a4f";
+char channel[] = "tester";
+
+aJsonObject *createMessage()
+{
+  aJsonObject *msg = aJson.createObject();
+
+  aJsonObject *sender = aJson.createObject();
+  aJson.addStringToObject(sender, "name", "Arduino--Mario");
+  aJson.addItemToObject(msg, "sender", sender);
+  return msg;
+}
+
+/* Process message like: { "pwm": { "8": 0, "9": 128 } } */
+void processActuatorInfo(aJsonObject *item)
+{
+  aJsonObject *actuators = aJson.getObjectItem(item, "actuators");
+  if (!actuators) {
+    Serial.println("no pwm data");
+    return;
+  }
+
+  const static int pins[] = { 30, 31, 32, 33, 34, 35 };
+  const static int pins_n = 6;
+  for (int i = 0; i &lt; pins_n; i++) {
+    char pinstr[3];
+    snprintf(pinstr, sizeof(pinstr), "%d", pins[i]);
+
+    aJsonObject *actuatorsVal = aJson.getObjectItem(actuators, pinstr);
+    if (!actuatorsVal) continue; /* Value not provided, ok. */
+    if (actuatorsVal-&gt;type != aJson_Int) {
+      Serial.print(" invalid data type ");
+      Serial.print(actuatorsVal-&gt;type, DEC);
+      Serial.print(" for pin ");
+      Serial.println(pins[i], DEC);
+      continue;
+    }
+
+    Serial.print(" setting pin ");
+    Serial.print(pins[i], DEC);
+    Serial.print(" to value ");
+    Serial.println(actuatorsVal-&gt;valueint, DEC);
+    analogWrite(pins[i], actuatorsVal-&gt;valueint);
+  }
+}
+
+void dumpMessage(Stream &s, aJsonObject *msg)
+{
+  int msg_count = aJson.getArraySize(msg);
+  for (int i = 0; i &lt; msg_count; i++) {
+    aJsonObject *item, *sender, *analog, *value;
+    //s.print("Msg #");
+    //s.println(i, DEC);
+
+    item = aJson.getArrayItem(msg, i);
+    if (!item) { s.println("item not acquired"); delay(1000); return; }
+
+    processActuatorInfo(item);
+
+    /* Below, we parse and dump messages from fellow Arduinos. */
+
+    sender = aJson.getObjectItem(item, "sender");
+    if (!sender) { s.println("sender not acquired"); delay(1000); return; }
+
+    s.print(" A2: ");
+    analog = aJson.getObjectItem(item, "analog");
+    if (!analog) { s.println("analog not acquired"); delay(1000); return; }
+    value = aJson.getArrayItem(analog, 2);
+    if (!value) { s.println("analog[2] not acquired"); delay(1000); return; }
+    s.print(value-&gt;valueint, DEC);
+
+    s.println();
+  }
+}
+
+/***********************************************************************************
+ ***********************************************************************************
+ * Actuator Pin Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+int light1 = 30;
+int light2 = 31;
+int waterTrigger = 32;
+int nutrientDoser = 33;
+int phUP = 34;
+int phDOWN = 35;
+
+/***********************************************************************************
+ ***********************************************************************************
+ * End Pin Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+
+
+/***********************************************************************************
+ ***********************************************************************************
+ * Lux Sensor Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+#include &lt;Wire.h&gt;
+#include &lt;Adafruit_Sensor.h&gt;
+#include &lt;Adafruit_TSL2561_U.h&gt;
+Adafruit_TSL2561_Unified tsl = Adafruit_TSL2561_Unified(TSL2561_ADDR_FLOAT, 12345);
+
+/*************************************************************************
+    Configures the gain and integration time for the TSL2561
+*************************************************************************/
+void configureSensor(void)
+{
+  /* You can also manually set the gain or enable auto-gain support */
+  tsl.enableAutoRange(true);            /* Auto-gain ... switches automatically between 1x and 16x */
+
+  /* Changing the integration time gives you better sensor resolution (402ms = 16-bit data) */
+  tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_13MS);      /* fast but low resolution */
+  // tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_101MS);  /* medium resolution and speed   */
+  // tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_402MS);  /* 16-bit data but slowest conversions */
+
+  /* Update these values depending on what you've set above!
+  Serial.println("------------------------------------");
+  Serial.print  ("Gain:         "); Serial.println("Auto");
+  Serial.print  ("Timing:       "); Serial.println("13 ms");
+  Serial.println("------------------------------------");
+  */
+}
+
+/***********************************************************************************
+ ***********************************************************************************
+ * End Lux Sensor Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+
+/***********************************************************************************
+ ***********************************************************************************
+ * Tentacle Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+#include &lt;SoftwareSerial.h&gt;              //Include the software serial library
+#include &lt;Wire.h&gt;                   //enable I2C.
+
+SoftwareSerial sSerial(11, 10);          // RX, TX  - Name the software serial library sSerial (this cannot be omitted)
+                                         // assigned to pins 10 and 11 for maximum compatibility
+
+const int s0 = 7;                        //Arduino pin 7 to control pin S0
+const int s1 = 6;                        //Arduino pin 6 to control pin S1
+const int enable_1 = 5;                //Arduino pin 5 to control pin E on shield 1
+const int enable_2 = 4;                  //Arduino pin 4 to control pin E on shield 2
+
+char sensordata[30];                     //A 30 byte character array to hold incoming data from the sensors
+byte computer_bytes_received = 0;        //We need to know how many characters bytes have been received
+byte sensor_bytes_received = 0;          //We need to know how many characters bytes have been received
+int tenticleChannel;                             //INT pointer for channel switching - 0-7 serial, 8-127 I2C addresses
+char *cmd;                               //Char pointer used in string parsing
+int retries;                             // com-check functions store number of retries here
+boolean answerReceived;                  // com-functions store here if a connection-attempt was successful
+byte error;                              // error-byte to store result of Wire.transmissionEnd()
+
+String stamp_type;                       // hold the name / type of the stamp
+char stamp_version[4];                   // hold the version of the stamp
+
+char computerdata[20];             //we make a 20 byte character array to hold incoming data from a pc/mac/other.
+
+byte i2c_response_code = 0;              //used to hold the I2C response code.
+byte in_char = 0;                    //used as a 1 byte buffer to store in bound bytes from an I2C stamp.
+
+/***********************************************************************************
+ ***********************************************************************************
+ * Tentacle Sensor Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Serial.println("Serial set up");
+
+  pinMode(s1, OUTPUT);                   //Set the digital pin as output.
+  pinMode(s0, OUTPUT);                   //Set the digital pin as output.
+  pinMode(enable_1, OUTPUT);             //Set the digital pin as output.
+  pinMode(enable_2, OUTPUT);             //Set the digital pin as output.
+  sSerial.begin(38400);                  // Set the soft serial port to 38400
+  Wire.begin();                          // enable I2C port.
+
+
+  while (!Ethernet.begin(mac)) {
+    Serial.println("Ethernet setup error");
+    delay(1000);
+  }
+  Serial.println("Ethernet set up");
+
+  PubNub.begin(pubkey, subkey);
+  Serial.println("PubNub set up");
+
+   /******** Initialise the Lux Sensor ********/
+  if(!tsl.begin())
+  {
+    /* There was a problem detecting the ADXL345 ... check your connections */
+    Serial.print("Ooops, no TSL2561 detected ... Check your wiring or I2C ADDR!");
+    while(1);
+  }
+
+  configureSensor();
+  /******** End Lux initialization ********/
+
+  /******** Temp-Humid Sensor ********/
+  dht.begin();
+  /******** End Temp-Humid init ********/
+  pinMode(light1, OUTPUT);
+  pinMode(light2, OUTPUT);
+  pinMode(waterTrigger, OUTPUT);
+  pinMode(nutrientDoser, OUTPUT);
+  pinMode(phUP, OUTPUT);
+  pinMode(phDOWN, OUTPUT);
+  digitalWrite(light1, HIGH);
+  digitalWrite(light2, HIGH);
+  digitalWrite(waterTrigger, HIGH);
+  digitalWrite(nutrientDoser, HIGH);
+  digitalWrite(phUP, HIGH);
+  digitalWrite(phDOWN, HIGH);
+}
+
+/**********************************************************************************
+ ***********************************************************************************
+ * End Ethernet+PubNub Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+
+void loop() {
+  int lux = 0;
+  /********** Lux Sensor Start **********/
+  /* Get a new sensor event */
+  sensors_event_t event;
+  tsl.getEvent(&event);
+
+  /* Display the results (light is measured in lux) */
+  if (event.light)
+  {
+    lux = event.light;
+  }
+  else
+  {
+    /* If event.light = 0 lux the sensor is probably saturated
+       and no reliable data could be generated! */
+    Serial.println("Sensor overload");
+  }
+  /********** End Lux Sensor **********/
+
+
+  /********** Start Temp-Humid Sensor **********/
+  int h = dht.readHumidity();
+  int f = dht.readTemperature(true);
+
+  //Validate Temp-Humid Readings
+  if (isnan(h) || isnan(f)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+  /********** End Temp-Humid Sensor **********/
+
+  float waterTemp = getWaterTemp();
+  waterTemp = (waterTemp*1.8)+32.0;
+
+  Ethernet.maintain();
+
+  EthernetClient *client;
+
+  /* Publish */
+
+  Serial.print("publishing a message: ");
+  aJsonObject *msg = createMessage();
+
+ /*Add to message aJsonObject */
+  aJsonObject *luxData = aJson.createItem(lux);
+  aJson.addItemToObject(msg, "lux", luxData);
+  aJsonObject *humidityData = aJson.createItem(h);
+  aJson.addItemToObject(msg, "humidity", humidityData);
+  aJsonObject *tempData = aJson.createItem(f);
+  aJson.addItemToObject(msg, "airTemp", tempData);
+  aJsonObject *watertempData = aJson.createItem(waterTemp);
+  aJson.addItemToObject(msg, "waterTemp", watertempData);
+
+  tenticleChannel = 99;
+  cmd = "r";
+  I2C_call();  // send i2c command and wait for answer
+  if (sensor_bytes_received &gt; 0) {
+    Serial.print("Current pH: ");
+    Serial.println(sensordata);       //print the data.
+    aJsonObject *phData = aJson.createItem(sensordata);
+    aJson.addItemToObject(msg, "pH", phData);
+  }
+
+  tenticleChannel = 100;
+  cmd = "r";
+  I2C_call();  // send i2c command and wait for answer
+  if (sensor_bytes_received &gt; 0) {
+    Serial.print("Current pH: ");
+    Serial.println(sensordata);       //print the data.
+    aJsonObject *ecData = aJson.createItem(sensordata);
+    aJson.addItemToObject(msg, "EC", ecData);
+  }
+
+
+
+  char *msgStr = aJson.print(msg);
+  aJson.deleteItem(msg);
+
+  // msgStr is returned in a buffer that can be potentially
+  // needlessly large; this call will "tighten" it
+  msgStr = (char *) realloc(msgStr, strlen(msgStr) + 1);
+
+  Serial.println(msgStr);
+  client = PubNub.publish(channel, msgStr);
+  free(msgStr);
+  if (!client) {
+    Serial.println("publishing error");
+    delay(1000);
+    return;
+  }
+  client-&gt;stop();
+
+  /* Subscribe and load reply */
+
+  Serial.println("waiting for a message (subscribe)");
+  client = PubNub.subscribe(channel);
+  if (!client) {
+    Serial.println("subscription error");
+    delay(1000);
+    return;
+  }
+
+  /* Parse */
+
+  aJsonClientStream stream(client);
+  msg = aJson.parse(&stream);
+  client-&gt;stop();
+  if (!msg) { Serial.println("parse error"); delay(1000); return; }
+  dumpMessage(Serial, msg);
+  aJson.deleteItem(msg);
+
+}
+
+
+/*tentacle shield stuffems*/
+
+byte I2C_call() {           //function to parse and call I2C commands.
+  sensor_bytes_received = 0;                            // reset data counter
+  memset(sensordata, 0, sizeof(sensordata));            // clear sensordata array;
+
+  Wire.beginTransmission(tenticleChannel);                  //call the circuit by its ID number.
+  Wire.write(cmd);                      //transmit the command that was sent through the serial port.
+  Wire.endTransmission();                           //end the I2C data transmission.
+
+  i2c_response_code = 254;
+  while (i2c_response_code == 254) {      // in case the cammand takes longer to process, we keep looping here until we get a success or an error
+
+    if (String(cmd).startsWith(F("cal")) || String(cmd).startsWith(F("Cal")) ) {
+      delay(1400);                        // cal-commands take 1300ms or more
+    } else if (String(cmd) == F("r") || String(cmd) == F("R")) {
+      delay(1000);                        // reading command takes about a second
+    }
+    else {
+      delay(300);                         // all other commands: wait 300ms
+    }
+
+    Wire.requestFrom(tenticleChannel, 48, 1);     //call the circuit and request 48 bytes (this is more then we need).
+    i2c_response_code = Wire.read();      //the first byte is the response code, we read this separately.
+
+    while (Wire.available()) {            //are there bytes to receive.
+      in_char = Wire.read();              //receive a byte.
+
+      if (in_char == 0) {                 //if we see that we have been sent a null command.
+        Wire.endTransmission();           //end the I2C data transmission.
+        break;                            //exit the while loop.
+      }
+      else {
+        sensordata[sensor_bytes_received] = in_char;        //load this byte into our array.
+        sensor_bytes_received++;
+      }
+    }
+
+    switch (i2c_response_code) {         //switch case based on what the response code is.
+      case 1:                          //decimal 1.
+        Serial.println( F("&lt; success"));     //means the command was successful.
+        break;                           //exits the switch case.
+
+      case 2:                          //decimal 2.
+        Serial.println( F("&lt; command failed"));     //means the command has failed.
+        break;                           //exits the switch case.
+
+      case 254:                        //decimal 254.
+        Serial.println( F("&lt; command pending"));    //means the command has not yet been finished calculating.
+        break;                           //exits the switch case.
+
+      case 255:                        //decimal 255.
+        Serial.println( F("No Data"));    //means there is no further data to send.
+        break;                           //exits the switch case.
+    }
+  }
+}
+
+boolean check_i2c_connection() {                      // check selected i2c channel/address. verify that it's working by requesting info about the stamp
+
+  retries = 0;
+
+  while (retries &lt; 3) {
+    retries++;
+    Wire.beginTransmission(tenticleChannel);      // just do a short connection attempt without command to scan i2c for devices
+    error = Wire.endTransmission();
+
+    if (error == 0)                       // if error is 0, there's a device
+    {
+
+      int r_retries = 0;
+      while (r_retries &lt; 3) {
+        cmd = "i";                          // set cmd to request info (in I2C_call())
+        I2C_call();
+
+        if (parseInfo()) {
+          return true;
+        }
+      }
+      return false;
+    }
+    else
+    {
+      return false;                      // no device at this address
+    }
+  }
+
+}
+
+
+
+boolean parseInfo() {                  // parses the answer to a "i" command. returns true if answer was parseable, false if not.
+
+  // example:
+  // PH EZO  -&gt; '?I,pH,1.1'
+  // ORP EZO -&gt; '?I,OR,1.0'   (-&gt; wrong in documentation 'OR' instead of 'ORP')
+  // DO EZO  -&gt; '?I,D.O.,1.0' || '?I,DO,1.7' (-&gt; exists in D.O. and DO form)
+  // EC EZO  -&gt; '?I,EC,1.0 '
+
+  // Legazy PH  -&gt; 'P,V5.0,5/13'
+  // Legazy ORP -&gt; 'O,V4.4,2/13'
+  // Legazy DO  -&gt; 'D,V5.0,1/13'
+  // Legazy EC  -&gt; 'E,V3.1,5/13'
+
+  if (sensordata[0] == '?' && sensordata[1] == 'I') {          // seems to be an EZO stamp
+
+    // PH EZO
+    if (sensordata[3] == 'p' && sensordata[4] == 'H') {
+      stamp_type = F("pH EZO");
+      stamp_version[0] = sensordata[6];
+      stamp_version[1] = sensordata[7];
+      stamp_version[2] = sensordata[8];
+      stamp_version[3] = 0;
+
+      return true;
+
+      // ORP EZO
+    }
+    else if (sensordata[3] == 'O' && sensordata[4] == 'R') {
+      stamp_type = F("ORP EZO");
+      stamp_version[0] = sensordata[6];
+      stamp_version[1] = sensordata[7];
+      stamp_version[2] = sensordata[8];
+      stamp_version[3] = 0;
+      return true;
+
+      // DO EZO
+    }
+    else if (sensordata[3] == 'D' && sensordata[4] == 'O') {
+      stamp_type = F("D.O. EZO");
+      stamp_version[0] = sensordata[6];
+      stamp_version[1] = sensordata[7];
+      stamp_version[2] = sensordata[8];
+      stamp_version[3] = 0;
+      return true;
+
+      // D.O. EZO
+    }
+    else if (sensordata[3] == 'D' && sensordata[4] == '.' && sensordata[5] == 'O' && sensordata[6] == '.') {
+      stamp_type = F("D.O. EZO");
+      stamp_version[0] = sensordata[8];
+      stamp_version[1] = sensordata[9];
+      stamp_version[2] = sensordata[10];
+      stamp_version[3] = 0;
+      return true;
+
+      // EC EZO
+    }
+    else if (sensordata[3] == 'E' && sensordata[4] == 'C') {
+      stamp_type = F("EC EZO");
+      stamp_version[0] = sensordata[6];
+      stamp_version[1] = sensordata[7];
+      stamp_version[2] = sensordata[8];
+      stamp_version[3] = 0;
+      return true;
+
+      // unknown EZO stamp
+    }
+    else {
+      stamp_type = F("unknown EZO stamp");
+      return true;
+    }
+
+  }
+
+  // it's a legacy stamp (non-EZO)
+  else
+  {
+    // Legacy pH
+    if ( sensordata[0] == 'P') {
+      stamp_type = F("pH (legacy)");
+      stamp_version[0] = sensordata[3];
+      stamp_version[1] = sensordata[4];
+      stamp_version[2] = sensordata[5];
+      stamp_version[3] = 0;
+      return true;
+
+      // legacy ORP
+    }
+    else if ( sensordata[0] == 'O') {
+      stamp_type = F("ORP (legacy)");
+      stamp_version[0] = sensordata[3];
+      stamp_version[1] = sensordata[4];
+      stamp_version[2] = sensordata[5];
+      stamp_version[3] = 0;
+      return true;
+
+      // Legacy D.O.
+    }
+    else if ( sensordata[0] == 'D') {
+      stamp_type = F("D.O. (legacy)");
+      stamp_version[0] = sensordata[3];
+      stamp_version[1] = sensordata[4];
+      stamp_version[2] = sensordata[5];
+      stamp_version[3] = 0;
+      return true;
+
+      // Lecagy EC
+    }
+    else if ( sensordata[0] == 'E') {
+      stamp_type = F("EC (legacy)");
+      stamp_version[0] = sensordata[3];
+      stamp_version[1] = sensordata[4];
+      stamp_version[2] = sensordata[5];
+      stamp_version[3] = 0;
+      return true;
+    }
+  }
+
+  /*
+  Serial.println("can not parse data: ");
+   Serial.print("'");
+   Serial.print(sensordata);
+   Serial.println("'");
+   */
+  return false;        // can not parse this info-string
+}
+
+
+
+void clearIncomingBuffer() {          // "clears" the incoming soft-serial buffer
+  while (sSerial.available() ) {
+    //Serial.print((char)sSerial.read());
+    sSerial.read();
+  }
+}
+
+/*end of tenticle stuffems*/
+
+
+/*Start of waterTemp stuffems*/
+float getWaterTemp(){
+  //returns the temperature from one DS18S20 in DEG Celsius
+
+  byte data[12];
+  byte addr[8];
+
+  if ( !ds.search(addr)) {
+      //no more sensors on chain, reset search
+      ds.reset_search();
+      return -1000;
+  }
+
+  if ( OneWire::crc8( addr, 7) != addr[7]) {
+      Serial.println("CRC is not valid!");
+      return -1000;
+  }
+
+  if ( addr[0] != 0x10 && addr[0] != 0x28) {
+      Serial.print("Device is not recognized");
+      return -1000;
+  }
+
+  ds.reset();
+  ds.select(addr);
+  ds.write(0x44,1); // start conversion, with parasite power on at the end
+
+  byte present = ds.reset();
+  ds.select(addr);
+  ds.write(0xBE); // Read Scratchpad
+
+
+  for (int i = 0; i &lt; 9; i++) { // we need 9 bytes
+    data[i] = ds.read();
+  }
+
+  ds.reset_search();
+
+  byte MSB = data[1];
+  byte LSB = data[0];
+
+  float tempRead = ((MSB &lt;&lt; 8) | LSB); //using two's compliment
+  float TemperatureSum = tempRead / 16;
+
+  return TemperatureSum;
+
+}</pre>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                </div>
             </div>
 
 
@@ -1258,8 +1716,24 @@ you can add as many as you like
             $this.parent().addClass('active');
         });
 
-        $('#setUp_options').click(function () {
+        //"Set Up" Controls
+        $('#setUp_options').fadeOut();
+        $('#base_sketch').fadeOut();
 
+        function setUpIn() {
+            $('#setUp_options').fadeIn(600, "easeInOutQuint")
+        }
+        function baseIn() {
+            $('#base_sketch').fadeIn(600, "easeInOutQuint")
+        }
+
+
+        $('#kit_no').click(function () {
+            $('#base_sketch').fadeOut(500, "linear", setUpIn);
+        });
+        $('#kit_yes').click(function () {
+            console.log("it's working!!!");
+            $('#setUp_options').fadeOut(500, "easeInOutQuint", baseIn);
         });
 
         /*

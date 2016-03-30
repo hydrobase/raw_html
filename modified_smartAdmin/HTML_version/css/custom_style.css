@@ -92,6 +92,9 @@ end fixed-menu nav mods
 /*====================
 Mods to style-3 Colors
 ====================*/
+html {
+    background-image: none;
+}
 
 .smart-style-3 body, body.smart-style-3 {
     background: #fff !important;
@@ -534,4 +537,8 @@ Form Mods
     width: 17px;
     height:17px;
     margin-bottom: 8px;
+}
+
+pre {
+    text-align: left !important;
 }
