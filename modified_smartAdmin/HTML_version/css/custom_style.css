@@ -535,3 +535,7 @@ Form Mods
     height:17px;
     margin-bottom: 8px;
 }
+
+pre {
+    text-align: left !important;
+}
