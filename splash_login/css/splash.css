@@ -1,0 +1,28 @@
+/*
+splash.css: CSS file for Hydrobase Splash Page
+*/
+
+body {
+    background-color:#25383C
+} 
+
+.container {
+    float:left;
+}
+
+.image {
+    float:left;
+}
+
+p {
+    margin: 5 px 0; 
+}
+
+.buttonInit {
+    border-radius: 4px;
+    moz-border-radius: 4 px;
+    webkit-border-radius: 4 px;
+    border: 1px;
+}
+
+
