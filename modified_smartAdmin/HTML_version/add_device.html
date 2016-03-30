@@ -924,6 +924,8 @@ Use search to find needed section.
 
 <!-- Add Device Button -->
 <a class="add_device"  data-toggle="modal" data-target="#myModal"><img src="img/flat_plus.png"></a>
+<!-- End of Button Device Button -->
+<!-- Add Device Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -945,170 +947,114 @@ Use search to find needed section.
                             <label class="label">Did You Use Our Kit?</label>
                             <div class="inline-group">
                                 <label class="radio">
-                                    <input type="radio" name="radio-inline">
-                                    <i></i>Yes</label>
+                                    <input type="radio" name="yes_kit">
+                                    <i></i>Yes
+                                </label>
                                 <label class="radio">
-                                    <input type="radio" name="radio-inline">
-                                    <i></i>No</label>
+                                    <input type="radio" name="no_kit">
+                                    <i></i>No
+                                </label>
                             </div>
                         </section>
                     </fieldset>
-                    <header>
-                        Standard Form Header
-                    </header>
-                    <fieldset>
-                        <section>
-                            <label class="label">Device Type</label>
-                            <label class="input">
-                                <input type="text" list="list">
-                                <datalist id="list">
-                                    <option value="Arduino">Arduino</option>
-                                    <option value="Photon">Photon</option>
-                                    <option value="Raspberry Pi">Raspberry Pi</option>
-                                    <option value="Other">Other</option>
-                                </datalist>
-                            </label>
-                        </section>
-
-                    </fieldset>
-
-                    <fieldset>
-                        <section>
-                            <label class="label">Sensors</label>
-                            <div class="row">
-                                <div class="col col-4">
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="checkbox">
-                                        <i></i>Alexandra</label>
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="checkbox">
-                                        <i></i>Alice</label>
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="checkbox">
-                                        <i></i>Anastasia</label>
-                                </div>
-                                <div class="col col-4">
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="checkbox">
-                                        <i></i>Avelina</label>
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="checkbox">
-                                        <i></i>Basilia</label>
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="checkbox">
-                                        <i></i>Beatrice</label>
-                                </div>
-                                <div class="col col-4">
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="checkbox">
-                                        <i></i>Cassandra</label>
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="checkbox">
-                                        <i></i>Clemencia</label>
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="checkbox">
-                                        <i></i>Desiderata</label>
-                                </div>
-                            </div>
-                        </section>
-                    </fieldset>
-
-                    <fieldset>
-                        <div class="row">
-                            <section class="col col-5">
-                                <label class="label">Radio Toggles</label>
-                                <label class="toggle">
-                                    <input type="radio" name="radio-toggle" checked="checked">
-                                    <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Alexandra</label>
-                                <label class="toggle">
-                                    <input type="radio" name="radio-toggle">
-                                    <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Anastasia</label>
-                                <label class="toggle">
-                                    <input type="radio" name="radio-toggle">
-                                    <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Avelina</label>
+                    <section id="setUp_options">
+                        <header>
+                            Set Up
+                        </header>
+                        <fieldset>
+                            <section>
+                                <label class="label">Device Type</label>
+                                <label class="input">
+                                    <input type="text" list="list">
+                                    <datalist id="list">
+                                        <option value="Arduino">Arduino</option>
+                                        <option value="Photon">Photon</option>
+                                        <option value="Raspberry Pi">Raspberry Pi</option>
+                                        <option value="Other">Other</option>
+                                    </datalist>
+                                </label>
                             </section>
+                        </fieldset>
 
-                            <div class="col col-2"></div>
-
-                            <section class="col col-5">
-                                <label class="label">Checkbox Toggles</label>
-                                <label class="toggle">
-                                    <input type="checkbox" name="checkbox-toggle" checked="checked">
-                                    <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Cassandra</label>
-                                <label class="toggle">
-                                    <input type="checkbox" name="checkbox-toggle">
-                                    <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Clemencia</label>
-                                <label class="toggle">
-                                    <input type="checkbox" name="checkbox-toggle">
-                                    <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Desiderata</label>
+                        <fieldset>
+                            <section>
+                                <label class="label"><h4>Sensors</h4></label>
+                                <div class="row">
+                                    <div class="col col-6">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="Lux">
+                                                <i></i>Lux
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="Water_Temp">
+                                                <i></i>Water Temperature
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="Air_Temp">
+                                                <i></i>Air Temperature
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="Humi">
+                                                <i></i>Humidity
+                                        </label>
+                                    </div>
+                                    <div class="col col-6">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="pH">
+                                                <i></i>pH
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="EC">
+                                                <i></i>EC
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="TDS">
+                                                <i></i>Total Dissolved Solids
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="PS">
+                                                <i></i>Practical Salinity
+                                        </label>
+                                    </div>
+                                </div>
                             </section>
-                        </div>
-                    </fieldset>
+                        </fieldset>
 
-                    <fieldset>
-                        <section>
-                            <label class="label">Ratings with different icons</label>
-                            <div class="rating">
-                                <input type="radio" name="stars-rating" id="stars-rating-5">
-                                <label for="stars-rating-5"><i class="fa fa-star"></i></label>
-                                <input type="radio" name="stars-rating" id="stars-rating-4">
-                                <label for="stars-rating-4"><i class="fa fa-star"></i></label>
-                                <input type="radio" name="stars-rating" id="stars-rating-3">
-                                <label for="stars-rating-3"><i class="fa fa-star"></i></label>
-                                <input type="radio" name="stars-rating" id="stars-rating-2">
-                                <label for="stars-rating-2"><i class="fa fa-star"></i></label>
-                                <input type="radio" name="stars-rating" id="stars-rating-1">
-                                <label for="stars-rating-1"><i class="fa fa-star"></i></label>
-                                Stars
+                        <fieldset>
+                            <div class="col col-3">
+                                <section>
+                                    <label class="label">Water Pump</label>
+                                    <label class="input state-disabled">
+                                        <input type="text" class="input-xs" placeholder="Pin #" disabled="disabled">
+                                    </label>
+                                </section>
                             </div>
-
-                            <div class="rating">
-                                <input type="radio" name="trophies-rating" id="trophies-rating-7">
-                                <label for="trophies-rating-7"><i class="fa fa-trophy"></i></label>
-                                <input type="radio" name="trophies-rating" id="trophies-rating-6">
-                                <label for="trophies-rating-6"><i class="fa fa-trophy"></i></label>
-                                <input type="radio" name="trophies-rating" id="trophies-rating-5">
-                                <label for="trophies-rating-5"><i class="fa fa-trophy"></i></label>
-                                <input type="radio" name="trophies-rating" id="trophies-rating-4">
-                                <label for="trophies-rating-4"><i class="fa fa-trophy"></i></label>
-                                <input type="radio" name="trophies-rating" id="trophies-rating-3">
-                                <label for="trophies-rating-3"><i class="fa fa-trophy"></i></label>
-                                <input type="radio" name="trophies-rating" id="trophies-rating-2">
-                                <label for="trophies-rating-2"><i class="fa fa-trophy"></i></label>
-                                <input type="radio" name="trophies-rating" id="trophies-rating-1">
-                                <label for="trophies-rating-1"><i class="fa fa-trophy"></i></label>
-                                Trophies
+                            <div class="col col-3">
+                                <section>
+                                    <label class="label">Nutrient Pump</label>
+                                    <label class="input state-disabled">
+                                        <input type="text" class="input-xs" placeholder="Pin #" disabled="disabled">
+                                    </label>
+                                </section>
                             </div>
-
-                            <div class="rating">
-                                <input type="radio" name="asterisks-rating" id="asterisks-rating-10">
-                                <label for="asterisks-rating-10"><i class="fa fa-asterisk"></i></label>
-                                <input type="radio" name="asterisks-rating" id="asterisks-rating-9">
-                                <label for="asterisks-rating-9"><i class="fa fa-asterisk"></i></label>
-                                <input type="radio" name="asterisks-rating" id="asterisks-rating-8">
-                                <label for="asterisks-rating-8"><i class="fa fa-asterisk"></i></label>
-                                <input type="radio" name="asterisks-rating" id="asterisks-rating-7">
-                                <label for="asterisks-rating-7"><i class="fa fa-asterisk"></i></label>
-                                <input type="radio" name="asterisks-rating" id="asterisks-rating-6">
-                                <label for="asterisks-rating-6"><i class="fa fa-asterisk"></i></label>
-                                <input type="radio" name="asterisks-rating" id="asterisks-rating-5">
-                                <label for="asterisks-rating-5"><i class="fa fa-asterisk"></i></label>
-                                <input type="radio" name="asterisks-rating" id="asterisks-rating-4">
-                                <label for="asterisks-rating-4"><i class="fa fa-asterisk"></i></label>
-                                <input type="radio" name="asterisks-rating" id="asterisks-rating-3">
-                                <label for="asterisks-rating-3"><i class="fa fa-asterisk"></i></label>
-                                <input type="radio" name="asterisks-rating" id="asterisks-rating-2">
-                                <label for="asterisks-rating-2"><i class="fa fa-asterisk"></i></label>
-                                <input type="radio" name="asterisks-rating" id="asterisks-rating-1">
-                                <label for="asterisks-rating-1"><i class="fa fa-asterisk"></i></label>
-                                Asterisks
+                            <div class="col col-3">
+                                <section>
+                                    <label class="label">pH Upper</label>
+                                    <label class="input state-disabled">
+                                        <input type="text" class="input-xs" placeholder="Pin #" disabled="disabled">
+                                    </label>
+                                </section>
                             </div>
-                            <div class="note">
-                                <strong>Note:</strong> you can use more than 300 vector icons for rating.
+                            <div class="col col-3">
+                                <section>
+                                    <label class="label">pH Downer</label>
+                                    <label class="input state-disabled">
+                                        <input type="text" class="input-xs" placeholder="Pin #" disabled="disabled">
+                                    </label>
+                                </section>
                             </div>
-                        </section>
-                    </fieldset>
-
+                        </fieldset>
+                    </section>
                     <footer>
                         <button type="submit" class="btn btn-primary">
                             Submit
@@ -1119,6 +1065,7 @@ Use search to find needed section.
                     </footer>
                 </form>
             </div>
+
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary btn-xs">Save New Device</button>
                 <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
@@ -1318,6 +1265,9 @@ you can add as many as you like
             $this.parent().addClass('active');
         });
 
+        $('#setUp_options').click(function () {
+
+        });
 
         /*
          * RUN PAGE GRAPHS
