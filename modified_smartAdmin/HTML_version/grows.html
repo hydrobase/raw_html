@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-    <title> Add Device </title>
+    <title>Grows</title>
     <meta name="description" content="Ability to add IoT platforms">
     <meta name="author" content="Hydrobase">
 
@@ -67,7 +67,7 @@
 
         <!-- Note: The activity badge color changes when clicked and resets the number to 0
         Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
-        <span id="activity" class="activity-dropdown"> <i class="fa fa-exclamation-circle"></i> <b class="badge"> 21 </b> </span>
+        <span id="activity" class="activity-dropdown hidden-xs"> <i class="fa fa-exclamation-circle"></i> <b class="badge"> 21 </b> </span>
 
         <!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
         <div class="ajax-dropdown">
@@ -194,7 +194,7 @@
             <li>
                 <a href="index.html" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
             </li>
-            <li class="active">
+            <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-cogs"></i> <span class="menu-item-parent">Devices</span></a>
                 <ul>
                     <li>
@@ -205,7 +205,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li  class="active">
                 <a href="#"><i class="fa fa-lg fa-fw fa-pagelines"></i> <span class="menu-item-parent">Grows</span></a>
                 <ul>
                     <li>
@@ -397,633 +397,150 @@
             </div>
         </div>
         <!-- widget grid -->
-        <section id="widget-grid">
+        <section id="current_plants">
             <!-- start row -->
             <div class="row">
-                <article class="col-sm-12 col-md-12 col-lg-6">
+                <article>
                     <!-- start of widget -->
-                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Mario" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
-                        <!-- widget options:
-                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-                            data-widget-colorbutton="false"
-                            data-widget-editbutton="false"
-                            data-widget-togglebutton="false"
-                            data-widget-deletebutton="false"
-                            data-widget-fullscreenbutton="false"
-                            data-widget-custombutton="false"
-                            data-widget-collapsed="true"
-                            data-widget-sortable="false"
-
-                        -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Pete" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
                         <header>
-                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
-                            <h2><strong>Mario:</strong> <i>Arduino</i></h2>
-
+                            <span class="widget-icon"> <i class="fa fa-pagelines"></i> </span>
+                            <h2><strong>Pete</strong></h2>
                         </header>
 
                         <!-- widget div-->
-                        <div>
-                            <!-- widget content -->
-                            <div class="widget-body">
-                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
-                                <div class="panel-group" role="tablist">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_sensors_Mario">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_sensors_Mario" aria-expanded="false" aria-controls="collapseListGroup3">
-                                                    Sensors
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseListGroup_sensors_Mario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_sensors_Mario">
-                                            <ul class="list-group">
-                                                <li class="list-group-item">Lux</li>
-                                                <li class="list-group-item">Water Temperature</li>
-                                                <li class="list-group-item">Air Temperature</li>
-                                                <li class="list-group-item">Humidity</li>
-                                                <li class="list-group-item">pH</li>
-                                                <li class="list-group-item">Electrical Conductivity</li>
-                                                <li class="list-group-item">Total Dissolved Solids</li>
-                                                <li class="list-group-item">Practical Salinity</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-group" role="tablist">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_actuators_Mario">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_actuators_Mario" aria-expanded="false" aria-controls="collapseListGroup_actuators_Mario">
-                                                    Actuators
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseListGroup_actuators_Mario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_actuators_Mario">
-                                            <ul class="list-group">
-                                                <li class="list-group-item">Light 1 <span class="pull-right">Pin: 30</span></li>
-                                                <li class="list-group-item">Light 2 <span class="pull-right">Pin: 31</span></li>
-                                                <li class="list-group-item">Water Pump <span class="pull-right">Pin: 32</span></li>
-                                                <li class="list-group-item">Nutrient Pump <span class="pull-right">Pin: 33</span></li>
-                                                <li class="list-group-item">pH Upper <span class="pull-right">Pin: 34</span></li>
-                                                <li class="list-group-item">pH Downer <span class="pull-right">Pin: 35</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button id="Mario_edit_btn" class="pull-right btn btn-primary edit-btn" data-toggle="modal" data-target="#Mario_modal">Edit</button>
-                                <div id="Mario_modal" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Edit Mario</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form class="smart-form" id="Mario_form">
-                                                    <fieldset>
-                                                        <section>
-                                                            <label class="label">Device Name</label>
-                                                            <label class="input">
-                                                                <input name="device_name" value="Mario" type="text" class="input-sm">
-                                                            </label>
-                                                        </section>
-                                                    </fieldset>
-                                                    <section id="Mario_setUp">
-                                                        <header>
-                                                            Set Up
-                                                        </header>
-                                                        <fieldset>
-                                                            <section>
-                                                                <label class="label"><h4>Sensors</h4></label>
-                                                                <div class="row">
-                                                                    <div class="col col-6">
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Mario_Lux" id="Mario_lux_checkbox" checked="checked">
-                                                                            <i></i>Lux
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Mario_Water_Temp" id="Mario_waterTemp_checkbox" checked="checked">
-                                                                            <i></i>Water Temperature
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Mario_Air_Temp" id="Mario_airTemp_checkbox" checked="checked">
-                                                                            <i></i>Air Temperature
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Mario_Humidity" id="Mario_humidity_checkbox" checked="checked">
-                                                                            <i></i>Humidity
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col col-6">
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Mario_pH" id="Mario_ph_checkbox" checked="checked">
-                                                                            <i></i>pH
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Mario_EC" id="Mario_ec_checkbox" checked="checked">
-                                                                            <i></i>EC
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Mario_TDS" id="Mario_tds_checkbox" checked="checked">
-                                                                            <i></i>Total Dissolved Solids
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Mario_PS" id="Mario_ps_checkbox" checked="checked">
-                                                                            <i></i>Practical Salinity
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </section>
-                                                        </fieldset>
-
-                                                        <fieldset>
-                                                            <section>
-                                                                <label class="label"><h4>Actuators</h4></label>
-                                                                <div class="col col-6">
-                                                                    <section>
-                                                                        <label class="label">Light 1</label>
-                                                                        <label class="input">
-                                                                            <input id="Mario_light_1_pin" name="Mario_light_1_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-6">
-                                                                    <section>
-                                                                        <label class="label">Light 2</label>
-                                                                        <label class="input">
-                                                                            <input id="Mario_light_2_pin" name="Mario_light_2_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">Water Pump</label>
-                                                                        <label class="input">
-                                                                            <input id="Mario_water_pump_pin" name="Mario_water_pump_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">Nutrient Pump</label>
-                                                                        <label class="input">
-                                                                            <input id="Mario_nutrient_pump_pin" name="Mario_nutrient_pump_pin" type="text" class="input-xs" data-mask="99" value="33" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">pH Upper</label>
-                                                                        <label class="input">
-                                                                            <input id="Mario_phUpper_pump_pin" name="Mario_phUpper_pump_pin" type="text" class="input-xs" data-mask="99" value="34" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">pH Downer</label>
-                                                                        <label class="input">
-                                                                            <input id="Mario_phDowner_pump_pin" name="Mario_phDowner_pump_pin" type="text" class="input-xs" data-mask="99" value="35" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                            </section>
-                                                        </fieldset>
-                                                    </section>
-                                                    <div class="modal-footer">
-                                                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
-                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="card">
+                            <img class="card-img-top" src="img/p_plant.jpg" alt="Card image cap">
+                            <div class="card-block">
+                                <h4 class="card-title">Piranha Plant</h4>
+                                <button id="view_pete" class="btn btn-primary">View</button>
                             </div>
-                            <!-- end widget content -->
-
                         </div>
                         <!-- end widget div -->
 
                     </div>
                     <!-- end widget -->
                 </article>
-                <article class="col-sm-12 col-md-12 col-lg-6">
+                <article>
                     <!-- start of widget -->
-                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Luigi" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
-                        <!-- widget options:
-                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-                            data-widget-colorbutton="false"
-                            data-widget-editbutton="false"
-                            data-widget-togglebutton="false"
-                            data-widget-deletebutton="false"
-                            data-widget-fullscreenbutton="false"
-                            data-widget-custombutton="false"
-                            data-widget-collapsed="true"
-                            data-widget-sortable="false"
-
-                        -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Blah" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
                         <header>
-                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
-                            <h2><strong>Luigi:</strong> <i>Arduino</i></h2>
-
+                            <span class="widget-icon"> <i class="fa fa-pagelines"></i> </span>
+                            <h2><strong>Blah</strong></h2>
                         </header>
 
                         <!-- widget div-->
-                        <div>
-                            <!-- widget content -->
-                            <div class="widget-body">
-                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
-                                <div class="panel-group" role="tablist">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_sensors_Luigi">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_sensors_Luigi" aria-expanded="false" aria-controls="collapseListGroup3">
-                                                    Sensors
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseListGroup_sensors_Luigi" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_sensors_Luigi">
-                                            <ul class="list-group">
-                                                <li class="list-group-item">Lux</li>
-                                                <li class="list-group-item">Water Temperature</li>
-                                                <li class="list-group-item">Air Temperature</li>
-                                                <li class="list-group-item">Humidity</li>
-                                                <li class="list-group-item">pH</li>
-                                                <li class="list-group-item">Electrical Conductivity</li>
-                                                <li class="list-group-item">Total Dissolved Solids</li>
-                                                <li class="list-group-item">Practical Salinity</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-group" role="tablist">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_actuators_Luigi">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_actuators_Luigi" aria-expanded="false" aria-controls="collapseListGroup_actuators_Luigi">
-                                                    Actuators
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseListGroup_actuators_Luigi" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_actuators_Luigi">
-                                            <ul class="list-group">
-                                                <li class="list-group-item">Light 1 <span class="pull-right">Pin: 30</span></li>
-                                                <li class="list-group-item">Light 2 <span class="pull-right">Pin: 31</span></li>
-                                                <li class="list-group-item">Water Pump <span class="pull-right">Pin: 32</span></li>
-                                                <li class="list-group-item">Nutrient Pump <span class="pull-right">Pin: 33</span></li>
-                                                <li class="list-group-item">pH Upper <span class="pull-right">Pin: 34</span></li>
-                                                <li class="list-group-item">pH Downer <span class="pull-right">Pin: 35</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button id="Luigi_edit_btn" class="pull-right btn btn-primary edit-btn" data-toggle="modal" data-target="#Luigi_modal">Edit</button>
-                                <div id="Luigi_modal" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Edit Luigi</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form class="smart-form" id="Luigi_form">
-                                                    <fieldset>
-                                                        <section>
-                                                            <label class="label">Device Name</label>
-                                                            <label class="input">
-                                                                <input name="device_name" value="Luigi" type="text" class="input-sm">
-                                                            </label>
-                                                        </section>
-                                                    </fieldset>
-                                                    <section id="Luigi_setUp">
-                                                        <header>
-                                                            Set Up
-                                                        </header>
-                                                        <fieldset>
-                                                            <section>
-                                                                <label class="label"><h4>Sensors</h4></label>
-                                                                <div class="row">
-                                                                    <div class="col col-6">
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Luigi_Lux" id="Luigi_lux_checkbox" checked="checked">
-                                                                            <i></i>Lux
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Luigi_Water_Temp" id="Luigi_waterTemp_checkbox" checked="checked">
-                                                                            <i></i>Water Temperature
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Luigi_Air_Temp" id="Luigi_airTemp_checkbox" checked="checked">
-                                                                            <i></i>Air Temperature
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Luigi_Humidity" id="Luigi_humidity_checkbox" checked="checked">
-                                                                            <i></i>Humidity
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col col-6">
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Luigi_pH" id="Luigi_ph_checkbox" checked="checked">
-                                                                            <i></i>pH
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Luigi_EC" id="Luigi_ec_checkbox" checked="checked">
-                                                                            <i></i>EC
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Luigi_TDS" id="Luigi_tds_checkbox" checked="checked">
-                                                                            <i></i>Total Dissolved Solids
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Luigi_PS" id="Luigi_ps_checkbox" checked="checked">
-                                                                            <i></i>Practical Salinity
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </section>
-                                                        </fieldset>
-
-                                                        <fieldset>
-                                                            <section>
-                                                                <label class="label"><h4>Actuators</h4></label>
-                                                                <div class="col col-6">
-                                                                    <section>
-                                                                        <label class="label">Light 1</label>
-                                                                        <label class="input">
-                                                                            <input id="Luigi_light_1_pin" name="Luigi_light_1_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-6">
-                                                                    <section>
-                                                                        <label class="label">Light 2</label>
-                                                                        <label class="input">
-                                                                            <input id="Luigi_light_2_pin" name="Luigi_light_2_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">Water Pump</label>
-                                                                        <label class="input">
-                                                                            <input id="Luigi_water_pump_pin" name="Luigi_water_pump_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">Nutrient Pump</label>
-                                                                        <label class="input">
-                                                                            <input id="Luigi_nutrient_pump_pin" name="Luigi_nutrient_pump_pin" type="text" class="input-xs" data-mask="99" value="33" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">pH Upper</label>
-                                                                        <label class="input">
-                                                                            <input id="Luigi_phUpper_pump_pin" name="Luigi_phUpper_pump_pin" type="text" class="input-xs" data-mask="99" value="34" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">pH Downer</label>
-                                                                        <label class="input">
-                                                                            <input id="Luigi_phDowner_pump_pin" name="Luigi_phDowner_pump_pin" type="text" class="input-xs" data-mask="99" value="35" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                            </section>
-                                                        </fieldset>
-                                                    </section>
-                                                    <div class="modal-footer">
-                                                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
-                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="card">
+                            <img class="card-img-top" src="img/p_plant.jpg" alt="Card image cap">
+                            <div class="card-block">
+                                <h4 class="card-title">Piranha Plant</h4>
+                                <button class="btn btn-primary">View</button>
                             </div>
-                            <!-- end widget content -->
-
                         </div>
                         <!-- end widget div -->
 
                     </div>
                     <!-- end widget -->
                 </article>
-                <article class="col-sm-12 col-md-12 col-lg-6">
+                <article>
                     <!-- start of widget -->
-                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Wario" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
-                        <!-- widget options:
-                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-                            data-widget-colorbutton="false"
-                            data-widget-editbutton="false"
-                            data-widget-togglebutton="false"
-                            data-widget-deletebutton="false"
-                            data-widget-fullscreenbutton="false"
-                            data-widget-custombutton="false"
-                            data-widget-collapsed="true"
-                            data-widget-sortable="false"
-
-                        -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Blah" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
                         <header>
-                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
-                            <h2><strong>Wario:</strong> <i>Arduino</i></h2>
-
+                            <span class="widget-icon"> <i class="fa fa-pagelines"></i> </span>
+                            <h2><strong>Blah</strong></h2>
                         </header>
 
                         <!-- widget div-->
-                        <div>
-                            <!-- widget content -->
-                            <div class="widget-body">
-                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
-                                <div class="panel-group" role="tablist">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_sensors_Wario">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_sensors_Wario" aria-expanded="false" aria-controls="collapseListGroup3">
-                                                    Sensors
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseListGroup_sensors_Wario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_sensors_Wario">
-                                            <ul class="list-group">
-                                                <li class="list-group-item">Lux</li>
-                                                <li class="list-group-item">Water Temperature</li>
-                                                <li class="list-group-item">Air Temperature</li>
-                                                <li class="list-group-item">Humidity</li>
-                                                <li class="list-group-item">pH</li>
-                                                <li class="list-group-item">Electrical Conductivity</li>
-                                                <li class="list-group-item">Total Dissolved Solids</li>
-                                                <li class="list-group-item">Practical Salinity</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-group" role="tablist">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_actuators_Wario">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_actuators_Wario" aria-expanded="false" aria-controls="collapseListGroup_actuators_Wario">
-                                                    Actuators
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseListGroup_actuators_Wario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_actuators_Wario">
-                                            <ul class="list-group">
-                                                <li class="list-group-item">Light 1 <span class="pull-right">Pin: 30</span></li>
-                                                <li class="list-group-item">Light 2 <span class="pull-right">Pin: 31</span></li>
-                                                <li class="list-group-item">Water Pump <span class="pull-right">Pin: 32</span></li>
-                                                <li class="list-group-item">Nutrient Pump <span class="pull-right">Pin: 33</span></li>
-                                                <li class="list-group-item">pH Upper <span class="pull-right">Pin: 34</span></li>
-                                                <li class="list-group-item">pH Downer <span class="pull-right">Pin: 35</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button id="Wario_edit_btn" class="pull-right btn btn-primary edit-btn" data-toggle="modal" data-target="#Wario_modal">Edit</button>
-                                <div id="Wario_modal" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Edit Wario</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form class="smart-form" id="Wario_form">
-                                                    <fieldset>
-                                                        <section>
-                                                            <label class="label">Device Name</label>
-                                                            <label class="input">
-                                                                <input name="device_name" value="Wario" type="text" class="input-sm">
-                                                            </label>
-                                                        </section>
-                                                    </fieldset>
-                                                    <section id="Wario_setUp">
-                                                        <header>
-                                                            Set Up
-                                                        </header>
-                                                        <fieldset>
-                                                            <section>
-                                                                <label class="label"><h4>Sensors</h4></label>
-                                                                <div class="row">
-                                                                    <div class="col col-6">
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Wario_Lux" id="Wario_lux_checkbox" checked="checked">
-                                                                            <i></i>Lux
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Wario_Water_Temp" id="Wario_waterTemp_checkbox" checked="checked">
-                                                                            <i></i>Water Temperature
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Wario_Air_Temp" id="Wario_airTemp_checkbox" checked="checked">
-                                                                            <i></i>Air Temperature
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Wario_Humidity" id="Wario_humidity_checkbox" checked="checked">
-                                                                            <i></i>Humidity
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col col-6">
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Wario_pH" id="Wario_ph_checkbox" checked="checked">
-                                                                            <i></i>pH
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Wario_EC" id="Wario_ec_checkbox" checked="checked">
-                                                                            <i></i>EC
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Wario_TDS" id="Wario_tds_checkbox" checked="checked">
-                                                                            <i></i>Total Dissolved Solids
-                                                                        </label>
-                                                                        <label class="checkbox">
-                                                                            <input type="checkbox" name="Wario_PS" id="Wario_ps_checkbox" checked="checked">
-                                                                            <i></i>Practical Salinity
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </section>
-                                                        </fieldset>
-
-                                                        <fieldset>
-                                                            <section>
-                                                                <label class="label"><h4>Actuators</h4></label>
-                                                                <div class="col col-6">
-                                                                    <section>
-                                                                        <label class="label">Light 1</label>
-                                                                        <label class="input">
-                                                                            <input id="Wario_light_1_pin" name="Wario_light_1_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-6">
-                                                                    <section>
-                                                                        <label class="label">Light 2</label>
-                                                                        <label class="input">
-                                                                            <input id="Wario_light_2_pin" name="Wario_light_2_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">Water Pump</label>
-                                                                        <label class="input">
-                                                                            <input id="Wario_water_pump_pin" name="Wario_water_pump_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">Nutrient Pump</label>
-                                                                        <label class="input">
-                                                                            <input id="Wario_nutrient_pump_pin" name="Wario_nutrient_pump_pin" type="text" class="input-xs" data-mask="99" value="33" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">pH Upper</label>
-                                                                        <label class="input">
-                                                                            <input id="Wario_phUpper_pump_pin" name="Wario_phUpper_pump_pin" type="text" class="input-xs" data-mask="99" value="34" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                                <div class="col col-3">
-                                                                    <section>
-                                                                        <label class="label">pH Downer</label>
-                                                                        <label class="input">
-                                                                            <input id="Wario_phDowner_pump_pin" name="Wario_phDowner_pump_pin" type="text" class="input-xs" data-mask="99" value="35" placeholder="Pin #">
-                                                                        </label>
-                                                                    </section>
-                                                                </div>
-                                                            </section>
-                                                        </fieldset>
-                                                    </section>
-                                                    <div class="modal-footer">
-                                                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
-                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="card">
+                            <img class="card-img-top" src="img/p_plant.jpg" alt="Card image cap">
+                            <div class="card-block">
+                                <h4 class="card-title">Piranha Plant</h4>
+                                <button class="btn btn-primary">View</button>
                             </div>
-                            <!-- end widget content -->
+                        </div>
+                        <!-- end widget div -->
 
+                    </div>
+                    <!-- end widget -->
+                </article>
+                <article>
+                    <!-- start of widget -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Blah" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-pagelines"></i> </span>
+                            <h2><strong>Blah</strong></h2>
+                        </header>
+
+                        <!-- widget div-->
+                        <div class="card">
+                            <img class="card-img-top" src="img/p_plant.jpg" alt="Card image cap">
+                            <div class="card-block">
+                                <h4 class="card-title">Piranha Plant</h4>
+                                <button class="btn btn-primary">View</button>
+                            </div>
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <!-- end widget -->
+                </article>
+                <article>
+                    <!-- start of widget -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Blah" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-pagelines"></i> </span>
+                            <h2><strong>Blah</strong></h2>
+                        </header>
+
+                        <!-- widget div-->
+                        <div class="card">
+                            <img class="card-img-top" src="img/p_plant.jpg" alt="Card image cap">
+                            <div class="card-block">
+                                <h4 class="card-title">Piranha Plant</h4>
+                                <button class="btn btn-primary">View</button>
+                            </div>
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <!-- end widget -->
+                </article>
+                <article>
+                    <!-- start of widget -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Blah" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-pagelines"></i> </span>
+                            <h2><strong>Blah</strong></h2>
+                        </header>
+
+                        <!-- widget div-->
+                        <div class="card">
+                            <img class="card-img-top" src="img/p_plant.jpg" alt="Card image cap">
+                            <div class="card-block">
+                                <h4 class="card-title">Piranha Plant</h4>
+                                <button class="btn btn-primary">View</button>
+                            </div>
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <!-- end widget -->
+                </article>
+                <article>
+                    <!-- start of widget -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Blah" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-pagelines"></i> </span>
+                            <h2><strong>Blah</strong></h2>
+                        </header>
+
+                        <!-- widget div-->
+                        <div class="card">
+                            <img class="card-img-top" src="img/p_plant.jpg" alt="Card image cap">
+                            <div class="card-block">
+                                <h4 class="card-title">Piranha Plant</h4>
+                                <button class="btn btn-primary">View</button>
+                            </div>
                         </div>
                         <!-- end widget div -->
 
@@ -1033,6 +550,7 @@
             </div>
             <!-- end row -->
         </section>
+
         <!-- end widget grid -->
     </div>
     <!-- END MAIN CONTENT -->
@@ -2080,20 +1598,21 @@ you can add as many as you like
             $this.parent().addClass('active');
         });
 
-        //"Set Up" Controls
-        $('#setUp_options').fadeOut();
-        $('#base_sketch').fadeOut();
+        //Initial Page State
+        $('#current_plants').find('article').addClass("col-sm-12 col-md-4 col-lg-6");
+        $('#current_plants').addClass("col col-lg-4");
 
-        function setUpIn() {
-            $('#setUp_options').fadeIn(600, "easeInOutQuint")
+        function basicGrow() {
+            $('#current_plants').find('article').addClass("col-sm-12 col-md-4 col-lg-4");
+            $('#current_plants').addClass("col col-lg-4");
         }
         function baseIn() {
             $('#base_sketch').fadeIn(600, "easeInOutQuint")
         }
 
 
-        $('#kit_no').click(function () {
-            $('#base_sketch').fadeOut(500, "linear", setUpIn);
+        $('#view_pete').click(function () {
+            $('#base_sketch').fadeOut(500, "easeInOutQuint", basicGrow);
         });
         $('#kit_yes').click(function () {
             console.log("it's working!!!");
