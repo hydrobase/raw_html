@@ -20,12 +20,12 @@
 
 #ribbon {
     background: #D7DFE0 !important;
-    width: 120%;
+    /*width: 120%;*/
 }
 
 #main {
     padding-bottom: 97px !important;
-    padding-right: 50px;
+    /*padding-right: 50px;*/
 }
 
 /*=============
@@ -419,14 +419,16 @@ html {
 
 .smart-style-3.menu-on-top aside#left-panel nav > ul > li {
     border-right: 1px solid #E2E2E2;
-    border-left: 1px solid #FFF
+    border-left: 1px solid #FFF;
+    border-top-style: outset;
 }
 
 .smart-style-3.menu-on-top aside#left-panel nav > ul > li > a {
     text-shadow: none !important;
     font-size: 13px;
     padding: 10px 9px !important;
-    border: none !important
+
+    /*border: none !important*/
 }
 
 .smart-style-3.menu-on-top aside#left-panel nav > ul > li:hover {
