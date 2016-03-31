@@ -1,0 +1,2126 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+
+    <title> Add Device </title>
+    <meta name="description" content="Ability to add IoT platforms">
+    <meta name="author" content="Hydrobase">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Basic Styles -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- SmartAdmin Styles : Caution! DO NOT change the order -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production-plugins.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css">
+
+    <!-- SmartAdmin RTL Support  -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.min.css">
+
+    <!-- We recommend you use "your_style.css" to override SmartAdmin
+         specific styles this will also ensure you retrain your customization with each SmartAdmin update.-->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/custom_style.css">
+
+    <!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp
+    <link rel="stylesheet" type="text/css" media="screen" href="css/demo.min.css">-->
+
+    <!-- FAVICONS -->
+    <link rel="shortcut icon" href="img/favicon/favicon_new.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon/favicon_new.ico" type="image/x-icon">
+
+    <!-- GOOGLE FONT -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+
+    <!-- Specifying a Webpage Icon for Web Clip
+         Ref: https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html -->
+    <link rel="apple-touch-icon" href="img/splash/sptouch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/splash/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/splash/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/splash/touch-icon-ipad-retina.png">
+
+    <!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Startup image for web apps -->
+    <link rel="apple-touch-startup-image" href="img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+    <link rel="apple-touch-startup-image" href="img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+    <link rel="apple-touch-startup-image" href="img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+
+</head>
+
+<!-- #BODY -->
+<body class="smart-style-3 fixed-header fixed-navigation">
+
+<!-- HEADER -->
+<header id="header">
+    <div id="logo-group">
+
+        <!-- PLACE YOUR LOGO HERE -->
+        <span id="logo"> <img src="img/hydrobase_logo2.png" alt="SmartAdmin"> </span>
+        <!-- END LOGO PLACEHOLDER -->
+
+        <!-- Note: The activity badge color changes when clicked and resets the number to 0
+        Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
+        <span id="activity" class="activity-dropdown"> <i class="fa fa-exclamation-circle"></i> <b class="badge"> 21 </b> </span>
+
+        <!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
+        <div class="ajax-dropdown">
+
+            <!-- the ID links are fetched via AJAX to the ajax container "ajax-notifications" -->
+            <div class="btn-group btn-group-justified" data-toggle="buttons">
+                <label class="btn btn-default">
+                    <input type="radio" name="activity" id="ajax/notify/mail.html">
+                    Msgs (14) </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="activity" id="ajax/notify/notifications.html">
+                    notify (3) </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="activity" id="ajax/notify/tasks.html">
+                    Tasks (4) </label>
+            </div>
+
+            <!-- notification content -->
+            <div class="ajax-notifications custom-scroll">
+
+                <div class="alert alert-transparent">
+                    <h4>Click a button to show messages here</h4>
+                    This blank page message helps protect your privacy, or you can show the first message here automatically.
+                </div>
+
+                <i class="fa fa-lock fa-4x fa-border"></i>
+
+            </div>
+            <!-- end notification content -->
+
+            <!-- footer: refresh area -->
+					<span> Last updated on: 12/12/2013 9:43AM
+						<button type="button" data-loading-text="<i class='fa fa-refresh fa-spin'></i> Loading..." class="btn btn-xs btn-default pull-right">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+					</span>
+            <!-- end footer -->
+
+        </div>
+        <!-- END AJAX-DROPDOWN -->
+    </div>
+
+    <!-- pulled right: nav area -->
+    <div class="pull-right">
+
+        <!-- collapse menu button -->
+        <div id="hide-menu" class="btn-header pull-right">
+            <span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+        </div>
+        <!-- end collapse menu -->
+
+        <!-- #MOBILE -->
+        <!-- Top menu profile link : this shows only when top menu is active -->
+        <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
+            <li class="">
+                <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
+                    <img src="img/avatars/sunny.png" alt="John Doe" class="online" />
+                </a>
+                <ul class="dropdown-menu pull-right">
+                    <li>
+                        <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="profile.html" class="padding-10 padding-top-0 padding-bottom-0"> <i class="fa fa-user"></i> <u>P</u>rofile</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="login.html" class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- logout button -->
+        <div id="logout" class="btn-header transparent pull-right">
+            <span> <a href="login.html" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+        </div>
+        <!-- end logout button -->
+
+        <!-- fullscreen button -->
+        <div id="fullscreen" class="btn-header transparent pull-right">
+            <span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
+        </div>
+        <!-- end fullscreen button -->
+
+    </div>
+    <!-- end pulled right: nav area -->
+
+</header>
+<!-- END HEADER -->
+
+<!-- Left panel : Navigation area -->
+<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<aside id="left-panel">
+
+    <!-- User info -->
+    <div class="login-info">
+				<span> <!-- User image size is adjusted inside CSS, it should stay as it -->
+
+					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+                        <img src="https://lh5.googleusercontent.com/-EBEhQJH7Mf4/AAAAAAAAAAI/AAAAAAAAAAA/rLS_4zv52UA/s128-c-k/photo.jpg" alt="me" class="online" />
+						<span>
+							Juan Shishido
+						</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+
+				</span>
+    </div>
+    <!-- end user info -->
+
+    <!-- NAVIGATION : This navigation is also responsive-->
+    <nav>
+        <ul>
+            <li>
+                <a href="index.html" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
+            </li>
+            <li class="active">
+                <a href="#"><i class="fa fa-lg fa-fw fa-cogs"></i> <span class="menu-item-parent">Devices</span></a>
+                <ul>
+                    <li>
+                        <a href="google.com">Device 1</a>
+                    </li>
+                    <li>
+                        <a href="bing.com">Device 2</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-pagelines"></i> <span class="menu-item-parent">Grows</span></a>
+                <ul>
+                    <li>
+                        <a href="flot.html">Avi</a>
+                    </li>
+                    <li>
+                        <a href="morris.html">Lilly</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-flask"></i> <span class="menu-item-parent">Experiments</span></a>
+                <ul>
+                    <li>
+                        <a href="table.html">Salinity Test</a>
+                    </li>
+                    <li>
+                        <a href="datatables.html">pH Test</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Plant Profiles</span></a>
+                <ul>
+                    <li>
+                        <a href="form-elements.html">Smart Form Elements</a>
+                    </li>
+                    <li>
+                        <a href="form-templates.html">Smart Form Layouts</a>
+                    </li>
+                    <li>
+                        <a href="validation.html">Smart Form Validation</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-forms.html">Bootstrap Form Elements</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-validator.html">Bootstrap Form Validation</a>
+                    </li>
+                    <li>
+                        <a href="plugins.html">Form Plugins</a>
+                    </li>
+                    <li>
+                        <a href="wizard.html">Wizards</a>
+                    </li>
+                    <li>
+                        <a href="other-editors.html">Bootstrap Editors</a>
+                    </li>
+                    <li>
+                        <a href="dropzone.html">Dropzone </a>
+                    </li>
+                    <li>
+                        <a href="image-editor.html">Image Cropping <span class="badge pull-right inbox-badge bg-color-yellow">new</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-lg fa-fw fa-file-text"></i> <span class="menu-item-parent">Documentation</span></a>
+                <ul>
+                    <li>
+                        <a href="general-elements.html">General Elements</a>
+                    </li>
+                    <li>
+                        <a href="buttons.html">Buttons</a>
+                    </li>
+                    <li>
+                        <a href="#">Icons</a>
+                        <ul>
+                            <li>
+                                <a href="fa.html"><i class="fa fa-plane"></i> Font Awesome</a>
+                            </li>
+                            <li>
+                                <a href="glyph.html"><i class="glyphicon glyphicon-plane"></i> Glyph Icons</a>
+                            </li>
+                            <li>
+                                <a href="flags.html"><i class="fa fa-flag"></i> Flags</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="grid.html">Grid</a>
+                    </li>
+                    <li>
+                        <a href="treeview.html">Tree View</a>
+                    </li>
+                    <li>
+                        <a href="nestable-list.html">Nestable Lists</a>
+                    </li>
+                    <li>
+                        <a href="jqui.html">JQuery UI</a>
+                    </li>
+                    <li>
+                        <a href="typography.html">Typography</a>
+                    </li>
+                    <li>
+                        <a href="#">Six Level Menu</a>
+                        <ul>
+                            <li>
+                                <a href="#"><i class="fa fa-fw fa-folder-open"></i> Item #2</a>
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa fa-fw fa-folder-open"></i> Sub #2.1 </a>
+                                        <ul>
+                                            <li>
+                                                <a href="#"><i class="fa fa-fw fa-file-text"></i> Item #2.1.1</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-fw fa-plus"></i> Expand</a>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#"><i class="fa fa-fw fa-file-text"></i> File</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#"><i class="fa fa-fw fa-trash-o"></i> Delete</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-fw fa-folder-open"></i> Item #3</a>
+
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fa fa-fw fa-folder-open"></i> 3ed Level </a>
+                                        <ul>
+                                            <li>
+                                                <a href="#"><i class="fa fa-fw fa-file-text"></i> File</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="fa fa-fw fa-file-text"></i> File</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+        <span class="minifyme" data-action="minifyMenu">
+            <i class="fa fa-arrow-circle-left hit"></i>
+        </span>
+
+</aside>
+<!-- END NAVIGATION -->
+
+<!-- MAIN PANEL -->
+<div id="main" role="main">
+    <!-- RIBBON -->
+    <div id="ribbon">
+
+				<span class="ribbon-button-alignment">
+					<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+						<i class="fa fa-refresh"></i>
+					</span>
+				</span>
+
+        <!-- breadcrumb -->
+        <ol class="breadcrumb">
+            <li>Hydrobase</li><li>Devices</li>
+        </ol>
+        <!-- end breadcrumb -->
+
+        <!-- You can also add more buttons to the
+        ribbon for further usability
+
+        Example below:
+
+        <span class="ribbon-button-alignment pull-right">
+        <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+        <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+        <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+        </span> -->
+
+    </div>
+    <!-- END RIBBON -->
+
+    <!-- MAIN CONTENT -->
+    <div id="content">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-pagelines"></i> Grows</h1>
+            </div>
+        </div>
+        <!-- widget grid -->
+        <section id="widget-grid">
+            <!-- start row -->
+            <div class="row">
+                <article class="col-sm-12 col-md-12 col-lg-6">
+                    <!-- start of widget -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Mario" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
+                        <!-- widget options:
+                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                            data-widget-colorbutton="false"
+                            data-widget-editbutton="false"
+                            data-widget-togglebutton="false"
+                            data-widget-deletebutton="false"
+                            data-widget-fullscreenbutton="false"
+                            data-widget-custombutton="false"
+                            data-widget-collapsed="true"
+                            data-widget-sortable="false"
+
+                        -->
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                            <h2><strong>Mario:</strong> <i>Arduino</i></h2>
+
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                <div class="panel-group" role="tablist">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_sensors_Mario">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_sensors_Mario" aria-expanded="false" aria-controls="collapseListGroup3">
+                                                    Sensors
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseListGroup_sensors_Mario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_sensors_Mario">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Lux</li>
+                                                <li class="list-group-item">Water Temperature</li>
+                                                <li class="list-group-item">Air Temperature</li>
+                                                <li class="list-group-item">Humidity</li>
+                                                <li class="list-group-item">pH</li>
+                                                <li class="list-group-item">Electrical Conductivity</li>
+                                                <li class="list-group-item">Total Dissolved Solids</li>
+                                                <li class="list-group-item">Practical Salinity</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group" role="tablist">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_actuators_Mario">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_actuators_Mario" aria-expanded="false" aria-controls="collapseListGroup_actuators_Mario">
+                                                    Actuators
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseListGroup_actuators_Mario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_actuators_Mario">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Light 1 <span class="pull-right">Pin: 30</span></li>
+                                                <li class="list-group-item">Light 2 <span class="pull-right">Pin: 31</span></li>
+                                                <li class="list-group-item">Water Pump <span class="pull-right">Pin: 32</span></li>
+                                                <li class="list-group-item">Nutrient Pump <span class="pull-right">Pin: 33</span></li>
+                                                <li class="list-group-item">pH Upper <span class="pull-right">Pin: 34</span></li>
+                                                <li class="list-group-item">pH Downer <span class="pull-right">Pin: 35</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="Mario_edit_btn" class="pull-right btn btn-primary edit-btn" data-toggle="modal" data-target="#Mario_modal">Edit</button>
+                                <div id="Mario_modal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Mario</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="smart-form" id="Mario_form">
+                                                    <fieldset>
+                                                        <section>
+                                                            <label class="label">Device Name</label>
+                                                            <label class="input">
+                                                                <input name="device_name" value="Mario" type="text" class="input-sm">
+                                                            </label>
+                                                        </section>
+                                                    </fieldset>
+                                                    <section id="Mario_setUp">
+                                                        <header>
+                                                            Set Up
+                                                        </header>
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="label"><h4>Sensors</h4></label>
+                                                                <div class="row">
+                                                                    <div class="col col-6">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Mario_Lux" id="Mario_lux_checkbox" checked="checked">
+                                                                            <i></i>Lux
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Mario_Water_Temp" id="Mario_waterTemp_checkbox" checked="checked">
+                                                                            <i></i>Water Temperature
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Mario_Air_Temp" id="Mario_airTemp_checkbox" checked="checked">
+                                                                            <i></i>Air Temperature
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Mario_Humidity" id="Mario_humidity_checkbox" checked="checked">
+                                                                            <i></i>Humidity
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col col-6">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Mario_pH" id="Mario_ph_checkbox" checked="checked">
+                                                                            <i></i>pH
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Mario_EC" id="Mario_ec_checkbox" checked="checked">
+                                                                            <i></i>EC
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Mario_TDS" id="Mario_tds_checkbox" checked="checked">
+                                                                            <i></i>Total Dissolved Solids
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Mario_PS" id="Mario_ps_checkbox" checked="checked">
+                                                                            <i></i>Practical Salinity
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="label"><h4>Actuators</h4></label>
+                                                                <div class="col col-6">
+                                                                    <section>
+                                                                        <label class="label">Light 1</label>
+                                                                        <label class="input">
+                                                                            <input id="Mario_light_1_pin" name="Mario_light_1_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-6">
+                                                                    <section>
+                                                                        <label class="label">Light 2</label>
+                                                                        <label class="input">
+                                                                            <input id="Mario_light_2_pin" name="Mario_light_2_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">Water Pump</label>
+                                                                        <label class="input">
+                                                                            <input id="Mario_water_pump_pin" name="Mario_water_pump_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">Nutrient Pump</label>
+                                                                        <label class="input">
+                                                                            <input id="Mario_nutrient_pump_pin" name="Mario_nutrient_pump_pin" type="text" class="input-xs" data-mask="99" value="33" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">pH Upper</label>
+                                                                        <label class="input">
+                                                                            <input id="Mario_phUpper_pump_pin" name="Mario_phUpper_pump_pin" type="text" class="input-xs" data-mask="99" value="34" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">pH Downer</label>
+                                                                        <label class="input">
+                                                                            <input id="Mario_phDowner_pump_pin" name="Mario_phDowner_pump_pin" type="text" class="input-xs" data-mask="99" value="35" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+                                                    </section>
+                                                    <div class="modal-footer">
+                                                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
+                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <!-- end widget -->
+                </article>
+                <article class="col-sm-12 col-md-12 col-lg-6">
+                    <!-- start of widget -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Luigi" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
+                        <!-- widget options:
+                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                            data-widget-colorbutton="false"
+                            data-widget-editbutton="false"
+                            data-widget-togglebutton="false"
+                            data-widget-deletebutton="false"
+                            data-widget-fullscreenbutton="false"
+                            data-widget-custombutton="false"
+                            data-widget-collapsed="true"
+                            data-widget-sortable="false"
+
+                        -->
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                            <h2><strong>Luigi:</strong> <i>Arduino</i></h2>
+
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                <div class="panel-group" role="tablist">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_sensors_Luigi">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_sensors_Luigi" aria-expanded="false" aria-controls="collapseListGroup3">
+                                                    Sensors
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseListGroup_sensors_Luigi" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_sensors_Luigi">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Lux</li>
+                                                <li class="list-group-item">Water Temperature</li>
+                                                <li class="list-group-item">Air Temperature</li>
+                                                <li class="list-group-item">Humidity</li>
+                                                <li class="list-group-item">pH</li>
+                                                <li class="list-group-item">Electrical Conductivity</li>
+                                                <li class="list-group-item">Total Dissolved Solids</li>
+                                                <li class="list-group-item">Practical Salinity</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group" role="tablist">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_actuators_Luigi">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_actuators_Luigi" aria-expanded="false" aria-controls="collapseListGroup_actuators_Luigi">
+                                                    Actuators
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseListGroup_actuators_Luigi" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_actuators_Luigi">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Light 1 <span class="pull-right">Pin: 30</span></li>
+                                                <li class="list-group-item">Light 2 <span class="pull-right">Pin: 31</span></li>
+                                                <li class="list-group-item">Water Pump <span class="pull-right">Pin: 32</span></li>
+                                                <li class="list-group-item">Nutrient Pump <span class="pull-right">Pin: 33</span></li>
+                                                <li class="list-group-item">pH Upper <span class="pull-right">Pin: 34</span></li>
+                                                <li class="list-group-item">pH Downer <span class="pull-right">Pin: 35</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="Luigi_edit_btn" class="pull-right btn btn-primary edit-btn" data-toggle="modal" data-target="#Luigi_modal">Edit</button>
+                                <div id="Luigi_modal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Luigi</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="smart-form" id="Luigi_form">
+                                                    <fieldset>
+                                                        <section>
+                                                            <label class="label">Device Name</label>
+                                                            <label class="input">
+                                                                <input name="device_name" value="Luigi" type="text" class="input-sm">
+                                                            </label>
+                                                        </section>
+                                                    </fieldset>
+                                                    <section id="Luigi_setUp">
+                                                        <header>
+                                                            Set Up
+                                                        </header>
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="label"><h4>Sensors</h4></label>
+                                                                <div class="row">
+                                                                    <div class="col col-6">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Luigi_Lux" id="Luigi_lux_checkbox" checked="checked">
+                                                                            <i></i>Lux
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Luigi_Water_Temp" id="Luigi_waterTemp_checkbox" checked="checked">
+                                                                            <i></i>Water Temperature
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Luigi_Air_Temp" id="Luigi_airTemp_checkbox" checked="checked">
+                                                                            <i></i>Air Temperature
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Luigi_Humidity" id="Luigi_humidity_checkbox" checked="checked">
+                                                                            <i></i>Humidity
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col col-6">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Luigi_pH" id="Luigi_ph_checkbox" checked="checked">
+                                                                            <i></i>pH
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Luigi_EC" id="Luigi_ec_checkbox" checked="checked">
+                                                                            <i></i>EC
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Luigi_TDS" id="Luigi_tds_checkbox" checked="checked">
+                                                                            <i></i>Total Dissolved Solids
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Luigi_PS" id="Luigi_ps_checkbox" checked="checked">
+                                                                            <i></i>Practical Salinity
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="label"><h4>Actuators</h4></label>
+                                                                <div class="col col-6">
+                                                                    <section>
+                                                                        <label class="label">Light 1</label>
+                                                                        <label class="input">
+                                                                            <input id="Luigi_light_1_pin" name="Luigi_light_1_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-6">
+                                                                    <section>
+                                                                        <label class="label">Light 2</label>
+                                                                        <label class="input">
+                                                                            <input id="Luigi_light_2_pin" name="Luigi_light_2_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">Water Pump</label>
+                                                                        <label class="input">
+                                                                            <input id="Luigi_water_pump_pin" name="Luigi_water_pump_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">Nutrient Pump</label>
+                                                                        <label class="input">
+                                                                            <input id="Luigi_nutrient_pump_pin" name="Luigi_nutrient_pump_pin" type="text" class="input-xs" data-mask="99" value="33" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">pH Upper</label>
+                                                                        <label class="input">
+                                                                            <input id="Luigi_phUpper_pump_pin" name="Luigi_phUpper_pump_pin" type="text" class="input-xs" data-mask="99" value="34" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">pH Downer</label>
+                                                                        <label class="input">
+                                                                            <input id="Luigi_phDowner_pump_pin" name="Luigi_phDowner_pump_pin" type="text" class="input-xs" data-mask="99" value="35" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+                                                    </section>
+                                                    <div class="modal-footer">
+                                                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
+                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <!-- end widget -->
+                </article>
+                <article class="col-sm-12 col-md-12 col-lg-6">
+                    <!-- start of widget -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Wario" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
+                        <!-- widget options:
+                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                            data-widget-colorbutton="false"
+                            data-widget-editbutton="false"
+                            data-widget-togglebutton="false"
+                            data-widget-deletebutton="false"
+                            data-widget-fullscreenbutton="false"
+                            data-widget-custombutton="false"
+                            data-widget-collapsed="true"
+                            data-widget-sortable="false"
+
+                        -->
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                            <h2><strong>Wario:</strong> <i>Arduino</i></h2>
+
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                <div class="panel-group" role="tablist">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_sensors_Wario">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_sensors_Wario" aria-expanded="false" aria-controls="collapseListGroup3">
+                                                    Sensors
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseListGroup_sensors_Wario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_sensors_Wario">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Lux</li>
+                                                <li class="list-group-item">Water Temperature</li>
+                                                <li class="list-group-item">Air Temperature</li>
+                                                <li class="list-group-item">Humidity</li>
+                                                <li class="list-group-item">pH</li>
+                                                <li class="list-group-item">Electrical Conductivity</li>
+                                                <li class="list-group-item">Total Dissolved Solids</li>
+                                                <li class="list-group-item">Practical Salinity</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group" role="tablist">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_actuators_Wario">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_actuators_Wario" aria-expanded="false" aria-controls="collapseListGroup_actuators_Wario">
+                                                    Actuators
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseListGroup_actuators_Wario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_actuators_Wario">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Light 1 <span class="pull-right">Pin: 30</span></li>
+                                                <li class="list-group-item">Light 2 <span class="pull-right">Pin: 31</span></li>
+                                                <li class="list-group-item">Water Pump <span class="pull-right">Pin: 32</span></li>
+                                                <li class="list-group-item">Nutrient Pump <span class="pull-right">Pin: 33</span></li>
+                                                <li class="list-group-item">pH Upper <span class="pull-right">Pin: 34</span></li>
+                                                <li class="list-group-item">pH Downer <span class="pull-right">Pin: 35</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="Wario_edit_btn" class="pull-right btn btn-primary edit-btn" data-toggle="modal" data-target="#Wario_modal">Edit</button>
+                                <div id="Wario_modal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Wario</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="smart-form" id="Wario_form">
+                                                    <fieldset>
+                                                        <section>
+                                                            <label class="label">Device Name</label>
+                                                            <label class="input">
+                                                                <input name="device_name" value="Wario" type="text" class="input-sm">
+                                                            </label>
+                                                        </section>
+                                                    </fieldset>
+                                                    <section id="Wario_setUp">
+                                                        <header>
+                                                            Set Up
+                                                        </header>
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="label"><h4>Sensors</h4></label>
+                                                                <div class="row">
+                                                                    <div class="col col-6">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Wario_Lux" id="Wario_lux_checkbox" checked="checked">
+                                                                            <i></i>Lux
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Wario_Water_Temp" id="Wario_waterTemp_checkbox" checked="checked">
+                                                                            <i></i>Water Temperature
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Wario_Air_Temp" id="Wario_airTemp_checkbox" checked="checked">
+                                                                            <i></i>Air Temperature
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Wario_Humidity" id="Wario_humidity_checkbox" checked="checked">
+                                                                            <i></i>Humidity
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col col-6">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Wario_pH" id="Wario_ph_checkbox" checked="checked">
+                                                                            <i></i>pH
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Wario_EC" id="Wario_ec_checkbox" checked="checked">
+                                                                            <i></i>EC
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Wario_TDS" id="Wario_tds_checkbox" checked="checked">
+                                                                            <i></i>Total Dissolved Solids
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Wario_PS" id="Wario_ps_checkbox" checked="checked">
+                                                                            <i></i>Practical Salinity
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="label"><h4>Actuators</h4></label>
+                                                                <div class="col col-6">
+                                                                    <section>
+                                                                        <label class="label">Light 1</label>
+                                                                        <label class="input">
+                                                                            <input id="Wario_light_1_pin" name="Wario_light_1_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-6">
+                                                                    <section>
+                                                                        <label class="label">Light 2</label>
+                                                                        <label class="input">
+                                                                            <input id="Wario_light_2_pin" name="Wario_light_2_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">Water Pump</label>
+                                                                        <label class="input">
+                                                                            <input id="Wario_water_pump_pin" name="Wario_water_pump_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">Nutrient Pump</label>
+                                                                        <label class="input">
+                                                                            <input id="Wario_nutrient_pump_pin" name="Wario_nutrient_pump_pin" type="text" class="input-xs" data-mask="99" value="33" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">pH Upper</label>
+                                                                        <label class="input">
+                                                                            <input id="Wario_phUpper_pump_pin" name="Wario_phUpper_pump_pin" type="text" class="input-xs" data-mask="99" value="34" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">pH Downer</label>
+                                                                        <label class="input">
+                                                                            <input id="Wario_phDowner_pump_pin" name="Wario_phDowner_pump_pin" type="text" class="input-xs" data-mask="99" value="35" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+                                                    </section>
+                                                    <div class="modal-footer">
+                                                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
+                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <!-- end widget -->
+                </article>
+            </div>
+            <!-- end row -->
+        </section>
+        <!-- end widget grid -->
+    </div>
+    <!-- END MAIN CONTENT -->
+</div>
+<!-- END MAIN PANEL -->
+
+<!-- Add Device Button -->
+<a class="add_device"  data-toggle="modal" data-target="#add_new_device_modal"><img src="img/flat_plus.png"></a>
+<!-- End of Button Device Button -->
+<!-- Add Device Modal -->
+<div id="add_new_device_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add A New Device</h4>
+            </div>
+            <div class="modal-body">
+                <form class="smart-form" id="new_device_form">
+                    <fieldset>
+                        <section>
+                            <label class="label">Device Name</label>
+                            <label class="input">
+                                <input name="device_name" type="text" class="input-sm">
+                            </label>
+                        </section>
+                        <section>
+                            <label class="label">Did You Use Our Kit?</label>
+                            <div class="inline-group">
+                                <label class="radio">
+                                    <input type="radio" name="kit" value="true" id="kit_yes">
+                                    <i></i>Yes
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="kit" value="false" id="kit_no">
+                                    <i></i>No
+                                </label>
+                            </div>
+                        </section>
+                    </fieldset>
+                    <section id="setUp_options">
+                        <header>
+                            Set Up
+                        </header>
+                        <fieldset>
+                            <section>
+                                <label class="label">Device Type</label>
+                                <label class="input">
+                                    <input type="text" list="device_list">
+                                    <datalist id="device_list">
+                                        <option value="Arduino">Arduino</option>
+                                        <option value="Photon">Photon</option>
+                                        <option value="Raspberry Pi">Raspberry Pi</option>
+                                        <option value="Other">Other</option>
+                                    </datalist>
+                                </label>
+                            </section>
+                        </fieldset>
+
+                        <fieldset>
+                            <section>
+                                <label class="label"><h4>Sensors</h4></label>
+                                <div class="row">
+                                    <div class="col col-6">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="Lux" id="lux_checkbox">
+                                            <i></i>Lux
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="Water_Temp" id="waterTemp_checkbox">
+                                            <i></i>Water Temperature
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="Air_Temp" id="airTemp_checkbox">
+                                            <i></i>Air Temperature
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="Humidity" id="humidity_checkbox">
+                                            <i></i>Humidity
+                                        </label>
+                                    </div>
+                                    <div class="col col-6">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="pH" id="ph_checkbox">
+                                            <i></i>pH
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="EC" id="ec_checkbox">
+                                            <i></i>EC
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="TDS" id="tds_checkbox">
+                                            <i></i>Total Dissolved Solids
+                                        </label>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="PS" id="ps_checkbox">
+                                            <i></i>Practical Salinity
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+
+                        <fieldset>
+                            <section>
+                                <label class="label"><h4>Actuators</h4></label>
+                                <div class="col col-6">
+                                    <section>
+                                        <label class="label">Light 1</label>
+                                        <label class="input">
+                                            <input name="light_1_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col col-6">
+                                    <section>
+                                        <label class="label">Light 2</label>
+                                        <label class="input">
+                                            <input name="light_2_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col col-3">
+                                    <section>
+                                        <label class="label">Water Pump</label>
+                                        <label class="input">
+                                            <input name="water_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col col-3">
+                                    <section>
+                                        <label class="label">Nutrient Pump</label>
+                                        <label class="input">
+                                            <input name="nutrient_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col col-3">
+                                    <section>
+                                        <label class="label">pH Upper</label>
+                                        <label class="input">
+                                            <input name="phUpper_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="col col-3">
+                                    <section>
+                                        <label class="label">pH Downer</label>
+                                        <label class="input">
+                                            <input name="phDowner_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
+                                        </label>
+                                    </section>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </section>
+                    <div class="modal-footer">
+                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save New Device</button>
+                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+                <div style="margin-top: 20px" class="modal-footer" id="base_sketch">
+                    <div class="jarviswidget jarviswidget-color-greenDark" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
+                        <!-- widget options:
+                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                            data-widget-colorbutton="false"
+                            data-widget-editbutton="false"
+                            data-widget-togglebutton="false"
+                            data-widget-deletebutton="false"
+                            data-widget-fullscreenbutton="false"
+                            data-widget-custombutton="false"
+                            data-widget-collapsed="true"
+                            data-widget-sortable="false"
+
+                        -->
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code"></i> </span>
+                            <h2><strong>Arduino Code</strong></h2>
+
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <pre style="height: 200px">
+/**********************************************************************************
+ ***********************************************************************************
+ * Start Temp-Humid Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+#include "DHT.h"
+#define DHTPIN 2     // what digital pin we're connected to
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+/***********************************************************************************
+ ***********************************************************************************
+ * End Temp-Humid Sensor Set-Up
+ ***********************************************************************************
+ ***********************************************************************************/
+
+/**********************************************************************************
+ ***********************************************************************************
+ * Start Water Temp Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+#include &lt;OneWire.h&gt;
+int DS18S20_Pin = 4;
+OneWire ds(DS18S20_Pin);
+/***********************************************************************************
+ ***********************************************************************************
+ * End Water Temp Sensor Set-Up
+ ***********************************************************************************
+ ***********************************************************************************/
+
+/**********************************************************************************
+ ***********************************************************************************
+ * Start Ethernet+PubNub Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+#include &lt;SPI.h&gt;
+#include &lt;Ethernet.h&gt;
+#include &lt;PubNub.h&gt;
+#include &lt;aJSON.h&gt;
+
+// Some Ethernet shields have a MAC address printed on a sticker on the shield;
+// fill in that address here, or choose your own at random:
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+
+char pubkey[] = "pub-c-5bef0e0e-e177-4a94-b06f-ce3c1355e5cd";
+char subkey[] = "sub-c-3c8b80da-de67-11e5-abb9-0619f8945a4f";
+char channel[] = "tester";
+
+aJsonObject *createMessage()
+{
+  aJsonObject *msg = aJson.createObject();
+
+  aJsonObject *sender = aJson.createObject();
+  aJson.addStringToObject(sender, "name", "Arduino--Mario");
+  aJson.addItemToObject(msg, "sender", sender);
+  return msg;
+}
+
+/* Process message like: { "pwm": { "8": 0, "9": 128 } } */
+void processActuatorInfo(aJsonObject *item)
+{
+  aJsonObject *actuators = aJson.getObjectItem(item, "actuators");
+  if (!actuators) {
+    Serial.println("no pwm data");
+    return;
+  }
+
+  const static int pins[] = { 30, 31, 32, 33, 34, 35 };
+  const static int pins_n = 6;
+  for (int i = 0; i &lt; pins_n; i++) {
+    char pinstr[3];
+    snprintf(pinstr, sizeof(pinstr), "%d", pins[i]);
+
+    aJsonObject *actuatorsVal = aJson.getObjectItem(actuators, pinstr);
+    if (!actuatorsVal) continue; /* Value not provided, ok. */
+    if (actuatorsVal-&gt;type != aJson_Int) {
+      Serial.print(" invalid data type ");
+      Serial.print(actuatorsVal-&gt;type, DEC);
+      Serial.print(" for pin ");
+      Serial.println(pins[i], DEC);
+      continue;
+    }
+
+    Serial.print(" setting pin ");
+    Serial.print(pins[i], DEC);
+    Serial.print(" to value ");
+    Serial.println(actuatorsVal-&gt;valueint, DEC);
+    analogWrite(pins[i], actuatorsVal-&gt;valueint);
+  }
+}
+
+void dumpMessage(Stream &s, aJsonObject *msg)
+{
+  int msg_count = aJson.getArraySize(msg);
+  for (int i = 0; i &lt; msg_count; i++) {
+    aJsonObject *item, *sender, *analog, *value;
+    //s.print("Msg #");
+    //s.println(i, DEC);
+
+    item = aJson.getArrayItem(msg, i);
+    if (!item) { s.println("item not acquired"); delay(1000); return; }
+
+    processActuatorInfo(item);
+
+    /* Below, we parse and dump messages from fellow Arduinos. */
+
+    sender = aJson.getObjectItem(item, "sender");
+    if (!sender) { s.println("sender not acquired"); delay(1000); return; }
+
+    s.print(" A2: ");
+    analog = aJson.getObjectItem(item, "analog");
+    if (!analog) { s.println("analog not acquired"); delay(1000); return; }
+    value = aJson.getArrayItem(analog, 2);
+    if (!value) { s.println("analog[2] not acquired"); delay(1000); return; }
+    s.print(value-&gt;valueint, DEC);
+
+    s.println();
+  }
+}
+
+/***********************************************************************************
+ ***********************************************************************************
+ * Actuator Pin Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+int light1 = 30;
+int light2 = 31;
+int waterTrigger = 32;
+int nutrientDoser = 33;
+int phUP = 34;
+int phDOWN = 35;
+
+/***********************************************************************************
+ ***********************************************************************************
+ * End Pin Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+
+
+/***********************************************************************************
+ ***********************************************************************************
+ * Lux Sensor Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+#include &lt;Wire.h&gt;
+#include &lt;Adafruit_Sensor.h&gt;
+#include &lt;Adafruit_TSL2561_U.h&gt;
+Adafruit_TSL2561_Unified tsl = Adafruit_TSL2561_Unified(TSL2561_ADDR_FLOAT, 12345);
+
+/*************************************************************************
+    Configures the gain and integration time for the TSL2561
+*************************************************************************/
+void configureSensor(void)
+{
+  /* You can also manually set the gain or enable auto-gain support */
+  tsl.enableAutoRange(true);            /* Auto-gain ... switches automatically between 1x and 16x */
+
+  /* Changing the integration time gives you better sensor resolution (402ms = 16-bit data) */
+  tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_13MS);      /* fast but low resolution */
+  // tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_101MS);  /* medium resolution and speed   */
+  // tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_402MS);  /* 16-bit data but slowest conversions */
+
+  /* Update these values depending on what you've set above!
+  Serial.println("------------------------------------");
+  Serial.print  ("Gain:         "); Serial.println("Auto");
+  Serial.print  ("Timing:       "); Serial.println("13 ms");
+  Serial.println("------------------------------------");
+  */
+}
+
+/***********************************************************************************
+ ***********************************************************************************
+ * End Lux Sensor Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+
+/***********************************************************************************
+ ***********************************************************************************
+ * Tentacle Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+#include &lt;SoftwareSerial.h&gt;              //Include the software serial library
+#include &lt;Wire.h&gt;                   //enable I2C.
+
+SoftwareSerial sSerial(11, 10);          // RX, TX  - Name the software serial library sSerial (this cannot be omitted)
+                                         // assigned to pins 10 and 11 for maximum compatibility
+
+const int s0 = 7;                        //Arduino pin 7 to control pin S0
+const int s1 = 6;                        //Arduino pin 6 to control pin S1
+const int enable_1 = 5;                //Arduino pin 5 to control pin E on shield 1
+const int enable_2 = 4;                  //Arduino pin 4 to control pin E on shield 2
+
+char sensordata[30];                     //A 30 byte character array to hold incoming data from the sensors
+byte computer_bytes_received = 0;        //We need to know how many characters bytes have been received
+byte sensor_bytes_received = 0;          //We need to know how many characters bytes have been received
+int tenticleChannel;                             //INT pointer for channel switching - 0-7 serial, 8-127 I2C addresses
+char *cmd;                               //Char pointer used in string parsing
+int retries;                             // com-check functions store number of retries here
+boolean answerReceived;                  // com-functions store here if a connection-attempt was successful
+byte error;                              // error-byte to store result of Wire.transmissionEnd()
+
+String stamp_type;                       // hold the name / type of the stamp
+char stamp_version[4];                   // hold the version of the stamp
+
+char computerdata[20];             //we make a 20 byte character array to hold incoming data from a pc/mac/other.
+
+byte i2c_response_code = 0;              //used to hold the I2C response code.
+byte in_char = 0;                    //used as a 1 byte buffer to store in bound bytes from an I2C stamp.
+
+/***********************************************************************************
+ ***********************************************************************************
+ * Tentacle Sensor Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Serial.println("Serial set up");
+
+  pinMode(s1, OUTPUT);                   //Set the digital pin as output.
+  pinMode(s0, OUTPUT);                   //Set the digital pin as output.
+  pinMode(enable_1, OUTPUT);             //Set the digital pin as output.
+  pinMode(enable_2, OUTPUT);             //Set the digital pin as output.
+  sSerial.begin(38400);                  // Set the soft serial port to 38400
+  Wire.begin();                          // enable I2C port.
+
+
+  while (!Ethernet.begin(mac)) {
+    Serial.println("Ethernet setup error");
+    delay(1000);
+  }
+  Serial.println("Ethernet set up");
+
+  PubNub.begin(pubkey, subkey);
+  Serial.println("PubNub set up");
+
+   /******** Initialise the Lux Sensor ********/
+  if(!tsl.begin())
+  {
+    /* There was a problem detecting the ADXL345 ... check your connections */
+    Serial.print("Ooops, no TSL2561 detected ... Check your wiring or I2C ADDR!");
+    while(1);
+  }
+
+  configureSensor();
+  /******** End Lux initialization ********/
+
+  /******** Temp-Humid Sensor ********/
+  dht.begin();
+  /******** End Temp-Humid init ********/
+  pinMode(light1, OUTPUT);
+  pinMode(light2, OUTPUT);
+  pinMode(waterTrigger, OUTPUT);
+  pinMode(nutrientDoser, OUTPUT);
+  pinMode(phUP, OUTPUT);
+  pinMode(phDOWN, OUTPUT);
+  digitalWrite(light1, HIGH);
+  digitalWrite(light2, HIGH);
+  digitalWrite(waterTrigger, HIGH);
+  digitalWrite(nutrientDoser, HIGH);
+  digitalWrite(phUP, HIGH);
+  digitalWrite(phDOWN, HIGH);
+}
+
+/**********************************************************************************
+ ***********************************************************************************
+ * End Ethernet+PubNub Set-Up
+ ***********************************************************************************
+ **********************************************************************************/
+
+
+void loop() {
+  int lux = 0;
+  /********** Lux Sensor Start **********/
+  /* Get a new sensor event */
+  sensors_event_t event;
+  tsl.getEvent(&event);
+
+  /* Display the results (light is measured in lux) */
+  if (event.light)
+  {
+    lux = event.light;
+  }
+  else
+  {
+    /* If event.light = 0 lux the sensor is probably saturated
+       and no reliable data could be generated! */
+    Serial.println("Sensor overload");
+  }
+  /********** End Lux Sensor **********/
+
+
+  /********** Start Temp-Humid Sensor **********/
+  int h = dht.readHumidity();
+  int f = dht.readTemperature(true);
+
+  //Validate Temp-Humid Readings
+  if (isnan(h) || isnan(f)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+  /********** End Temp-Humid Sensor **********/
+
+  float waterTemp = getWaterTemp();
+  waterTemp = (waterTemp*1.8)+32.0;
+
+  Ethernet.maintain();
+
+  EthernetClient *client;
+
+  /* Publish */
+
+  Serial.print("publishing a message: ");
+  aJsonObject *msg = createMessage();
+
+ /*Add to message aJsonObject */
+  aJsonObject *luxData = aJson.createItem(lux);
+  aJson.addItemToObject(msg, "lux", luxData);
+  aJsonObject *humidityData = aJson.createItem(h);
+  aJson.addItemToObject(msg, "humidity", humidityData);
+  aJsonObject *tempData = aJson.createItem(f);
+  aJson.addItemToObject(msg, "airTemp", tempData);
+  aJsonObject *watertempData = aJson.createItem(waterTemp);
+  aJson.addItemToObject(msg, "waterTemp", watertempData);
+
+  tenticleChannel = 99;
+  cmd = "r";
+  I2C_call();  // send i2c command and wait for answer
+  if (sensor_bytes_received &gt; 0) {
+    Serial.print("Current pH: ");
+    Serial.println(sensordata);       //print the data.
+    aJsonObject *phData = aJson.createItem(sensordata);
+    aJson.addItemToObject(msg, "pH", phData);
+  }
+
+  tenticleChannel = 100;
+  cmd = "r";
+  I2C_call();  // send i2c command and wait for answer
+  if (sensor_bytes_received &gt; 0) {
+    Serial.print("Current pH: ");
+    Serial.println(sensordata);       //print the data.
+    aJsonObject *ecData = aJson.createItem(sensordata);
+    aJson.addItemToObject(msg, "EC", ecData);
+  }
+
+
+
+  char *msgStr = aJson.print(msg);
+  aJson.deleteItem(msg);
+
+  // msgStr is returned in a buffer that can be potentially
+  // needlessly large; this call will "tighten" it
+  msgStr = (char *) realloc(msgStr, strlen(msgStr) + 1);
+
+  Serial.println(msgStr);
+  client = PubNub.publish(channel, msgStr);
+  free(msgStr);
+  if (!client) {
+    Serial.println("publishing error");
+    delay(1000);
+    return;
+  }
+  client-&gt;stop();
+
+  /* Subscribe and load reply */
+
+  Serial.println("waiting for a message (subscribe)");
+  client = PubNub.subscribe(channel);
+  if (!client) {
+    Serial.println("subscription error");
+    delay(1000);
+    return;
+  }
+
+  /* Parse */
+
+  aJsonClientStream stream(client);
+  msg = aJson.parse(&stream);
+  client-&gt;stop();
+  if (!msg) { Serial.println("parse error"); delay(1000); return; }
+  dumpMessage(Serial, msg);
+  aJson.deleteItem(msg);
+
+}
+
+
+/*tentacle shield stuffems*/
+
+byte I2C_call() {           //function to parse and call I2C commands.
+  sensor_bytes_received = 0;                            // reset data counter
+  memset(sensordata, 0, sizeof(sensordata));            // clear sensordata array;
+
+  Wire.beginTransmission(tenticleChannel);                  //call the circuit by its ID number.
+  Wire.write(cmd);                      //transmit the command that was sent through the serial port.
+  Wire.endTransmission();                           //end the I2C data transmission.
+
+  i2c_response_code = 254;
+  while (i2c_response_code == 254) {      // in case the cammand takes longer to process, we keep looping here until we get a success or an error
+
+    if (String(cmd).startsWith(F("cal")) || String(cmd).startsWith(F("Cal")) ) {
+      delay(1400);                        // cal-commands take 1300ms or more
+    } else if (String(cmd) == F("r") || String(cmd) == F("R")) {
+      delay(1000);                        // reading command takes about a second
+    }
+    else {
+      delay(300);                         // all other commands: wait 300ms
+    }
+
+    Wire.requestFrom(tenticleChannel, 48, 1);     //call the circuit and request 48 bytes (this is more then we need).
+    i2c_response_code = Wire.read();      //the first byte is the response code, we read this separately.
+
+    while (Wire.available()) {            //are there bytes to receive.
+      in_char = Wire.read();              //receive a byte.
+
+      if (in_char == 0) {                 //if we see that we have been sent a null command.
+        Wire.endTransmission();           //end the I2C data transmission.
+        break;                            //exit the while loop.
+      }
+      else {
+        sensordata[sensor_bytes_received] = in_char;        //load this byte into our array.
+        sensor_bytes_received++;
+      }
+    }
+
+    switch (i2c_response_code) {         //switch case based on what the response code is.
+      case 1:                          //decimal 1.
+        Serial.println( F("&lt; success"));     //means the command was successful.
+        break;                           //exits the switch case.
+
+      case 2:                          //decimal 2.
+        Serial.println( F("&lt; command failed"));     //means the command has failed.
+        break;                           //exits the switch case.
+
+      case 254:                        //decimal 254.
+        Serial.println( F("&lt; command pending"));    //means the command has not yet been finished calculating.
+        break;                           //exits the switch case.
+
+      case 255:                        //decimal 255.
+        Serial.println( F("No Data"));    //means there is no further data to send.
+        break;                           //exits the switch case.
+    }
+  }
+}
+
+boolean check_i2c_connection() {                      // check selected i2c channel/address. verify that it's working by requesting info about the stamp
+
+  retries = 0;
+
+  while (retries &lt; 3) {
+    retries++;
+    Wire.beginTransmission(tenticleChannel);      // just do a short connection attempt without command to scan i2c for devices
+    error = Wire.endTransmission();
+
+    if (error == 0)                       // if error is 0, there's a device
+    {
+
+      int r_retries = 0;
+      while (r_retries &lt; 3) {
+        cmd = "i";                          // set cmd to request info (in I2C_call())
+        I2C_call();
+
+        if (parseInfo()) {
+          return true;
+        }
+      }
+      return false;
+    }
+    else
+    {
+      return false;                      // no device at this address
+    }
+  }
+
+}
+
+
+
+boolean parseInfo() {                  // parses the answer to a "i" command. returns true if answer was parseable, false if not.
+
+  // example:
+  // PH EZO  -&gt; '?I,pH,1.1'
+  // ORP EZO -&gt; '?I,OR,1.0'   (-&gt; wrong in documentation 'OR' instead of 'ORP')
+  // DO EZO  -&gt; '?I,D.O.,1.0' || '?I,DO,1.7' (-&gt; exists in D.O. and DO form)
+  // EC EZO  -&gt; '?I,EC,1.0 '
+
+  // Legazy PH  -&gt; 'P,V5.0,5/13'
+  // Legazy ORP -&gt; 'O,V4.4,2/13'
+  // Legazy DO  -&gt; 'D,V5.0,1/13'
+  // Legazy EC  -&gt; 'E,V3.1,5/13'
+
+  if (sensordata[0] == '?' && sensordata[1] == 'I') {          // seems to be an EZO stamp
+
+    // PH EZO
+    if (sensordata[3] == 'p' && sensordata[4] == 'H') {
+      stamp_type = F("pH EZO");
+      stamp_version[0] = sensordata[6];
+      stamp_version[1] = sensordata[7];
+      stamp_version[2] = sensordata[8];
+      stamp_version[3] = 0;
+
+      return true;
+
+      // ORP EZO
+    }
+    else if (sensordata[3] == 'O' && sensordata[4] == 'R') {
+      stamp_type = F("ORP EZO");
+      stamp_version[0] = sensordata[6];
+      stamp_version[1] = sensordata[7];
+      stamp_version[2] = sensordata[8];
+      stamp_version[3] = 0;
+      return true;
+
+      // DO EZO
+    }
+    else if (sensordata[3] == 'D' && sensordata[4] == 'O') {
+      stamp_type = F("D.O. EZO");
+      stamp_version[0] = sensordata[6];
+      stamp_version[1] = sensordata[7];
+      stamp_version[2] = sensordata[8];
+      stamp_version[3] = 0;
+      return true;
+
+      // D.O. EZO
+    }
+    else if (sensordata[3] == 'D' && sensordata[4] == '.' && sensordata[5] == 'O' && sensordata[6] == '.') {
+      stamp_type = F("D.O. EZO");
+      stamp_version[0] = sensordata[8];
+      stamp_version[1] = sensordata[9];
+      stamp_version[2] = sensordata[10];
+      stamp_version[3] = 0;
+      return true;
+
+      // EC EZO
+    }
+    else if (sensordata[3] == 'E' && sensordata[4] == 'C') {
+      stamp_type = F("EC EZO");
+      stamp_version[0] = sensordata[6];
+      stamp_version[1] = sensordata[7];
+      stamp_version[2] = sensordata[8];
+      stamp_version[3] = 0;
+      return true;
+
+      // unknown EZO stamp
+    }
+    else {
+      stamp_type = F("unknown EZO stamp");
+      return true;
+    }
+
+  }
+
+  // it's a legacy stamp (non-EZO)
+  else
+  {
+    // Legacy pH
+    if ( sensordata[0] == 'P') {
+      stamp_type = F("pH (legacy)");
+      stamp_version[0] = sensordata[3];
+      stamp_version[1] = sensordata[4];
+      stamp_version[2] = sensordata[5];
+      stamp_version[3] = 0;
+      return true;
+
+      // legacy ORP
+    }
+    else if ( sensordata[0] == 'O') {
+      stamp_type = F("ORP (legacy)");
+      stamp_version[0] = sensordata[3];
+      stamp_version[1] = sensordata[4];
+      stamp_version[2] = sensordata[5];
+      stamp_version[3] = 0;
+      return true;
+
+      // Legacy D.O.
+    }
+    else if ( sensordata[0] == 'D') {
+      stamp_type = F("D.O. (legacy)");
+      stamp_version[0] = sensordata[3];
+      stamp_version[1] = sensordata[4];
+      stamp_version[2] = sensordata[5];
+      stamp_version[3] = 0;
+      return true;
+
+      // Lecagy EC
+    }
+    else if ( sensordata[0] == 'E') {
+      stamp_type = F("EC (legacy)");
+      stamp_version[0] = sensordata[3];
+      stamp_version[1] = sensordata[4];
+      stamp_version[2] = sensordata[5];
+      stamp_version[3] = 0;
+      return true;
+    }
+  }
+
+  /*
+  Serial.println("can not parse data: ");
+   Serial.print("'");
+   Serial.print(sensordata);
+   Serial.println("'");
+   */
+  return false;        // can not parse this info-string
+}
+
+
+
+void clearIncomingBuffer() {          // "clears" the incoming soft-serial buffer
+  while (sSerial.available() ) {
+    //Serial.print((char)sSerial.read());
+    sSerial.read();
+  }
+}
+
+/*end of tenticle stuffems*/
+
+
+/*Start of waterTemp stuffems*/
+float getWaterTemp(){
+  //returns the temperature from one DS18S20 in DEG Celsius
+
+  byte data[12];
+  byte addr[8];
+
+  if ( !ds.search(addr)) {
+      //no more sensors on chain, reset search
+      ds.reset_search();
+      return -1000;
+  }
+
+  if ( OneWire::crc8( addr, 7) != addr[7]) {
+      Serial.println("CRC is not valid!");
+      return -1000;
+  }
+
+  if ( addr[0] != 0x10 && addr[0] != 0x28) {
+      Serial.print("Device is not recognized");
+      return -1000;
+  }
+
+  ds.reset();
+  ds.select(addr);
+  ds.write(0x44,1); // start conversion, with parasite power on at the end
+
+  byte present = ds.reset();
+  ds.select(addr);
+  ds.write(0xBE); // Read Scratchpad
+
+
+  for (int i = 0; i &lt; 9; i++) { // we need 9 bytes
+    data[i] = ds.read();
+  }
+
+  ds.reset_search();
+
+  byte MSB = data[1];
+  byte LSB = data[0];
+
+  float tempRead = ((MSB &lt;&lt; 8) | LSB); //using two's compliment
+  float TemperatureSum = tempRead / 16;
+
+  return TemperatureSum;
+
+}</pre>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<!-- End Add Device Button -->
+
+<!-- PAGE FOOTER -->
+<div class="page-footer">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 text-right hidden-xs">
+            <div class="txt-color-white inline-block">
+                <i class="txt-color-blueLight hidden-mobile">You Look Great Today </i>
+                <div class="btn-group dropup">
+                    <button class="btn btn-xs dropdown-toggle bg-color-blue txt-color-white" data-toggle="dropdown">
+                        <i class="fa fa-link"></i> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu pull-right text-left">
+                        <li>
+                            <div class="padding-5">
+                                <p class="txt-color-darken font-sm no-margin">Download Progress</p>
+                                <div class="progress progress-micro no-margin">
+                                    <div class="progress-bar progress-bar-success" style="width: 50%;"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="padding-5">
+                                <p class="txt-color-darken font-sm no-margin">Server Load</p>
+                                <div class="progress progress-micro no-margin">
+                                    <div class="progress-bar progress-bar-success" style="width: 20%;"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="padding-5">
+                                <p class="txt-color-darken font-sm no-margin">Memory Load <span class="text-danger">*critical*</span></p>
+                                <div class="progress progress-micro no-margin">
+                                    <div class="progress-bar progress-bar-danger" style="width: 70%;"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="padding-5">
+                                <button class="btn btn-block btn-default">refresh</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE FOOTER -->
+
+<!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
+Note: These tiles are completely responsive,
+you can add as many as you like
+-->
+<div id="shortcut">
+    <ul>
+        <li>
+            <a href="inbox.html" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Mail <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
+        </li>
+        <li>
+            <a href="calendar.html" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-calendar fa-4x"></i> <span>Calendar</span> </span> </a>
+        </li>
+        <li>
+            <a href="gmap-xml.html" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i class="fa fa-map-marker fa-4x"></i> <span>Maps</span> </span> </a>
+        </li>
+        <li>
+            <a href="invoice.html" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-book fa-4x"></i> <span>Invoice <span class="label pull-right bg-color-darken">99</span></span> </span> </a>
+        </li>
+        <li>
+            <a href="gallery.html" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
+        </li>
+        <li>
+            <a href="profile.html" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
+        </li>
+    </ul>
+</div>
+<!-- END SHORTCUT AREA -->
+
+<!--================================================== -->
+
+<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+<script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>
+
+<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    if (!window.jQuery) {
+        document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
+    }
+</script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script>
+    if (!window.jQuery.ui) {
+        document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+    }
+</script>
+
+<!-- IMPORTANT: APP CONFIG -->
+<script src="js/app.config.js"></script>
+
+<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script>
+
+<!-- BOOTSTRAP JS -->
+<script src="js/bootstrap/bootstrap.min.js"></script>
+
+<!-- CUSTOM NOTIFICATION -->
+<script src="js/notification/SmartNotification.min.js"></script>
+
+<!-- JARVIS WIDGETS -->
+<script src="js/smartwidgets/jarvis.widget.min.js"></script>
+
+<!-- EASY PIE CHARTS -->
+<script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+
+<!-- SPARKLINES -->
+<script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
+
+<!-- JQUERY VALIDATE -->
+<script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
+
+<!-- JQUERY MASKED INPUT -->
+<script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+
+<!-- JQUERY SELECT2 INPUT -->
+<script src="js/plugin/select2/select2.min.js"></script>
+
+<!-- JQUERY UI + Bootstrap Slider -->
+<script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+
+<!-- browser msie issue fix -->
+<script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+
+<!-- FastClick: For mobile devices -->
+<script src="js/plugin/fastclick/fastclick.min.js"></script>
+
+<!--[if IE 8]>
+
+<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+
+<![endif]-->
+
+<!-- Demo purpose only -->
+<!--<script src="js/demo.min.js"></script>-->
+
+<!-- MAIN APP JS FILE -->
+<script src="js/app.min.js"></script>
+
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+        pageSetUp();
+
+        /*
+         * PAGE RELATED SCRIPTS
+         */
+
+        $(".js-status-update a").click(function() {
+            var selText = $(this).text();
+            var $this = $(this);
+            $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+            $this.parents('.dropdown-menu').find('li').removeClass('active');
+            $this.parent().addClass('active');
+        });
+
+        //"Set Up" Controls
+        $('#setUp_options').fadeOut();
+        $('#base_sketch').fadeOut();
+
+        function setUpIn() {
+            $('#setUp_options').fadeIn(600, "easeInOutQuint")
+        }
+        function baseIn() {
+            $('#base_sketch').fadeIn(600, "easeInOutQuint")
+        }
+
+
+        $('#kit_no').click(function () {
+            $('#base_sketch').fadeOut(500, "linear", setUpIn);
+        });
+        $('#kit_yes').click(function () {
+            console.log("it's working!!!");
+            $('#setUp_options').fadeOut(500, "easeInOutQuint", baseIn);
+        });
+        // End "Set Up" Controls
+    });
+
+</script>
+
+<!-- Your GOOGLE ANALYTICS CODE Below -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>
+
+</body>
+
+</html>
