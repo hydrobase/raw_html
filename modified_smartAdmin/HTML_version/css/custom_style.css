@@ -476,6 +476,16 @@ html {
     border-color: #2F797A;
 }
 
+.btn-primary:hover {
+    color: #fff;
+    background-color: #2F797A;
+    border-color: #2F797A;
+}
+
+.edit-btn {
+    margin-bottom: 20px;
+}
+
 /*=======================
 End of Smart-Style 3 Mods
 =======================*/
