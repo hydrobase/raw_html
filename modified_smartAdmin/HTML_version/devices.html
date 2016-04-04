@@ -1068,6 +1068,426 @@ Use search to find needed section.
                     </div>
                     <!-- end widget -->
                 </article>
+                <article class="col-sm-12 col-md-12 col-lg-6">
+                    <!-- start of widget -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Peach" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
+                        <!-- widget options:
+                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                            data-widget-colorbutton="false"
+                            data-widget-editbutton="false"
+                            data-widget-togglebutton="false"
+                            data-widget-deletebutton="false"
+                            data-widget-fullscreenbutton="false"
+                            data-widget-custombutton="false"
+                            data-widget-collapsed="true"
+                            data-widget-sortable="false"
+
+                        -->
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                            <h2><strong>Peach:</strong> <i>Arduino</i></h2>
+
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                <div class="panel-group" role="tablist">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_sensors_Peach">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_sensors_Peach" aria-expanded="false" aria-controls="collapseListGroup3">
+                                                    Sensors
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseListGroup_sensors_Peach" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_sensors_Peach">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Lux</li>
+                                                <li class="list-group-item">Water Temperature</li>
+                                                <li class="list-group-item">Air Temperature</li>
+                                                <li class="list-group-item">Humidity</li>
+                                                <li class="list-group-item">pH</li>
+                                                <li class="list-group-item">Electrical Conductivity</li>
+                                                <li class="list-group-item">Total Dissolved Solids</li>
+                                                <li class="list-group-item">Practical Salinity</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group" role="tablist">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_actuators_Peach">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_actuators_Peach" aria-expanded="false" aria-controls="collapseListGroup_actuators_Peach">
+                                                    Actuators
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseListGroup_actuators_Peach" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_actuators_Peach">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Light 1 <span class="pull-right">Pin: 30</span></li>
+                                                <li class="list-group-item">Light 2 <span class="pull-right">Pin: 31</span></li>
+                                                <li class="list-group-item">Water Pump <span class="pull-right">Pin: 32</span></li>
+                                                <li class="list-group-item">Nutrient Pump <span class="pull-right">Pin: 33</span></li>
+                                                <li class="list-group-item">pH Upper <span class="pull-right">Pin: 34</span></li>
+                                                <li class="list-group-item">pH Downer <span class="pull-right">Pin: 35</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="Peach_edit_btn" class="pull-right btn btn-primary edit-btn" data-toggle="modal" data-target="#Peach_modal">Edit</button>
+                                <div id="Peach_modal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Peach</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="smart-form" id="Peach_form">
+                                                    <fieldset>
+                                                        <section>
+                                                            <label class="label">Device Name</label>
+                                                            <label class="input">
+                                                                <input name="device_name" value="Peach" type="text" class="input-sm">
+                                                            </label>
+                                                        </section>
+                                                    </fieldset>
+                                                    <section id="Peach_setUp">
+                                                        <header>
+                                                            Set Up
+                                                        </header>
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="label"><h4>Sensors</h4></label>
+                                                                <div class="row">
+                                                                    <div class="col col-6">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Peach_Lux" id="Peach_lux_checkbox" checked="checked">
+                                                                            <i></i>Lux
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Peach_Water_Temp" id="Peach_waterTemp_checkbox" checked="checked">
+                                                                            <i></i>Water Temperature
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Peach_Air_Temp" id="Peach_airTemp_checkbox" checked="checked">
+                                                                            <i></i>Air Temperature
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Peach_Humidity" id="Peach_humidity_checkbox" checked="checked">
+                                                                            <i></i>Humidity
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col col-6">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Peach_pH" id="Peach_ph_checkbox" checked="checked">
+                                                                            <i></i>pH
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Peach_EC" id="Peach_ec_checkbox" checked="checked">
+                                                                            <i></i>EC
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Peach_TDS" id="Peach_tds_checkbox" checked="checked">
+                                                                            <i></i>Total Dissolved Solids
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Peach_PS" id="Peach_ps_checkbox" checked="checked">
+                                                                            <i></i>Practical Salinity
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="label"><h4>Actuators</h4></label>
+                                                                <div class="col col-6">
+                                                                    <section>
+                                                                        <label class="label">Light 1</label>
+                                                                        <label class="input">
+                                                                            <input id="Peach_light_1_pin" name="Peach_light_1_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-6">
+                                                                    <section>
+                                                                        <label class="label">Light 2</label>
+                                                                        <label class="input">
+                                                                            <input id="Peach_light_2_pin" name="Peach_light_2_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">Water Pump</label>
+                                                                        <label class="input">
+                                                                            <input id="Peach_water_pump_pin" name="Peach_water_pump_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">Nutrient Pump</label>
+                                                                        <label class="input">
+                                                                            <input id="Peach_nutrient_pump_pin" name="Peach_nutrient_pump_pin" type="text" class="input-xs" data-mask="99" value="33" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">pH Upper</label>
+                                                                        <label class="input">
+                                                                            <input id="Peach_phUpper_pump_pin" name="Peach_phUpper_pump_pin" type="text" class="input-xs" data-mask="99" value="34" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">pH Downer</label>
+                                                                        <label class="input">
+                                                                            <input id="Peach_phDowner_pump_pin" name="Peach_phDowner_pump_pin" type="text" class="input-xs" data-mask="99" value="35" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+                                                    </section>
+                                                    <div class="modal-footer">
+                                                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
+                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <!-- end widget -->
+                </article>
+                <article class="col-sm-12 col-md-12 col-lg-6">
+                    <!-- start of widget -->
+                    <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-Toad" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false">
+                        <!-- widget options:
+                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                            data-widget-colorbutton="false"
+                            data-widget-editbutton="false"
+                            data-widget-togglebutton="false"
+                            data-widget-deletebutton="false"
+                            data-widget-fullscreenbutton="false"
+                            data-widget-custombutton="false"
+                            data-widget-collapsed="true"
+                            data-widget-sortable="false"
+
+                        -->
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                            <h2><strong>Toad:</strong> <i>Arduino</i></h2>
+
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                <div class="panel-group" role="tablist">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_sensors_Toad">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_sensors_Toad" aria-expanded="false" aria-controls="collapseListGroup3">
+                                                    Sensors
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseListGroup_sensors_Toad" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_sensors_Toad">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Lux</li>
+                                                <li class="list-group-item">Water Temperature</li>
+                                                <li class="list-group-item">Air Temperature</li>
+                                                <li class="list-group-item">Humidity</li>
+                                                <li class="list-group-item">pH</li>
+                                                <li class="list-group-item">Electrical Conductivity</li>
+                                                <li class="list-group-item">Total Dissolved Solids</li>
+                                                <li class="list-group-item">Practical Salinity</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-group" role="tablist">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="collapseListGroupHeading_actuators_Toad">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_actuators_Toad" aria-expanded="false" aria-controls="collapseListGroup_actuators_Toad">
+                                                    Actuators
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseListGroup_actuators_Toad" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_actuators_Toad">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">Light 1 <span class="pull-right">Pin: 30</span></li>
+                                                <li class="list-group-item">Light 2 <span class="pull-right">Pin: 31</span></li>
+                                                <li class="list-group-item">Water Pump <span class="pull-right">Pin: 32</span></li>
+                                                <li class="list-group-item">Nutrient Pump <span class="pull-right">Pin: 33</span></li>
+                                                <li class="list-group-item">pH Upper <span class="pull-right">Pin: 34</span></li>
+                                                <li class="list-group-item">pH Downer <span class="pull-right">Pin: 35</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="Toad_edit_btn" class="pull-right btn btn-primary edit-btn" data-toggle="modal" data-target="#Toad_modal">Edit</button>
+                                <div id="Toad_modal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Toad</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="smart-form" id="Toad_form">
+                                                    <fieldset>
+                                                        <section>
+                                                            <label class="label">Device Name</label>
+                                                            <label class="input">
+                                                                <input name="device_name" value="Toad" type="text" class="input-sm">
+                                                            </label>
+                                                        </section>
+                                                    </fieldset>
+                                                    <section id="Toad_setUp">
+                                                        <header>
+                                                            Set Up
+                                                        </header>
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="label"><h4>Sensors</h4></label>
+                                                                <div class="row">
+                                                                    <div class="col col-6">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Toad_Lux" id="Toad_lux_checkbox" checked="checked">
+                                                                            <i></i>Lux
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Toad_Water_Temp" id="Toad_waterTemp_checkbox" checked="checked">
+                                                                            <i></i>Water Temperature
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Toad_Air_Temp" id="Toad_airTemp_checkbox" checked="checked">
+                                                                            <i></i>Air Temperature
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Toad_Humidity" id="Toad_humidity_checkbox" checked="checked">
+                                                                            <i></i>Humidity
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col col-6">
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Toad_pH" id="Toad_ph_checkbox" checked="checked">
+                                                                            <i></i>pH
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Toad_EC" id="Toad_ec_checkbox" checked="checked">
+                                                                            <i></i>EC
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Toad_TDS" id="Toad_tds_checkbox" checked="checked">
+                                                                            <i></i>Total Dissolved Solids
+                                                                        </label>
+                                                                        <label class="checkbox">
+                                                                            <input type="checkbox" name="Toad_PS" id="Toad_ps_checkbox" checked="checked">
+                                                                            <i></i>Practical Salinity
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+
+                                                        <fieldset>
+                                                            <section>
+                                                                <label class="label"><h4>Actuators</h4></label>
+                                                                <div class="col col-6">
+                                                                    <section>
+                                                                        <label class="label">Light 1</label>
+                                                                        <label class="input">
+                                                                            <input id="Toad_light_1_pin" name="Toad_light_1_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-6">
+                                                                    <section>
+                                                                        <label class="label">Light 2</label>
+                                                                        <label class="input">
+                                                                            <input id="Toad_light_2_pin" name="Toad_light_2_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">Water Pump</label>
+                                                                        <label class="input">
+                                                                            <input id="Toad_water_pump_pin" name="Toad_water_pump_pin" type="text" class="input-xs" data-mask="99" value="32" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">Nutrient Pump</label>
+                                                                        <label class="input">
+                                                                            <input id="Toad_nutrient_pump_pin" name="Toad_nutrient_pump_pin" type="text" class="input-xs" data-mask="99" value="33" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">pH Upper</label>
+                                                                        <label class="input">
+                                                                            <input id="Toad_phUpper_pump_pin" name="Toad_phUpper_pump_pin" type="text" class="input-xs" data-mask="99" value="34" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                                <div class="col col-3">
+                                                                    <section>
+                                                                        <label class="label">pH Downer</label>
+                                                                        <label class="input">
+                                                                            <input id="Toad_phDowner_pump_pin" name="Toad_phDowner_pump_pin" type="text" class="input-xs" data-mask="99" value="35" placeholder="Pin #">
+                                                                        </label>
+                                                                    </section>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+                                                    </section>
+                                                    <div class="modal-footer">
+                                                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
+                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <!-- end widget -->
+                </article>
             </div>
             <!-- end row -->
         </section>
