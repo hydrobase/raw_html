@@ -26,6 +26,7 @@
     <!-- We recommend you use "your_style.css" to override SmartAdmin
          specific styles this will also ensure you retrain your customization with each SmartAdmin update.-->
     <link rel="stylesheet" type="text/css" media="screen" href="css/custom_style.css">
+    <link rel="stylesheet" type="text/css" href="css/am_style.css">
 
     <!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp
     <link rel="stylesheet" type="text/css" media="screen" href="css/demo.min.css">-->
@@ -287,12 +288,6 @@
         fill_airTempData();
         fill_humidityData();
 
-        // this method is called when chart is first inited as we listen for "dataUpdated" event
-        function zoomChart() {
-            // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-            //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-        }
-
         //Create pH Graph
         AmCharts.ready(function () {
             // SERIAL CHART
@@ -304,6 +299,11 @@
 
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             ph_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                ph_chart.zoomToIndexes(0,30);
+            }
 
             // AXES
             // category
@@ -367,7 +367,11 @@
 
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             ec_chart.addListener("dataUpdated", zoomChart);
-
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                ec_chart.zoomToIndexes(0,30);
+            }
             // AXES
             // category
             var categoryAxis = ec_chart.categoryAxis;
@@ -430,6 +434,11 @@
 
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             tds_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                tds_chart.zoomToIndexes(0,30);
+            }
 
             // AXES
             // category
@@ -493,6 +502,11 @@
 
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             ps_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                ps_chart.zoomToIndexes(0,30);
+            }
 
             // AXES
             // category
@@ -544,6 +558,444 @@
             // WRITE
             ps_chart.write("ps_chartDiv");
         });
+
+        //Create Lux Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var lux_chart = new AmCharts.AmSerialChart();
+
+            lux_chart.dataProvider = luxChartData;
+            lux_chart.marginLeft = 10;
+            lux_chart.categoryField = "date";
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            lux_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                lux_chart.zoomToIndexes(0,30);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = lux_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
+            categoryAxis.dashLength = 3;
+            categoryAxis.minorGridEnabled = true;
+            categoryAxis.minorGridAlpha = 0.1;
+            //categoryAxis.offset = 83;
+
+            // value
+            var valueAxis = new AmCharts.ValueAxis();
+            valueAxis.axisAlpha = 0;
+            valueAxis.inside = true;
+            valueAxis.dashLength = 3;
+            valueAxis.labelOffset = -30;
+            lux_chart.addValueAxis(valueAxis);
+
+            // GRAPH
+            lux_graph = new AmCharts.AmGraph();
+            lux_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            lux_graph.lineColor = "#FF9E3A";
+            lux_graph.negativeBase = "50";
+            lux_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            lux_graph.bullet = "round";
+            lux_graph.bulletSize = 8;
+            lux_graph.bulletBorderColor = "#FFFFFF";
+            lux_graph.bulletBorderAlpha = 1;
+            lux_graph.bulletBorderThickness = 2;
+            lux_graph.lineThickness = 2;
+            lux_graph.valueField = "value";
+            lux_graph.selectedBackgroundColor = "#FFF";
+            lux_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            lux_chart.addGraph(lux_graph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.cursorAlpha = 0;
+            chartCursor.cursorPosition = "mouse";
+            chartCursor.categoryBalloonDateFormat = "DD MMM YYYY, @HH:NN";
+            chartCursor.cursorColor = "#47DBB7";
+            lux_chart.addChartCursor(chartCursor);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            lux_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            lux_chart.write("lux_chartDiv");
+        });
+
+        //Create AirTemp Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var airTemp_chart = new AmCharts.AmSerialChart();
+
+            airTemp_chart.dataProvider = airTempData;
+            airTemp_chart.marginLeft = 10;
+            airTemp_chart.categoryField = "date";
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            airTemp_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                airTemp_chart.zoomToIndexes(0,30);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = airTemp_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
+            categoryAxis.dashLength = 3;
+            categoryAxis.minorGridEnabled = true;
+            categoryAxis.minorGridAlpha = 0.1;
+            //categoryAxis.offset = 83;
+
+            // value
+            var valueAxis = new AmCharts.ValueAxis();
+            valueAxis.axisAlpha = 0;
+            valueAxis.inside = true;
+            valueAxis.dashLength = 3;
+            valueAxis.labelOffset = -30;
+            airTemp_chart.addValueAxis(valueAxis);
+
+            // GRAPH
+            airTemp_graph = new AmCharts.AmGraph();
+            airTemp_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            airTemp_graph.lineColor = "#FF9E3A";
+            airTemp_graph.negativeBase = "50";
+            airTemp_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            airTemp_graph.bullet = "round";
+            airTemp_graph.bulletSize = 8;
+            airTemp_graph.bulletBorderColor = "#FFFFFF";
+            airTemp_graph.bulletBorderAlpha = 1;
+            airTemp_graph.bulletBorderThickness = 2;
+            airTemp_graph.lineThickness = 2;
+            airTemp_graph.valueField = "value";
+            airTemp_graph.selectedBackgroundColor = "#FFF";
+            airTemp_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            airTemp_chart.addGraph(airTemp_graph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.cursorAlpha = 0;
+            chartCursor.cursorPosition = "mouse";
+            chartCursor.categoryBalloonDateFormat = "DD MMM YYYY, @HH:NN";
+            chartCursor.cursorColor = "#47DBB7";
+            airTemp_chart.addChartCursor(chartCursor);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            airTemp_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            airTemp_chart.write("airTemp_chartDiv");
+        });
+
+        //Create WaterTemp Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var waterTemp_chart = new AmCharts.AmSerialChart();
+
+            waterTemp_chart.dataProvider = waterTempData;
+            waterTemp_chart.marginLeft = 10;
+            waterTemp_chart.categoryField = "date";
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            waterTemp_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                waterTemp_chart.zoomToIndexes(0,30);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = waterTemp_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
+            categoryAxis.dashLength = 3;
+            categoryAxis.minorGridEnabled = true;
+            categoryAxis.minorGridAlpha = 0.1;
+            //categoryAxis.offset = 83;
+
+            // value
+            var valueAxis = new AmCharts.ValueAxis();
+            valueAxis.axisAlpha = 0;
+            valueAxis.inside = true;
+            valueAxis.dashLength = 3;
+            valueAxis.labelOffset = -30;
+            waterTemp_chart.addValueAxis(valueAxis);
+
+            // GRAPH
+            waterTemp_graph = new AmCharts.AmGraph();
+            waterTemp_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            waterTemp_graph.lineColor = "#FF9E3A";
+            waterTemp_graph.negativeBase = "50";
+            waterTemp_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            waterTemp_graph.bullet = "round";
+            waterTemp_graph.bulletSize = 8;
+            waterTemp_graph.bulletBorderColor = "#FFFFFF";
+            waterTemp_graph.bulletBorderAlpha = 1;
+            waterTemp_graph.bulletBorderThickness = 2;
+            waterTemp_graph.lineThickness = 2;
+            waterTemp_graph.valueField = "value";
+            waterTemp_graph.selectedBackgroundColor = "#FFF";
+            waterTemp_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            waterTemp_chart.addGraph(waterTemp_graph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.cursorAlpha = 0;
+            chartCursor.cursorPosition = "mouse";
+            chartCursor.categoryBalloonDateFormat = "DD MMM YYYY, @HH:NN";
+            chartCursor.cursorColor = "#47DBB7";
+            waterTemp_chart.addChartCursor(chartCursor);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            waterTemp_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            waterTemp_chart.write("waterTemp_chartDiv");
+        });
+
+        //Create Humidity Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var humidity_chart = new AmCharts.AmSerialChart();
+
+            humidity_chart.dataProvider = humidityData;
+            humidity_chart.marginLeft = 10;
+            humidity_chart.categoryField = "date";
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            humidity_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                humidity_chart.zoomToIndexes(0,30);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = humidity_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
+            categoryAxis.dashLength = 3;
+            categoryAxis.minorGridEnabled = true;
+            categoryAxis.minorGridAlpha = 0.1;
+            //categoryAxis.offset = 83;
+
+            // value
+            var valueAxis = new AmCharts.ValueAxis();
+            valueAxis.axisAlpha = 0;
+            valueAxis.inside = true;
+            valueAxis.dashLength = 3;
+            valueAxis.labelOffset = -30;
+            humidity_chart.addValueAxis(valueAxis);
+
+            // GRAPH
+            humidity_graph = new AmCharts.AmGraph();
+            humidity_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            humidity_graph.lineColor = "#FF9E3A";
+            humidity_graph.negativeBase = "50";
+            humidity_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            humidity_graph.bullet = "round";
+            humidity_graph.bulletSize = 8;
+            humidity_graph.bulletBorderColor = "#FFFFFF";
+            humidity_graph.bulletBorderAlpha = 1;
+            humidity_graph.bulletBorderThickness = 2;
+            humidity_graph.lineThickness = 2;
+            humidity_graph.valueField = "value";
+            humidity_graph.selectedBackgroundColor = "#FFF";
+            humidity_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            humidity_chart.addGraph(humidity_graph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.cursorAlpha = 0;
+            chartCursor.cursorPosition = "mouse";
+            chartCursor.categoryBalloonDateFormat = "DD MMM YYYY, @HH:NN";
+            chartCursor.cursorColor = "#47DBB7";
+            humidity_chart.addChartCursor(chartCursor);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            humidity_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            humidity_chart.write("humidity_chartDiv");
+        });
+
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var ec_overview_chart = new AmCharts.AmSerialChart();
+            //chart.addClassNames = true;
+            ec_overview_chart.dataProvider = ecChartData;
+            ec_overview_chart.categoryField = "date";
+            //chart.dataDateFormat = "YYYY-MM-DD";
+            //chart.startDuration = 1;
+            //chart.color = "#000";
+            ec_overview_chart.marginLeft = 0;
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            ec_overview_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                ec_overview_chart.zoomToIndexes(0,30);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = ec_overview_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is daily, so we set minPeriod to DD
+            categoryAxis.autoGridCount = true;
+            //categoryAxis.gridCount = 50;
+            categoryAxis.gridAlpha = 0.1;
+            categoryAxis.gridColor = "#000";
+            categoryAxis.axisColor = "#000";
+            // we want custom date formatting, so we change it in next line
+            /*categoryAxis.dateFormats = [{
+                period: 'DD',
+                format: 'DD'
+            }, {
+                period: 'WW',
+                format: 'MMM DD'
+            }, {
+                period: 'MM',
+                format: 'MMM'
+            }, {
+                period: 'YYYY',
+                format: 'YYYY'
+            }];*/
+
+            // as we have data of different units, we create three different value axes
+            // Distance value axis
+            var ecAxis = new AmCharts.ValueAxis();
+            ecAxis.title = "EC Value";
+            ecAxis.gridAlpha = 0;
+            ecAxis.axisAlpha = 0;
+            ec_overview_chart.addValueAxis(ecAxis);
+
+            // latitude value axis
+            var tdsAxis = new AmCharts.ValueAxis();
+            tdsAxis.gridAlpha = 0;
+            tdsAxis.axisAlpha = 0;
+            tdsAxis.title = "TDS & PS";
+            tdsAxis.offset = 0;
+            tdsAxis.titleOffset = 10;
+            tdsAxis.position = "right";
+            ec_overview_chart.addValueAxis(tdsAxis);
+
+            // duration value axis
+            var durationAxis = new AmCharts.ValueAxis();
+            // the following line makes this value axis to convert values to duration
+            // it tells the axis what duration unit it should use. mm - minute, hh - hour...
+            durationAxis.duration = "mm";
+            durationAxis.gridAlpha = 0;
+            durationAxis.axisAlpha = 0;
+            durationAxis.inside = false;
+            durationAxis.position = "right";
+            ec_overview_chart.addValueAxis(durationAxis);
+
+            // GRAPHS
+            // EC graph
+            var ecGraph = new AmCharts.AmGraph();
+            ecGraph.valueField = "ec_value";
+            ecGraph.title = "distance";
+            ecGraph.type = "column";
+            ecGraph.fillAlphas = 0.9;
+            ecGraph.columnWidth = 10;
+            ecGraph.valueAxis = ecAxis; // indicate which axis should be used
+            ecGraph.balloonText = "EC: [[value]] &mu;S";
+            ecGraph.legendValueText = " ";
+            //ecGraph.legendPeriodValueText = "total: [[value.sum]] &mu;S";
+            ecGraph.lineColor = "#263138";
+            ecGraph.alphaField = "alpha";
+            ec_overview_chart.addGraph(ecGraph);
+
+            // TDS graph
+            var tdsGraph = new AmCharts.AmGraph();
+            tdsGraph.valueField = "tds";
+            tdsGraph.id = "g1";
+            tdsGraph.classNameField = "bulletClass";
+            tdsGraph.title = "Total Disolved Solids";
+            tdsGraph.type = "line";
+            tdsGraph.valueAxis = tdsAxis; // indicate which axis should be used
+            tdsGraph.lineColor = "#786c56";
+            tdsGraph.lineThickness = 1;
+            tdsGraph.legendValueText = " ";
+            //tdsGraph.descriptionField = "townName";
+            tdsGraph.bullet = "round";
+            tdsGraph.bulletSize = 10; // indicate which field should be used for bullet size
+            tdsGraph.bulletBorderColor = "#786c56";
+            tdsGraph.bulletBorderAlpha = 1;
+            tdsGraph.bulletBorderThickness = 2;
+            tdsGraph.bulletColor = "#000000";
+            //tdsGraph.labelText = "[[value]]"; // not all data points has townName2 specified, that's why labels are displayed only near some of the bullets.
+            tdsGraph.labelPosition = "right";
+            tdsGraph.balloonText = "TDS:[[value]]";
+            tdsGraph.showBalloon = true;
+            tdsGraph.animationPlayed = true;
+            ec_overview_chart.addGraph(tdsGraph);
+
+            // duration graph
+            var durationGraph = new AmCharts.AmGraph();
+            durationGraph.id = "g2";
+            durationGraph.title = "duration";
+            durationGraph.valueField = "duration";
+            durationGraph.type = "line";
+            durationGraph.valueAxis = durationAxis; // indicate which axis should be used
+            durationGraph.lineColor = "#ff5755";
+            durationGraph.balloonText = "[[value]]";
+            durationGraph.lineThickness = 1;
+            durationGraph.legendValueText = "[[value]]";
+            durationGraph.bullet = "square";
+            durationGraph.bulletBorderColor = "#ff5755";
+            durationGraph.bulletBorderThickness = 1;
+            durationGraph.bulletBorderAlpha = 1;
+            durationGraph.dashLengthField = "dashLength";
+            durationGraph.animationPlayed = true;
+            ec_overview_chart.addGraph(durationGraph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.zoomable = true;
+            chartCursor.categoryBalloonDateFormat = undefined;
+            chartCursor.cursorAlpha = 0;
+            chartCursor.valueBalloonsEnabled = false;
+            chartCursor.valueLineBalloonEnabled = true;
+            chartCursor.valueLineEnabled = true;
+            chartCursor.valueLineAlpha = 0.5;
+            chartCursor.cursorColor = "#41A6A8";
+            ec_overview_chart.addChartCursor(chartCursor);
+
+            // LEGEND
+            var legend = new AmCharts.AmLegend();
+            legend.bulletType = "round";
+            legend.equalWidths = false;
+            legend.valueWidth = 120;
+            legend.useGraphSettings = true;
+            legend.color = "#000";
+            ec_overview_chart.addLegend(legend);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            ec_overview_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            ec_overview_chart.write("ec_overview_chartdiv");
+
+        });
+
+
+        // this method is called when chart is first inited as we listen for "dataUpdated" event
 
     </script>
 </head>
@@ -671,7 +1123,7 @@
 				<span> <!-- User image size is adjusted inside CSS, it should stay as it -->
 
 					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-                        <img src="https://lh5.googleusercontent.com/-EBEhQJH7Mf4/AAAAAAAAAAI/AAAAAAAAAAA/rLS_4zv52UA/s128-c-k/photo.jpg" alt="me" class="online" />
+                        <img src="https://avatars3.githubusercontent.com/u/7218875?v=3&s=460" alt="me" class="online" />
 						<span>
 							Juan Shishido
 						</span>
@@ -952,7 +1404,6 @@
                     <div>
                         <!-- widget content -->
                         <div class="widget-body">
-
                             <p>
                                 Graphs
                             </p>
