@@ -54,6 +54,9 @@
     transition: all .3s ease-out;
 }
 
+.amChartsLegend {
+    display: none;
+}
 
 .amcharts-graph-g2 {
     stroke-linejoin: round;

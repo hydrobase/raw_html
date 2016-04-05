@@ -777,7 +777,7 @@
             function zoomChart() {
                 // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
                 //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                humidity_chart.zoomToIndexes(0,30);
+                humidity_chart.zoomToIndexes(humidityData.length - 12,humidityData.length);
             }
 
             // AXES
@@ -847,7 +847,7 @@
             function zoomChart() {
                 // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
                 //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                ec_overview_chart.zoomToIndexes(0,30);
+                ec_overview_chart.zoomToIndexes(ecChartData.length - 12,ecChartData.length);
             }
 
             // AXES
@@ -1334,166 +1334,189 @@
             </div>
         </div>
         <!-- widget grid -->
-        <section id="current_plant_data" class="col col-lg-6">
-            <!-- start row -->
-            <div class="row">
-                <div class="jarviswidget well" id="current_plant_graphs" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                    <!-- widget div-->
-                    <div>
+       <section id="widget-grid">
+           <div class="row">
+               <!-- NEW WIDGET START -->
+               <article class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
 
-                        <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                            <!-- This area used as dropdown edit box -->
+                   <!-- Widget ID (each widget will need unique ID)-->
+                   <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+                       <header>
+                           <span class="widget-icon"> <i class="fa fa-wrench"></i> </span>
+                           <h2>Set Up</h2>
 
-                        </div>
-                        <!-- end widget edit box -->
+                       </header>
 
-                        <!-- widget content -->
-                        <div class="widget-body">
+                       <!-- widget div-->
+                       <div>
 
-                            <p>
-                                Pete: Piranah Plant
-                            </p>
-                            <hr class="simple">
-                            <ul id="tab_list" class="nav nav-tabs bordered">
-                                <li class="active">
-                                    <a href="#devices_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-cogs"></i> Device</a>
-                                </li>
-                                <li>
-                                    <a href="#controls_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i> Controls</a>
-                                </li>
-                                <li>
-                                    <a href="#photos_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-camera"></i> Photos</a>
-                                </li>
-                            </ul>
+                           <!-- widget edit box -->
+                           <div class="jarviswidget-editbox">
+                               <!-- This area used as dropdown edit box -->
 
-                            <div id="plant_info_tabContent" class="tab-content padding-10">
-                                <div class="tab-pane fade in active" id="devices_tab">
-                                    <p>
-                                        I have six <a title="test">this is a test</a> locks on my door all in a row. When I go out, I lock every other one. I figure no matter how long somebody stands there picking the locks, they are always locking three.
-                                    </p>
-                                </div>
-                                <div class="tab-pane fade" id="controls_tab">
-                                    <p>
-                                        Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
-                                    </p>
-                                </div>
-                                <div class="tab-pane fade" id="photos_tab">
-                                    <p>
-                                        Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
-                                    </p>
-                                </div>
+                           </div>
+                           <!-- end widget edit box -->
+
+                           <!-- widget content -->
+                           <div class="widget-body">
+                               <p>
+                                   Pete: Piranah Plant
+                               </p>
+                               <hr class="simple">
+                               <ul id="tab_list" class="nav nav-tabs bordered">
+                                   <li class="active">
+                                       <a href="#devices_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-cogs"></i> Device</a>
+                                   </li>
+                                   <li>
+                                       <a href="#controls_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i> Controls</a>
+                                   </li>
+                                   <li>
+                                       <a href="#photos_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-camera"></i> Photos</a>
+                                   </li>
+                               </ul>
+
+                               <div id="plant_info_tabContent" class="tab-content padding-10">
+                                   <div class="tab-pane fade in active" id="devices_tab">
+                                       <p>
+                                           I have six <a title="test">this is a test</a> locks on my door all in a row. When I go out, I lock every other one. I figure no matter how long somebody stands there picking the locks, they are always locking three.
+                                       </p>
+                                   </div>
+                                   <div class="tab-pane fade" id="controls_tab">
+                                       <p>
+                                           Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
+                                       </p>
+                                   </div>
+                                   <div class="tab-pane fade" id="photos_tab">
+                                       <p>
+                                           Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
+                                       </p>
+                                   </div>
+                               </div>
+
+                           </div>
+                           <!-- end widget content -->
+
+                       </div>
+                       <!-- end widget div -->
+
+                   </div>
+                   <!-- end widget -->
+
+               </article>
+               <!-- WIDGET END -->
+               <!-- NEW WIDGET START -->
+               <article class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+
+                    <!-- Widget ID (each widget will need unique ID)-->
+                    <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                            <h2>Graphs</h2>
+
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+
+                            <!-- widget edit box -->
+                            <div class="jarviswidget-editbox">
+                                <!-- This area used as dropdown edit box -->
+
                             </div>
+                            <!-- end widget edit box -->
+
+                            <!-- widget content -->
+                            <div class="widget-body no-padding">
+                                <hr class="simple">
+                                <ul id="plant_tab_list" class="nav nav-tabs bordered">
+                                    <li class="active">
+                                        <a href="#pH_chart_tab" data-toggle="tab"><span class="typcn_lrg typcn-beaker"></span> pH</a>
+                                    </li>
+                                    <li class="dropdown" title="test">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="typcn_lrg typcn-flash"></span> EC <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#ec_overview_chart_tab" data-toggle="tab">Overview</a>
+                                            </li>
+                                            <li>
+                                                <a href="#ec_chart_tab" data-toggle="tab">EC</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tds_chart_tab" data-toggle="tab">TDS</a>
+                                            </li>
+                                            <li>
+                                                <a href="#ps_chart_tab" data-toggle="tab">PS</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#lux_chart_tab" data-toggle="tab"><i class="typcn_lrg typcn-weather-sunny"></i>Lux</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"> <span class="typcn_lrg typcn-thermometer"></span> Temp <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#temp_overview_chart_tab" data-toggle="tab">Overview</a>
+                                            </li>
+                                            <li>
+                                                <a href="#airTemp_chart_tab" data-toggle="tab">Air Temp</a>
+                                            </li>
+                                            <li>
+                                                <a href="#waterTemp_chart_tab" data-toggle="tab">Water Temp</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#humidity_chart_tab" data-toggle="tab"><i class="typcn_lrg typcn-waves-outline"></i>Humidity</a>
+                                    </li>
+                                </ul>
+
+                                <div id="plant_data_content" class="tab-content padding-10">
+                                    <div class="tab-pane fade in active" id="pH_chart_tab">
+                                        <div id="pH_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ec_overview_chart_tab">
+                                        <div id="ec_overview_chartdiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ec_chart_tab">
+                                        <div id="ec_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="tds_chart_tab">
+                                        <div id="tds_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ps_chart_tab">
+                                        <div id="ps_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="lux_chart_tab">
+                                        <div id="lux_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="temp_overview_chart_tab">
+                                        <div id="temp_overview_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="airTemp_chart_tab">
+                                        <div id="airTemp_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="waterTemp_chart_tab">
+                                        <div id="waterTemp_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="humidity_chart_tab">
+                                        <div id="humidity_chartDiv" style="width:100%"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- end widget content -->
 
                         </div>
-                        <!-- end widget content -->
+                        <!-- end widget div -->
 
                     </div>
-                    <!-- end widget div -->
+                    <!-- end widget -->
 
-                </div>
+                </article>
+               <!-- WIDGET END -->
             </div>
-            <!-- end row -->
-        </section>
-        <section id="current_plant" class="col col-lg-6">
-            <!-- start row -->
-            <div class="row">
-                <div class="jarviswidget well" id="wid-id-3" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-
-                    <!-- widget div-->
-                    <div>
-                        <!-- widget content -->
-                        <div class="widget-body">
-                            <p>
-                                Graphs
-                            </p>
-                            <hr class="simple">
-                            <ul id="plant_tab_list" class="nav nav-tabs bordered">
-                                <li class="active">
-                                    <a href="#pH_chart_tab" data-toggle="tab"><span class="typcn_lrg typcn-beaker"></span> pH</a>
-                                </li>
-                                <li class="dropdown" title="test">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="typcn_lrg typcn-flash"></span> EC <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#ec_overview_chart_tab" data-toggle="tab">Overview</a>
-                                        </li>
-                                        <li>
-                                            <a href="#ec_chart_tab" data-toggle="tab">EC</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tds_chart_tab" data-toggle="tab">TDS</a>
-                                        </li>
-                                        <li>
-                                            <a href="#ps_chart_tab" data-toggle="tab">PS</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#lux_chart_tab" data-toggle="tab"><i class="typcn_lrg typcn-weather-sunny"></i>Lux</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"> <span class="typcn_lrg typcn-thermometer"></span> Temp <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#temp_overview_chart_tab" data-toggle="tab">Overview</a>
-                                        </li>
-                                        <li>
-                                            <a href="#airTemp_chart_tab" data-toggle="tab">Air Temp</a>
-                                        </li>
-                                        <li>
-                                            <a href="#waterTemp_chart_tab" data-toggle="tab">Water Temp</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#humidity_chart_tab" data-toggle="tab"><i class="typcn_lrg typcn-waves-outline"></i>Humidity</a>
-                                </li>
-                            </ul>
-
-                            <div id="plant_data_content" class="tab-content padding-10">
-                                <div class="tab-pane fade in active" id="pH_chart_tab">
-                                    <div id="pH_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="ec_overview_chart_tab">
-                                    <div id="ec_overview_chartdiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="ec_chart_tab">
-                                    <div id="ec_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="tds_chart_tab">
-                                    <div id="tds_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="ps_chart_tab">
-                                    <div id="ps_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="lux_chart_tab">
-                                    <div id="lux_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="temp_overview_chart_tab">
-                                    <div id="temp_overview_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="airTemp_chart_tab">
-                                    <div id="airTemp_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="waterTemp_chart_tab">
-                                    <div id="waterTemp_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="humidity_chart_tab">
-                                    <div id="humidity_chartDiv" style="width:100%"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- end widget content -->
-
-                    </div>
-                    <!-- end widget div -->
-
-                </div>
-            </div>
-            <!-- end row -->
-        </section>
+       </section>
         <!-- end widget grid -->
     </div>
     <!-- END MAIN CONTENT -->
@@ -2544,6 +2567,7 @@ you can add as many as you like
         /*Graphing*/
         /*Graph Sizing*/
         var page_height = $(window).height();
+        var graph_state = 0;
         $('#pH_chartDiv').css("height", page_height/1.8+"px");
         $('#ec_overview_chartdiv').css("height", page_height/1.8+"px");
         $('#ec_chartDiv').css("height", page_height/1.8+"px");
@@ -2554,6 +2578,36 @@ you can add as many as you like
         $('#airTemp_chartDiv').css("height", page_height/1.8+"px");
         $('#waterTemp_chartDiv').css("height", page_height/1.8+"px");
         $('#humidity_chartDiv').css("height", page_height/1.8+"px");
+
+        $('a[class="button-icon jarviswidget-fullscreen-btn"]').click(function () {
+            if (graph_state == 0){
+                $('#pH_chartDiv').css("height", (page_height - 128) + "px");
+                $('#ec_overview_chartdiv').css("height", (page_height - 128) + "px");
+                $('#ec_chartDiv').css("height", (page_height - 128) + "px");
+                $('#tds_chartDiv').css("height", page_height + "px");
+                $('#ps_chartDiv').css("height", page_height + "px");
+                $('#lux_chartDiv').css("height", page_height + "px");
+                $('#temp_overview_chartDiv').css("height", page_height + "px");
+                $('#airTemp_chartDiv').css("height", page_height + "px");
+                $('#waterTemp_chartDiv').css("height", page_height + "px");
+                $('#humidity_chartDiv').css("height", page_height + "px");
+                $('.amChartsLegend').css("display", "block");
+                graph_state = 1;
+            } else if (graph_state == 1) {
+                $('#pH_chartDiv').css("height", page_height/1.8+"px");
+                $('#ec_overview_chartdiv').css("height", page_height/1.8+"px");
+                $('#ec_chartDiv').css("height", page_height/1.8+"px");
+                $('#tds_chartDiv').css("height", page_height/1.8+"px");
+                $('#ps_chartDiv').css("height", page_height/1.8+"px");
+                $('#lux_chartDiv').css("height", page_height/1.8+"px");
+                $('#temp_overview_chartDiv').css("height", page_height/1.8+"px");
+                $('#airTemp_chartDiv').css("height", page_height/1.8+"px");
+                $('#waterTemp_chartDiv').css("height", page_height/1.8+"px");
+                $('#humidity_chartDiv').css("height", page_height/1.8+"px");
+                $('.amChartsLegend').css("display", "none");
+                graph_state = 0;
+            }
+        });
     });
 
 </script>
