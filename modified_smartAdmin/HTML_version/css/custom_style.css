@@ -46,7 +46,26 @@ Text Color Mods
 End Text Color Mods
 =================*/
 
+/*=============
+Background Mods
+=============*/
+.bg-color-greenLight {
+    background-color:#3DFFF2 !important;
+    color: #737373 !important;
+}
 
+.bg-color-greenDark {
+    background-color: #41A6A8 !important;
+    color: #F2F2F2;
+}
+
+.bg-color-orange {
+    background-color: #FF8048 !important;
+}
+
+/*=================
+End Background Mods
+=================*/
 
 /*=========
 Widget Mods
@@ -498,7 +517,9 @@ html {
 }
 
 .edit-btn {
-    margin-bottom: 20px;
+    width: 100%;
+    margin: 10px auto 20px auto;
+    display: block;
 }
 
 /*=======================
@@ -822,4 +843,13 @@ Card Style From Bootstap V4
     display: inline-block;
     width: 100%;
   }
+}
+
+
+/*
+Linking Devices Mods
+*/
+
+.device_link_tile {
+    padding: 0 5px !important;
 }

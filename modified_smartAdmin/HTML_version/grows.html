@@ -325,10 +325,12 @@
 
             // GRAPH
             var ph_graph = new AmCharts.AmGraph();
-            ph_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            ph_graph.type = "line"; // this line makes the graph smoothed line.
+            ph_graph.fillAlphas = 0.2;
             ph_graph.lineColor = "#FF9E3A";
             ph_graph.negativeBase = "6.5";
             ph_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            ph_graph.negativeFillAlphas = 0;
             ph_graph.bullet = "round";
             ph_graph.bulletSize = 8;
             ph_graph.bulletBorderColor = "#FFFFFF";
@@ -354,6 +356,165 @@
 
             // WRITE
             ph_chart.write("pH_chartDiv");
+        });
+
+        //Create EC_Overview Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var ec_overview_chart = new AmCharts.AmSerialChart();
+            //chart.addClassNames = true;
+            ec_overview_chart.dataProvider = ecChartData;
+            ec_overview_chart.categoryField = "date";
+            //chart.dataDateFormat = "YYYY-MM-DD";
+            //chart.startDuration = 1;
+            //chart.color = "#000";
+            ec_overview_chart.marginLeft = 0;
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            ec_overview_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                ec_overview_chart.zoomToIndexes(ecChartData.length - 8,ecChartData.length);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = ec_overview_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is daily, so we set minPeriod to DD
+            categoryAxis.autoGridCount = true;
+            //categoryAxis.gridCount = 50;
+            categoryAxis.gridAlpha = 0.1;
+            categoryAxis.gridColor = "#000";
+            categoryAxis.axisColor = "#000";
+
+            // as we have data of different units, we create three different value axes
+            // ec value axis
+            var ecAxis = new AmCharts.ValueAxis();
+            ecAxis.title = "EC Value";
+            ecAxis.gridAlpha = 0;
+            ecAxis.axisAlpha = 0;
+            ec_overview_chart.addValueAxis(ecAxis);
+
+            // tds value axis
+            var tdsAxis = new AmCharts.ValueAxis();
+            tdsAxis.gridAlpha = 0;
+            tdsAxis.axisAlpha = 0;
+            tdsAxis.offset = 0;
+            tdsAxis.position = "right";
+            ec_overview_chart.addValueAxis(tdsAxis);
+
+            // ps value axis
+            var psAxis = new AmCharts.ValueAxis();
+            // the following line makes this value axis to convert values to duration
+            // it tells the axis what duration unit it should use. mm - minute, hh - hour...
+            //psAxis.duration = "mm";
+            psAxis.gridAlpha = 0;
+            psAxis.axisAlpha = 0;
+            psAxis.title = "TDS & PS";
+            psAxis.offset = 30;
+            psAxis.position = "right";
+            ec_overview_chart.addValueAxis(psAxis);
+
+            // GRAPHS
+            // EC graph
+            var ecGraph = new AmCharts.AmGraph();
+            ecGraph.valueField = "ec_value";
+            ecGraph.title = "ec_value";
+            ecGraph.type = "line";
+            ecGraph.bullet = "round";
+            ecGraph.bulletSize = 10;
+            //ecGraph.fillAlphas = 0.1;
+            ecGraph.valueAxis = ecAxis; // indicate which axis should be used
+            ecGraph.balloonText = "EC: [[value]] &mu;S";
+            ecGraph.legendValueText = " ";
+            //ecGraph.legendPeriodValueText = "total: [[value.sum]] &mu;S";
+            ecGraph.lineColor = "#3D73B5";
+            ecGraph.alphaField = "alpha";
+            ec_overview_chart.addGraph(ecGraph);
+
+            // TDS graph
+            var tdsGraph = new AmCharts.AmGraph();
+            tdsGraph.valueField = "tds";
+            tdsGraph.id = "tds_overview_graph";
+            //tdsGraph.classNameField = "bulletClass";
+            tdsGraph.title = "Total Disolved Solids";
+            tdsGraph.type = "column";
+            tdsGraph.valueAxis = tdsAxis; // indicate which axis should be used
+            tdsGraph.lineColor = "#40BF9E";
+            tdsGraph.fillColors = "#40BF9E";
+            tdsGraph.fillAlphas = 0.7;
+            tdsGraph.columnWidth = 4;
+            //tdsGraph.lineThickness = 2;
+            tdsGraph.legendValueText = " ";
+            //tdsGraph.descriptionField = "townName";
+            //tdsGraph.bullet = "round";
+            //tdsGraph.bulletSize = 10; // indicate which field should be used for bullet size
+            //tdsGraph.bulletBorderColor = "#359E83";
+            //tdsGraph.bulletBorderAlpha = 1;
+            //tdsGraph.bulletBorderThickness = 2;
+            //tdsGraph.bulletColor = "#40BF9E";
+            //tdsGraph.labelText = "[[value]]"; // not all data points has townName2 specified, that's why labels are displayed only near some of the bullets.
+            tdsGraph.labelPosition = "right";
+            tdsGraph.balloonText = "TDS:[[value]]";
+            tdsGraph.showBalloon = true;
+            tdsGraph.animationPlayed = true;
+            ec_overview_chart.addGraph(tdsGraph);
+
+            // ps graph
+            var psGraph = new AmCharts.AmGraph();
+            psGraph.id = "ps_overview_graph";
+            psGraph.title = "Practical Salinity";
+            psGraph.valueField = "ps";
+            psGraph.type = "line";
+            psGraph.valueAxis = psAxis; // indicate which axis should be used
+            psGraph.negativeBase = "0.5";
+            psGraph.negativeLineColor = "#0FFF99";
+            psGraph.negativeFillColor = "#0FFF99";
+            psGraph.negativeFillAlphas = 0;
+            psGraph.lineColor = "#FF8048";
+            psGraph.fillColors = "#FF8048"
+            psGraph.fillAlphas = 0.7;
+            psGraph.balloonText = "PS: [[value]]";
+            psGraph.lineThickness = 1;
+            psGraph.legendValueText = "[[value]]";
+            psGraph.bullet = "square";
+            //psGraph.bulletBorderColor = "#ff5755";
+            psGraph.bulletBorderThickness = 1;
+            psGraph.bulletBorderAlpha = 1;
+            psGraph.dashLengthField = "dashLength";
+            psGraph.animationPlayed = true;
+            ec_overview_chart.addGraph(psGraph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.zoomable = true;
+            chartCursor.categoryBalloonDateFormat = undefined;
+            chartCursor.cursorAlpha = 0;
+            chartCursor.valueBalloonsEnabled = false;
+            chartCursor.valueLineBalloonEnabled = true;
+            chartCursor.valueLineEnabled = true;
+            chartCursor.valueLineAlpha = 0.5;
+            chartCursor.cursorColor = "#41A6A8";
+            ec_overview_chart.addChartCursor(chartCursor);
+
+            // LEGEND
+            var legend = new AmCharts.AmLegend();
+            legend.bulletType = "round";
+            legend.equalWidths = false;
+            legend.valueWidth = 120;
+            legend.useGraphSettings = true;
+            legend.color = "#000";
+            ec_overview_chart.addLegend(legend);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            ec_overview_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            ec_overview_chart.write("ec_overview_chartdiv");
+
         });
 
         //Create EC Graph
@@ -460,7 +621,7 @@
 
             // GRAPH
             var tds_graph = new AmCharts.AmGraph();
-            tds_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            tds_graph.type = "line"; // this line makes the graph smoothed line.
             tds_graph.lineColor = "#FF9E3A";
             tds_graph.negativeBase = "1000";
             tds_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
@@ -528,7 +689,7 @@
 
             // GRAPH
             ps_graph = new AmCharts.AmGraph();
-            ps_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            ps_graph.type = "line"; // this line makes the graph smoothed line.
             ps_graph.lineColor = "#FF9E3A";
             ps_graph.negativeBase = "1000";
             ps_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
@@ -596,7 +757,7 @@
 
             // GRAPH
             lux_graph = new AmCharts.AmGraph();
-            lux_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            lux_graph.type = "line"; // this line makes the graph smoothed line.
             lux_graph.lineColor = "#FF9E3A";
             lux_graph.negativeBase = "50";
             lux_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
@@ -664,7 +825,7 @@
 
             // GRAPH
             airTemp_graph = new AmCharts.AmGraph();
-            airTemp_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            airTemp_graph.type = "line"; // this line makes the graph smoothed line.
             airTemp_graph.lineColor = "#FF9E3A";
             airTemp_graph.negativeBase = "50";
             airTemp_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
@@ -732,7 +893,7 @@
 
             // GRAPH
             waterTemp_graph = new AmCharts.AmGraph();
-            waterTemp_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            waterTemp_graph.type = "line"; // this line makes the graph smoothed line.
             waterTemp_graph.lineColor = "#FF9E3A";
             waterTemp_graph.negativeBase = "50";
             waterTemp_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
@@ -800,7 +961,7 @@
 
             // GRAPH
             humidity_graph = new AmCharts.AmGraph();
-            humidity_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            humidity_graph.type = "line"; // this line makes the graph smoothed line.
             humidity_graph.lineColor = "#FF9E3A";
             humidity_graph.negativeBase = "50";
             humidity_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
@@ -831,168 +992,6 @@
             humidity_chart.write("humidity_chartDiv");
         });
 
-        AmCharts.ready(function () {
-            // SERIAL CHART
-            var ec_overview_chart = new AmCharts.AmSerialChart();
-            //chart.addClassNames = true;
-            ec_overview_chart.dataProvider = ecChartData;
-            ec_overview_chart.categoryField = "date";
-            //chart.dataDateFormat = "YYYY-MM-DD";
-            //chart.startDuration = 1;
-            //chart.color = "#000";
-            ec_overview_chart.marginLeft = 0;
-
-            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
-            ec_overview_chart.addListener("dataUpdated", zoomChart);
-            function zoomChart() {
-                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                ec_overview_chart.zoomToIndexes(ecChartData.length - 12,ecChartData.length);
-            }
-
-            // AXES
-            // category
-            var categoryAxis = ec_overview_chart.categoryAxis;
-            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
-            categoryAxis.minPeriod = "mm"; // our data is daily, so we set minPeriod to DD
-            categoryAxis.autoGridCount = true;
-            //categoryAxis.gridCount = 50;
-            categoryAxis.gridAlpha = 0.1;
-            categoryAxis.gridColor = "#000";
-            categoryAxis.axisColor = "#000";
-            // we want custom date formatting, so we change it in next line
-            /*categoryAxis.dateFormats = [{
-                period: 'DD',
-                format: 'DD'
-            }, {
-                period: 'WW',
-                format: 'MMM DD'
-            }, {
-                period: 'MM',
-                format: 'MMM'
-            }, {
-                period: 'YYYY',
-                format: 'YYYY'
-            }];*/
-
-            // as we have data of different units, we create three different value axes
-            // Distance value axis
-            var ecAxis = new AmCharts.ValueAxis();
-            ecAxis.title = "EC Value";
-            ecAxis.gridAlpha = 0;
-            ecAxis.axisAlpha = 0;
-            ec_overview_chart.addValueAxis(ecAxis);
-
-            // latitude value axis
-            var tdsAxis = new AmCharts.ValueAxis();
-            tdsAxis.gridAlpha = 0;
-            tdsAxis.axisAlpha = 0;
-            tdsAxis.title = "TDS & PS";
-            tdsAxis.offset = 0;
-            tdsAxis.titleOffset = 10;
-            tdsAxis.position = "right";
-            ec_overview_chart.addValueAxis(tdsAxis);
-
-            // duration value axis
-            var durationAxis = new AmCharts.ValueAxis();
-            // the following line makes this value axis to convert values to duration
-            // it tells the axis what duration unit it should use. mm - minute, hh - hour...
-            durationAxis.duration = "mm";
-            durationAxis.gridAlpha = 0;
-            durationAxis.axisAlpha = 0;
-            durationAxis.inside = false;
-            durationAxis.position = "right";
-            ec_overview_chart.addValueAxis(durationAxis);
-
-            // GRAPHS
-            // EC graph
-            var ecGraph = new AmCharts.AmGraph();
-            ecGraph.valueField = "ec_value";
-            ecGraph.title = "distance";
-            ecGraph.type = "column";
-            ecGraph.fillAlphas = 0.9;
-            ecGraph.columnWidth = 10;
-            ecGraph.valueAxis = ecAxis; // indicate which axis should be used
-            ecGraph.balloonText = "EC: [[value]] &mu;S";
-            ecGraph.legendValueText = " ";
-            //ecGraph.legendPeriodValueText = "total: [[value.sum]] &mu;S";
-            ecGraph.lineColor = "#263138";
-            ecGraph.alphaField = "alpha";
-            ec_overview_chart.addGraph(ecGraph);
-
-            // TDS graph
-            var tdsGraph = new AmCharts.AmGraph();
-            tdsGraph.valueField = "tds";
-            tdsGraph.id = "g1";
-            tdsGraph.classNameField = "bulletClass";
-            tdsGraph.title = "Total Disolved Solids";
-            tdsGraph.type = "line";
-            tdsGraph.valueAxis = tdsAxis; // indicate which axis should be used
-            tdsGraph.lineColor = "#786c56";
-            tdsGraph.lineThickness = 1;
-            tdsGraph.legendValueText = " ";
-            //tdsGraph.descriptionField = "townName";
-            tdsGraph.bullet = "round";
-            tdsGraph.bulletSize = 10; // indicate which field should be used for bullet size
-            tdsGraph.bulletBorderColor = "#786c56";
-            tdsGraph.bulletBorderAlpha = 1;
-            tdsGraph.bulletBorderThickness = 2;
-            tdsGraph.bulletColor = "#000000";
-            //tdsGraph.labelText = "[[value]]"; // not all data points has townName2 specified, that's why labels are displayed only near some of the bullets.
-            tdsGraph.labelPosition = "right";
-            tdsGraph.balloonText = "TDS:[[value]]";
-            tdsGraph.showBalloon = true;
-            tdsGraph.animationPlayed = true;
-            ec_overview_chart.addGraph(tdsGraph);
-
-            // duration graph
-            var durationGraph = new AmCharts.AmGraph();
-            durationGraph.id = "g2";
-            durationGraph.title = "duration";
-            durationGraph.valueField = "duration";
-            durationGraph.type = "line";
-            durationGraph.valueAxis = durationAxis; // indicate which axis should be used
-            durationGraph.lineColor = "#ff5755";
-            durationGraph.balloonText = "[[value]]";
-            durationGraph.lineThickness = 1;
-            durationGraph.legendValueText = "[[value]]";
-            durationGraph.bullet = "square";
-            durationGraph.bulletBorderColor = "#ff5755";
-            durationGraph.bulletBorderThickness = 1;
-            durationGraph.bulletBorderAlpha = 1;
-            durationGraph.dashLengthField = "dashLength";
-            durationGraph.animationPlayed = true;
-            ec_overview_chart.addGraph(durationGraph);
-
-            // CURSOR
-            var chartCursor = new AmCharts.ChartCursor();
-            chartCursor.zoomable = true;
-            chartCursor.categoryBalloonDateFormat = undefined;
-            chartCursor.cursorAlpha = 0;
-            chartCursor.valueBalloonsEnabled = false;
-            chartCursor.valueLineBalloonEnabled = true;
-            chartCursor.valueLineEnabled = true;
-            chartCursor.valueLineAlpha = 0.5;
-            chartCursor.cursorColor = "#41A6A8";
-            ec_overview_chart.addChartCursor(chartCursor);
-
-            // LEGEND
-            var legend = new AmCharts.AmLegend();
-            legend.bulletType = "round";
-            legend.equalWidths = false;
-            legend.valueWidth = 120;
-            legend.useGraphSettings = true;
-            legend.color = "#000";
-            ec_overview_chart.addLegend(legend);
-
-            // SCROLLBAR
-            var chartScrollbar = new AmCharts.ChartScrollbar();
-            ec_overview_chart.addChartScrollbar(chartScrollbar);
-
-            // WRITE
-            ec_overview_chart.write("ec_overview_chartdiv");
-
-        });
 
 
         // this method is called when chart is first inited as we listen for "dataUpdated" event
@@ -1330,7 +1329,7 @@
     <div id="content">
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-                <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-pagelines"></i> Pete</h1>
+                <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-pagelines"></i> Avi</h1>
             </div>
         </div>
         <!-- widget grid -->
@@ -1340,7 +1339,7 @@
                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
 
                    <!-- Widget ID (each widget will need unique ID)-->
-                   <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+                   <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                        <header>
                            <span class="widget-icon"> <i class="fa fa-wrench"></i> </span>
                            <h2>Set Up</h2>
@@ -1358,10 +1357,7 @@
                            <!-- end widget edit box -->
 
                            <!-- widget content -->
-                           <div class="widget-body">
-                               <p>
-                                   Pete: Piranah Plant
-                               </p>
+                           <div class="widget-body no-padding">
                                <hr class="simple">
                                <ul id="tab_list" class="nav nav-tabs bordered">
                                    <li class="active">
@@ -1377,9 +1373,263 @@
 
                                <div id="plant_info_tabContent" class="tab-content padding-10">
                                    <div class="tab-pane fade in active" id="devices_tab">
-                                       <p>
-                                           I have six <a title="test">this is a test</a> locks on my door all in a row. When I go out, I lock every other one. I figure no matter how long somebody stands there picking the locks, they are always locking three.
-                                       </p>
+                                       <button class="pull-right btn-primary btn" data-toggle="modal" data-target="#link_modal"><span class="fa fa-lg fa-link"></span> Device</button>
+                                       <h6>Mario: <em>Arduino</em></h6>
+                                       <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                       <div class="panel-group" role="tablist">
+                                           <div class="panel panel-default">
+                                               <div class="panel-heading" role="tab" id="collapseListGroupHeading_sensors_Mario">
+                                                   <h4 class="panel-title">
+                                                       <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_sensors_Mario" aria-expanded="false" aria-controls="collapseListGroup3">
+                                                           Sensors
+                                                       </a>
+                                                   </h4>
+                                               </div>
+                                               <div id="collapseListGroup_sensors_Mario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_sensors_Mario">
+                                                   <ul class="list-group">
+                                                       <li class="list-group-item">Lux <span class="badge bg-color-greenLight">Active</span></li>
+                                                       <li class="list-group-item">Water Temperature <span class="badge bg-color-orange txt-color-white">Not Active</span></li>
+                                                       <li class="list-group-item">Air Temperature <span class="badge bg-color-orange txt-color-white">Not Active</span></li>
+                                                       <li class="list-group-item">Humidity <span class="badge bg-color-greenLight txt-color-white">Active</span></li>
+                                                       <li class="list-group-item">pH <span class="badge bg-color-greenLight txt-color-white">Active</span></li>
+                                                       <li class="list-group-item">Electrical Conductivity <span class="badge bg-color-greenLight txt-color-white">Active</span></li>
+                                                       <li class="list-group-item">Total Dissolved Solids <span class="badge bg-color-greenLight txt-color-white">Active</span></li>
+                                                       <li class="list-group-item">Practical Salinity <span class="badge bg-color-greenLight txt-color-white">Active</span></li>
+                                                   </ul>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="panel-group" role="tablist">
+                                           <div class="panel panel-default">
+                                               <div class="panel-heading" role="tab" id="collapseListGroupHeading_actuators_Mario">
+                                                   <h4 class="panel-title">
+                                                       <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_actuators_Mario" aria-expanded="false" aria-controls="collapseListGroup_actuators_Mario">
+                                                           Actuators
+                                                       </a>
+                                                   </h4>
+                                               </div>
+                                               <div id="collapseListGroup_actuators_Mario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_actuators_Mario">
+                                                   <ul class="list-group">
+                                                       <li class="list-group-item">Light <span class="badge bg-color-greenDark txt-color-white">#1</span></li>
+                                                       <li class="list-group-item">Water Pump <span class="badge bg-color-greenDark txt-color-white">#1</span></li>
+                                                       <li class="list-group-item">Nutrient Pump <span class="badge bg-color-greenDark txt-color-white">#1</span></li>
+                                                       <li class="list-group-item">pH Upper <span class="badge bg-color-greenDark txt-color-white">#1</span></li>
+                                                       <li class="list-group-item">pH Downer <span class="badge bg-color-greenDark txt-color-white">#1</span></li>
+                                                   </ul>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <button id="Mario_edit_btn" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#device_modal"><span class="fa fa-lg fa-pencil"></span> Edit</button>
+                                       <div id="device_modal" class="modal fade" role="dialog">
+                                           <div class="modal-dialog">
+                                               <!-- Modal content-->
+                                               <div class="modal-content">
+                                                   <div class="modal-header">
+                                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                       <h4 class="modal-title">Choose Grow Sensors + Actuators</h4>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                       <form class="smart-form" id="Mario_form">
+                                                           <section id="Mario_setUp">
+                                                               <header>
+                                                                   Avi's Sensors &amp; Acuators
+                                                               </header>
+                                                               <fieldset>
+                                                                   <section>
+                                                                       <label class="label"><h4>Sensors</h4></label>
+                                                                       <div class="row">
+                                                                           <div class="col col-6">
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_Lux" id="Mario_lux_checkbox" checked="checked">
+                                                                                   <i></i>Lux
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_Water_Temp" id="Mario_waterTemp_checkbox" checked="checked">
+                                                                                   <i></i>Water Temperature
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_Air_Temp" id="Mario_airTemp_checkbox" checked="checked">
+                                                                                   <i></i>Air Temperature
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_Humidity" id="Mario_humidity_checkbox" checked="checked">
+                                                                                   <i></i>Humidity
+                                                                               </label>
+                                                                           </div>
+                                                                           <div class="col col-6">
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_pH" id="Mario_ph_checkbox" checked="checked">
+                                                                                   <i></i>pH
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_EC" id="Mario_ec_checkbox" checked="checked">
+                                                                                   <i></i>EC
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_TDS" id="Mario_tds_checkbox" checked="checked">
+                                                                                   <i></i>Total Dissolved Solids
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_PS" id="Mario_ps_checkbox" checked="checked">
+                                                                                   <i></i>Practical Salinity
+                                                                               </label>
+                                                                           </div>
+                                                                       </div>
+                                                                   </section>
+                                                               </fieldset>
+
+                                                               <fieldset>
+                                                                   <section>
+                                                                       <label class="label"><h4>Actuators</h4></label>
+                                                                       <section class="col-lg-6">
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Light_#1_checkbox" checked="checked">
+                                                                               <i></i>Light #1
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Light_#2_checkbox" checked="checked">
+                                                                               <i></i>Light #2
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Water_Pump_#1_checkbox" checked="checked">
+                                                                               <i></i>Water Pump #1
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Nutrient_Pump_#1_checkbox" checked="checked">
+                                                                               <i></i>Nutrient Pump #1
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Nutrient_Pump_#2_checkbox" checked="checked">
+                                                                               <i></i>Nutrient Pump #2
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Nutrient_Pump_#3_checkbox" checked="checked">
+                                                                               <i></i>Nutrient Pump #3
+                                                                           </label>
+                                                                       </section>
+                                                                       <section class="col-lg-6">
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="pH_Upper_#1_checkbox" checked="checked">
+                                                                               <i></i>pH Upper #1
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="pH_Upper_#2_checkbox" checked="checked">
+                                                                               <i></i>pH Upper #2
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="pH_Downer_#1_checkbox" checked="checked">
+                                                                               <i></i>pH Downer #1
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="pH_Downer_#2_checkbox" checked="checked">
+                                                                               <i></i>pH Downer #2
+                                                                           </label>
+                                                                       </section>
+                                                                   </section>
+                                                               </fieldset>
+                                                           </section>
+                                                           <div class="modal-footer">
+                                                               <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
+                                                               <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                                                           </div>
+                                                       </form>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div id="link_modal" class="modal fade" role="dialog">
+                                           <div class="modal-dialog">
+                                               <!-- Modal content-->
+                                               <div class="modal-content">
+                                                   <div class="modal-header">
+                                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                       <h4 class="modal-title">Link Device To Plant</h4>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                       <div class="row">
+                                                           <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="wid-id-Mario_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                                                               <header>
+                                                                   <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                                                                   <h2><strong>Mario:</strong> <i>Arduino</i></h2>
+                                                               </header>
+
+                                                               <!-- widget div-->
+                                                               <div>
+                                                                   <!-- widget content -->
+                                                                   <div class="widget-body">
+                                                                       <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                                                       <button id="Mario_link_btn" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                                                   </div>
+                                                                   <!-- end widget content -->
+
+                                                               </div>
+                                                               <!-- end widget div -->
+
+                                                           </div>
+                                                           <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="wid-id-Luigi_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                                                               <header>
+                                                                   <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                                                                   <h2><strong>Luigi:</strong> <i>Arduino</i></h2>
+                                                               </header>
+
+                                                               <!-- widget div-->
+                                                               <div>
+                                                                   <!-- widget content -->
+                                                                   <div class="widget-body">
+                                                                       <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                                                       <button id="Luigi_link_btn" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                                                   </div>
+                                                                   <!-- end widget content -->
+
+                                                               </div>
+                                                               <!-- end widget div -->
+
+                                                           </div>
+                                                       </div>
+                                                       <div class="row">
+                                                           <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="wid-id-Wario_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                                                               <header>
+                                                                   <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                                                                   <h2><strong>Wario:</strong> <i>Arduino</i></h2>
+                                                               </header>
+
+                                                               <!-- widget div-->
+                                                               <div>
+                                                                   <!-- widget content -->
+                                                                   <div class="widget-body">
+                                                                       <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                                                       <button id="Wario_link_btn" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                                                   </div>
+                                                                   <!-- end widget content -->
+
+                                                               </div>
+                                                               <!-- end widget div -->
+
+                                                           </div>
+                                                           <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="wid-id-Toad_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                                                               <header>
+                                                                   <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                                                                   <h2><strong>Toad:</strong> <i>Raspberry Pi</i></h2>
+                                                               </header>
+
+                                                               <!-- widget div-->
+                                                               <div>
+                                                                   <!-- widget content -->
+                                                                   <div class="widget-body">
+                                                                       <img src="img/raspberry_pi2.png">
+                                                                       <button id="Toad_link_btn" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                                                   </div>
+                                                                   <!-- end widget content -->
+
+                                                               </div>
+                                                               <!-- end widget div -->
+
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
                                    </div>
                                    <div class="tab-pane fade" id="controls_tab">
                                        <p>
@@ -1408,7 +1658,7 @@
                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
 
                     <!-- Widget ID (each widget will need unique ID)-->
-                    <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+                    <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-custombutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
                             <h2>Graphs</h2>
