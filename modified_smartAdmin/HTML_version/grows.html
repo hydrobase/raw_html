@@ -26,6 +26,7 @@
     <!-- We recommend you use "your_style.css" to override SmartAdmin
          specific styles this will also ensure you retrain your customization with each SmartAdmin update.-->
     <link rel="stylesheet" type="text/css" media="screen" href="css/custom_style.css">
+    <link rel="stylesheet" type="text/css" href="css/am_style.css">
 
     <!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp
     <link rel="stylesheet" type="text/css" media="screen" href="css/demo.min.css">-->
@@ -287,12 +288,6 @@
         fill_airTempData();
         fill_humidityData();
 
-        // this method is called when chart is first inited as we listen for "dataUpdated" event
-        function zoomChart() {
-            // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-            //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-        }
-
         //Create pH Graph
         AmCharts.ready(function () {
             // SERIAL CHART
@@ -304,6 +299,11 @@
 
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             ph_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                ph_chart.zoomToIndexes(0,30);
+            }
 
             // AXES
             // category
@@ -325,10 +325,12 @@
 
             // GRAPH
             var ph_graph = new AmCharts.AmGraph();
-            ph_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            ph_graph.type = "line"; // this line makes the graph smoothed line.
+            ph_graph.fillAlphas = 0.2;
             ph_graph.lineColor = "#FF9E3A";
             ph_graph.negativeBase = "6.5";
             ph_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            ph_graph.negativeFillAlphas = 0;
             ph_graph.bullet = "round";
             ph_graph.bulletSize = 8;
             ph_graph.bulletBorderColor = "#FFFFFF";
@@ -356,6 +358,165 @@
             ph_chart.write("pH_chartDiv");
         });
 
+        //Create EC_Overview Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var ec_overview_chart = new AmCharts.AmSerialChart();
+            //chart.addClassNames = true;
+            ec_overview_chart.dataProvider = ecChartData;
+            ec_overview_chart.categoryField = "date";
+            //chart.dataDateFormat = "YYYY-MM-DD";
+            //chart.startDuration = 1;
+            //chart.color = "#000";
+            ec_overview_chart.marginLeft = 0;
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            ec_overview_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                ec_overview_chart.zoomToIndexes(ecChartData.length - 8,ecChartData.length);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = ec_overview_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is daily, so we set minPeriod to DD
+            categoryAxis.autoGridCount = true;
+            //categoryAxis.gridCount = 50;
+            categoryAxis.gridAlpha = 0.1;
+            categoryAxis.gridColor = "#000";
+            categoryAxis.axisColor = "#000";
+
+            // as we have data of different units, we create three different value axes
+            // ec value axis
+            var ecAxis = new AmCharts.ValueAxis();
+            ecAxis.title = "EC Value";
+            ecAxis.gridAlpha = 0;
+            ecAxis.axisAlpha = 0;
+            ec_overview_chart.addValueAxis(ecAxis);
+
+            // tds value axis
+            var tdsAxis = new AmCharts.ValueAxis();
+            tdsAxis.gridAlpha = 0;
+            tdsAxis.axisAlpha = 0;
+            tdsAxis.offset = 0;
+            tdsAxis.position = "right";
+            ec_overview_chart.addValueAxis(tdsAxis);
+
+            // ps value axis
+            var psAxis = new AmCharts.ValueAxis();
+            // the following line makes this value axis to convert values to duration
+            // it tells the axis what duration unit it should use. mm - minute, hh - hour...
+            //psAxis.duration = "mm";
+            psAxis.gridAlpha = 0;
+            psAxis.axisAlpha = 0;
+            psAxis.title = "TDS & PS";
+            psAxis.offset = 30;
+            psAxis.position = "right";
+            ec_overview_chart.addValueAxis(psAxis);
+
+            // GRAPHS
+            // EC graph
+            var ecGraph = new AmCharts.AmGraph();
+            ecGraph.valueField = "ec_value";
+            ecGraph.title = "ec_value";
+            ecGraph.type = "line";
+            ecGraph.bullet = "round";
+            ecGraph.bulletSize = 10;
+            //ecGraph.fillAlphas = 0.1;
+            ecGraph.valueAxis = ecAxis; // indicate which axis should be used
+            ecGraph.balloonText = "EC: [[value]] &mu;S";
+            ecGraph.legendValueText = " ";
+            //ecGraph.legendPeriodValueText = "total: [[value.sum]] &mu;S";
+            ecGraph.lineColor = "#3D73B5";
+            ecGraph.alphaField = "alpha";
+            ec_overview_chart.addGraph(ecGraph);
+
+            // TDS graph
+            var tdsGraph = new AmCharts.AmGraph();
+            tdsGraph.valueField = "tds";
+            tdsGraph.id = "tds_overview_graph";
+            //tdsGraph.classNameField = "bulletClass";
+            tdsGraph.title = "Total Disolved Solids";
+            tdsGraph.type = "column";
+            tdsGraph.valueAxis = tdsAxis; // indicate which axis should be used
+            tdsGraph.lineColor = "#40BF9E";
+            tdsGraph.fillColors = "#40BF9E";
+            tdsGraph.fillAlphas = 0.7;
+            tdsGraph.columnWidth = 4;
+            //tdsGraph.lineThickness = 2;
+            tdsGraph.legendValueText = " ";
+            //tdsGraph.descriptionField = "townName";
+            //tdsGraph.bullet = "round";
+            //tdsGraph.bulletSize = 10; // indicate which field should be used for bullet size
+            //tdsGraph.bulletBorderColor = "#359E83";
+            //tdsGraph.bulletBorderAlpha = 1;
+            //tdsGraph.bulletBorderThickness = 2;
+            //tdsGraph.bulletColor = "#40BF9E";
+            //tdsGraph.labelText = "[[value]]"; // not all data points has townName2 specified, that's why labels are displayed only near some of the bullets.
+            tdsGraph.labelPosition = "right";
+            tdsGraph.balloonText = "TDS:[[value]]";
+            tdsGraph.showBalloon = true;
+            tdsGraph.animationPlayed = true;
+            ec_overview_chart.addGraph(tdsGraph);
+
+            // ps graph
+            var psGraph = new AmCharts.AmGraph();
+            psGraph.id = "ps_overview_graph";
+            psGraph.title = "Practical Salinity";
+            psGraph.valueField = "ps";
+            psGraph.type = "line";
+            psGraph.valueAxis = psAxis; // indicate which axis should be used
+            psGraph.negativeBase = "0.5";
+            psGraph.negativeLineColor = "#0FFF99";
+            psGraph.negativeFillColor = "#0FFF99";
+            psGraph.negativeFillAlphas = 0;
+            psGraph.lineColor = "#FF8048";
+            psGraph.fillColors = "#FF8048"
+            psGraph.fillAlphas = 0.7;
+            psGraph.balloonText = "PS: [[value]]";
+            psGraph.lineThickness = 1;
+            psGraph.legendValueText = "[[value]]";
+            psGraph.bullet = "square";
+            //psGraph.bulletBorderColor = "#ff5755";
+            psGraph.bulletBorderThickness = 1;
+            psGraph.bulletBorderAlpha = 1;
+            psGraph.dashLengthField = "dashLength";
+            psGraph.animationPlayed = true;
+            ec_overview_chart.addGraph(psGraph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.zoomable = true;
+            chartCursor.categoryBalloonDateFormat = undefined;
+            chartCursor.cursorAlpha = 0;
+            chartCursor.valueBalloonsEnabled = false;
+            chartCursor.valueLineBalloonEnabled = true;
+            chartCursor.valueLineEnabled = true;
+            chartCursor.valueLineAlpha = 0.5;
+            chartCursor.cursorColor = "#41A6A8";
+            ec_overview_chart.addChartCursor(chartCursor);
+
+            // LEGEND
+            var legend = new AmCharts.AmLegend();
+            legend.bulletType = "round";
+            legend.equalWidths = false;
+            legend.valueWidth = 120;
+            legend.useGraphSettings = true;
+            legend.color = "#000";
+            ec_overview_chart.addLegend(legend);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            ec_overview_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            ec_overview_chart.write("ec_overview_chartdiv");
+
+        });
+
         //Create EC Graph
         AmCharts.ready(function () {
             // SERIAL CHART
@@ -367,7 +528,11 @@
 
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             ec_chart.addListener("dataUpdated", zoomChart);
-
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                ec_chart.zoomToIndexes(0,30);
+            }
             // AXES
             // category
             var categoryAxis = ec_chart.categoryAxis;
@@ -430,6 +595,11 @@
 
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             tds_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                tds_chart.zoomToIndexes(0,30);
+            }
 
             // AXES
             // category
@@ -451,7 +621,7 @@
 
             // GRAPH
             var tds_graph = new AmCharts.AmGraph();
-            tds_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            tds_graph.type = "line"; // this line makes the graph smoothed line.
             tds_graph.lineColor = "#FF9E3A";
             tds_graph.negativeBase = "1000";
             tds_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
@@ -493,6 +663,11 @@
 
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             ps_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                ps_chart.zoomToIndexes(0,30);
+            }
 
             // AXES
             // category
@@ -514,7 +689,7 @@
 
             // GRAPH
             ps_graph = new AmCharts.AmGraph();
-            ps_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
+            ps_graph.type = "line"; // this line makes the graph smoothed line.
             ps_graph.lineColor = "#FF9E3A";
             ps_graph.negativeBase = "1000";
             ps_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
@@ -544,6 +719,282 @@
             // WRITE
             ps_chart.write("ps_chartDiv");
         });
+
+        //Create Lux Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var lux_chart = new AmCharts.AmSerialChart();
+
+            lux_chart.dataProvider = luxChartData;
+            lux_chart.marginLeft = 10;
+            lux_chart.categoryField = "date";
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            lux_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                lux_chart.zoomToIndexes(0,30);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = lux_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
+            categoryAxis.dashLength = 3;
+            categoryAxis.minorGridEnabled = true;
+            categoryAxis.minorGridAlpha = 0.1;
+            //categoryAxis.offset = 83;
+
+            // value
+            var valueAxis = new AmCharts.ValueAxis();
+            valueAxis.axisAlpha = 0;
+            valueAxis.inside = true;
+            valueAxis.dashLength = 3;
+            valueAxis.labelOffset = -30;
+            lux_chart.addValueAxis(valueAxis);
+
+            // GRAPH
+            lux_graph = new AmCharts.AmGraph();
+            lux_graph.type = "line"; // this line makes the graph smoothed line.
+            lux_graph.lineColor = "#FF9E3A";
+            lux_graph.negativeBase = "50";
+            lux_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            lux_graph.bullet = "round";
+            lux_graph.bulletSize = 8;
+            lux_graph.bulletBorderColor = "#FFFFFF";
+            lux_graph.bulletBorderAlpha = 1;
+            lux_graph.bulletBorderThickness = 2;
+            lux_graph.lineThickness = 2;
+            lux_graph.valueField = "value";
+            lux_graph.selectedBackgroundColor = "#FFF";
+            lux_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            lux_chart.addGraph(lux_graph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.cursorAlpha = 0;
+            chartCursor.cursorPosition = "mouse";
+            chartCursor.categoryBalloonDateFormat = "DD MMM YYYY, @HH:NN";
+            chartCursor.cursorColor = "#47DBB7";
+            lux_chart.addChartCursor(chartCursor);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            lux_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            lux_chart.write("lux_chartDiv");
+        });
+
+        //Create AirTemp Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var airTemp_chart = new AmCharts.AmSerialChart();
+
+            airTemp_chart.dataProvider = airTempData;
+            airTemp_chart.marginLeft = 10;
+            airTemp_chart.categoryField = "date";
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            airTemp_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                airTemp_chart.zoomToIndexes(0,30);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = airTemp_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
+            categoryAxis.dashLength = 3;
+            categoryAxis.minorGridEnabled = true;
+            categoryAxis.minorGridAlpha = 0.1;
+            //categoryAxis.offset = 83;
+
+            // value
+            var valueAxis = new AmCharts.ValueAxis();
+            valueAxis.axisAlpha = 0;
+            valueAxis.inside = true;
+            valueAxis.dashLength = 3;
+            valueAxis.labelOffset = -30;
+            airTemp_chart.addValueAxis(valueAxis);
+
+            // GRAPH
+            airTemp_graph = new AmCharts.AmGraph();
+            airTemp_graph.type = "line"; // this line makes the graph smoothed line.
+            airTemp_graph.lineColor = "#FF9E3A";
+            airTemp_graph.negativeBase = "50";
+            airTemp_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            airTemp_graph.bullet = "round";
+            airTemp_graph.bulletSize = 8;
+            airTemp_graph.bulletBorderColor = "#FFFFFF";
+            airTemp_graph.bulletBorderAlpha = 1;
+            airTemp_graph.bulletBorderThickness = 2;
+            airTemp_graph.lineThickness = 2;
+            airTemp_graph.valueField = "value";
+            airTemp_graph.selectedBackgroundColor = "#FFF";
+            airTemp_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            airTemp_chart.addGraph(airTemp_graph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.cursorAlpha = 0;
+            chartCursor.cursorPosition = "mouse";
+            chartCursor.categoryBalloonDateFormat = "DD MMM YYYY, @HH:NN";
+            chartCursor.cursorColor = "#47DBB7";
+            airTemp_chart.addChartCursor(chartCursor);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            airTemp_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            airTemp_chart.write("airTemp_chartDiv");
+        });
+
+        //Create WaterTemp Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var waterTemp_chart = new AmCharts.AmSerialChart();
+
+            waterTemp_chart.dataProvider = waterTempData;
+            waterTemp_chart.marginLeft = 10;
+            waterTemp_chart.categoryField = "date";
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            waterTemp_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                waterTemp_chart.zoomToIndexes(0,30);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = waterTemp_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
+            categoryAxis.dashLength = 3;
+            categoryAxis.minorGridEnabled = true;
+            categoryAxis.minorGridAlpha = 0.1;
+            //categoryAxis.offset = 83;
+
+            // value
+            var valueAxis = new AmCharts.ValueAxis();
+            valueAxis.axisAlpha = 0;
+            valueAxis.inside = true;
+            valueAxis.dashLength = 3;
+            valueAxis.labelOffset = -30;
+            waterTemp_chart.addValueAxis(valueAxis);
+
+            // GRAPH
+            waterTemp_graph = new AmCharts.AmGraph();
+            waterTemp_graph.type = "line"; // this line makes the graph smoothed line.
+            waterTemp_graph.lineColor = "#FF9E3A";
+            waterTemp_graph.negativeBase = "50";
+            waterTemp_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            waterTemp_graph.bullet = "round";
+            waterTemp_graph.bulletSize = 8;
+            waterTemp_graph.bulletBorderColor = "#FFFFFF";
+            waterTemp_graph.bulletBorderAlpha = 1;
+            waterTemp_graph.bulletBorderThickness = 2;
+            waterTemp_graph.lineThickness = 2;
+            waterTemp_graph.valueField = "value";
+            waterTemp_graph.selectedBackgroundColor = "#FFF";
+            waterTemp_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            waterTemp_chart.addGraph(waterTemp_graph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.cursorAlpha = 0;
+            chartCursor.cursorPosition = "mouse";
+            chartCursor.categoryBalloonDateFormat = "DD MMM YYYY, @HH:NN";
+            chartCursor.cursorColor = "#47DBB7";
+            waterTemp_chart.addChartCursor(chartCursor);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            waterTemp_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            waterTemp_chart.write("waterTemp_chartDiv");
+        });
+
+        //Create Humidity Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var humidity_chart = new AmCharts.AmSerialChart();
+
+            humidity_chart.dataProvider = humidityData;
+            humidity_chart.marginLeft = 10;
+            humidity_chart.categoryField = "date";
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            humidity_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                humidity_chart.zoomToIndexes(humidityData.length - 12,humidityData.length);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = humidity_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
+            categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
+            categoryAxis.dashLength = 3;
+            categoryAxis.minorGridEnabled = true;
+            categoryAxis.minorGridAlpha = 0.1;
+            //categoryAxis.offset = 83;
+
+            // value
+            var valueAxis = new AmCharts.ValueAxis();
+            valueAxis.axisAlpha = 0;
+            valueAxis.inside = true;
+            valueAxis.dashLength = 3;
+            valueAxis.labelOffset = -30;
+            humidity_chart.addValueAxis(valueAxis);
+
+            // GRAPH
+            humidity_graph = new AmCharts.AmGraph();
+            humidity_graph.type = "line"; // this line makes the graph smoothed line.
+            humidity_graph.lineColor = "#FF9E3A";
+            humidity_graph.negativeBase = "50";
+            humidity_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            humidity_graph.bullet = "round";
+            humidity_graph.bulletSize = 8;
+            humidity_graph.bulletBorderColor = "#FFFFFF";
+            humidity_graph.bulletBorderAlpha = 1;
+            humidity_graph.bulletBorderThickness = 2;
+            humidity_graph.lineThickness = 2;
+            humidity_graph.valueField = "value";
+            humidity_graph.selectedBackgroundColor = "#FFF";
+            humidity_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            humidity_chart.addGraph(humidity_graph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.cursorAlpha = 0;
+            chartCursor.cursorPosition = "mouse";
+            chartCursor.categoryBalloonDateFormat = "DD MMM YYYY, @HH:NN";
+            chartCursor.cursorColor = "#47DBB7";
+            humidity_chart.addChartCursor(chartCursor);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            humidity_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            humidity_chart.write("humidity_chartDiv");
+        });
+
+
+
+        // this method is called when chart is first inited as we listen for "dataUpdated" event
 
     </script>
 </head>
@@ -671,7 +1122,7 @@
 				<span> <!-- User image size is adjusted inside CSS, it should stay as it -->
 
 					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-                        <img src="https://lh5.googleusercontent.com/-EBEhQJH7Mf4/AAAAAAAAAAI/AAAAAAAAAAA/rLS_4zv52UA/s128-c-k/photo.jpg" alt="me" class="online" />
+                        <img src="https://avatars3.githubusercontent.com/u/7218875?v=3&s=460" alt="me" class="online" />
 						<span>
 							Juan Shishido
 						</span>
@@ -878,171 +1329,444 @@
     <div id="content">
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-                <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-pagelines"></i> Pete</h1>
+                <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-pagelines"></i> Avi</h1>
             </div>
         </div>
         <!-- widget grid -->
-        <section id="current_plant_data" class="col col-lg-6">
-            <!-- start row -->
-            <div class="row">
-                <div class="jarviswidget well" id="current_plant_graphs" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-                    <!-- widget div-->
-                    <div>
+       <section id="widget-grid">
+           <div class="row">
+               <!-- NEW WIDGET START -->
+               <article class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
 
-                        <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                            <!-- This area used as dropdown edit box -->
+                   <!-- Widget ID (each widget will need unique ID)-->
+                   <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                       <header>
+                           <span class="widget-icon"> <i class="fa fa-wrench"></i> </span>
+                           <h2>Set Up</h2>
 
-                        </div>
-                        <!-- end widget edit box -->
+                       </header>
 
-                        <!-- widget content -->
-                        <div class="widget-body">
+                       <!-- widget div-->
+                       <div>
 
-                            <p>
-                                Pete: Piranah Plant
-                            </p>
-                            <hr class="simple">
-                            <ul id="tab_list" class="nav nav-tabs bordered">
-                                <li class="active">
-                                    <a href="#devices_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-cogs"></i> Device</a>
-                                </li>
-                                <li>
-                                    <a href="#controls_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i> Controls</a>
-                                </li>
-                                <li>
-                                    <a href="#photos_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-camera"></i> Photos</a>
-                                </li>
-                            </ul>
+                           <!-- widget edit box -->
+                           <div class="jarviswidget-editbox">
+                               <!-- This area used as dropdown edit box -->
 
-                            <div id="plant_info_tabContent" class="tab-content padding-10">
-                                <div class="tab-pane fade in active" id="devices_tab">
-                                    <p>
-                                        I have six <a title="test">this is a test</a> locks on my door all in a row. When I go out, I lock every other one. I figure no matter how long somebody stands there picking the locks, they are always locking three.
-                                    </p>
-                                </div>
-                                <div class="tab-pane fade" id="controls_tab">
-                                    <p>
-                                        Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
-                                    </p>
-                                </div>
-                                <div class="tab-pane fade" id="photos_tab">
-                                    <p>
-                                        Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
-                                    </p>
-                                </div>
+                           </div>
+                           <!-- end widget edit box -->
+
+                           <!-- widget content -->
+                           <div class="widget-body no-padding">
+                               <hr class="simple">
+                               <ul id="tab_list" class="nav nav-tabs bordered">
+                                   <li class="active">
+                                       <a href="#devices_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-cogs"></i> Device</a>
+                                   </li>
+                                   <li>
+                                       <a href="#controls_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i> Controls</a>
+                                   </li>
+                                   <li>
+                                       <a href="#photos_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-camera"></i> Photos</a>
+                                   </li>
+                               </ul>
+
+                               <div id="plant_info_tabContent" class="tab-content padding-10">
+                                   <div class="tab-pane fade in active" id="devices_tab">
+                                       <button class="pull-right btn-primary btn" data-toggle="modal" data-target="#link_modal"><span class="fa fa-lg fa-link"></span> Device</button>
+                                       <h6>Mario: <em>Arduino</em></h6>
+                                       <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                       <div class="panel-group" role="tablist">
+                                           <div class="panel panel-default">
+                                               <div class="panel-heading" role="tab" id="collapseListGroupHeading_sensors_Mario">
+                                                   <h4 class="panel-title">
+                                                       <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_sensors_Mario" aria-expanded="false" aria-controls="collapseListGroup3">
+                                                           Sensors
+                                                       </a>
+                                                   </h4>
+                                               </div>
+                                               <div id="collapseListGroup_sensors_Mario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_sensors_Mario">
+                                                   <ul class="list-group">
+                                                       <li class="list-group-item">Lux <span class="badge bg-color-greenLight">Active</span></li>
+                                                       <li class="list-group-item">Water Temperature <span class="badge bg-color-orange txt-color-white">Not Active</span></li>
+                                                       <li class="list-group-item">Air Temperature <span class="badge bg-color-orange txt-color-white">Not Active</span></li>
+                                                       <li class="list-group-item">Humidity <span class="badge bg-color-greenLight txt-color-white">Active</span></li>
+                                                       <li class="list-group-item">pH <span class="badge bg-color-greenLight txt-color-white">Active</span></li>
+                                                       <li class="list-group-item">Electrical Conductivity <span class="badge bg-color-greenLight txt-color-white">Active</span></li>
+                                                       <li class="list-group-item">Total Dissolved Solids <span class="badge bg-color-greenLight txt-color-white">Active</span></li>
+                                                       <li class="list-group-item">Practical Salinity <span class="badge bg-color-greenLight txt-color-white">Active</span></li>
+                                                   </ul>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="panel-group" role="tablist">
+                                           <div class="panel panel-default">
+                                               <div class="panel-heading" role="tab" id="collapseListGroupHeading_actuators_Mario">
+                                                   <h4 class="panel-title">
+                                                       <a class="collapsed" role="button" data-toggle="collapse" href="#collapseListGroup_actuators_Mario" aria-expanded="false" aria-controls="collapseListGroup_actuators_Mario">
+                                                           Actuators
+                                                       </a>
+                                                   </h4>
+                                               </div>
+                                               <div id="collapseListGroup_actuators_Mario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading_actuators_Mario">
+                                                   <ul class="list-group">
+                                                       <li class="list-group-item">Light <span class="badge bg-color-greenDark txt-color-white">#1</span></li>
+                                                       <li class="list-group-item">Water Pump <span class="badge bg-color-greenDark txt-color-white">#1</span></li>
+                                                       <li class="list-group-item">Nutrient Pump <span class="badge bg-color-greenDark txt-color-white">#1</span></li>
+                                                       <li class="list-group-item">pH Upper <span class="badge bg-color-greenDark txt-color-white">#1</span></li>
+                                                       <li class="list-group-item">pH Downer <span class="badge bg-color-greenDark txt-color-white">#1</span></li>
+                                                   </ul>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <button id="Mario_edit_btn" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#device_modal"><span class="fa fa-lg fa-pencil"></span> Edit</button>
+                                       <div id="device_modal" class="modal fade" role="dialog">
+                                           <div class="modal-dialog">
+                                               <!-- Modal content-->
+                                               <div class="modal-content">
+                                                   <div class="modal-header">
+                                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                       <h4 class="modal-title">Choose Grow Sensors + Actuators</h4>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                       <form class="smart-form" id="Mario_form">
+                                                           <section id="Mario_setUp">
+                                                               <header>
+                                                                   Avi's Sensors &amp; Acuators
+                                                               </header>
+                                                               <fieldset>
+                                                                   <section>
+                                                                       <label class="label"><h4>Sensors</h4></label>
+                                                                       <div class="row">
+                                                                           <div class="col col-6">
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_Lux" id="Mario_lux_checkbox" checked="checked">
+                                                                                   <i></i>Lux
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_Water_Temp" id="Mario_waterTemp_checkbox" checked="checked">
+                                                                                   <i></i>Water Temperature
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_Air_Temp" id="Mario_airTemp_checkbox" checked="checked">
+                                                                                   <i></i>Air Temperature
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_Humidity" id="Mario_humidity_checkbox" checked="checked">
+                                                                                   <i></i>Humidity
+                                                                               </label>
+                                                                           </div>
+                                                                           <div class="col col-6">
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_pH" id="Mario_ph_checkbox" checked="checked">
+                                                                                   <i></i>pH
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_EC" id="Mario_ec_checkbox" checked="checked">
+                                                                                   <i></i>EC
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_TDS" id="Mario_tds_checkbox" checked="checked">
+                                                                                   <i></i>Total Dissolved Solids
+                                                                               </label>
+                                                                               <label class="checkbox">
+                                                                                   <input type="checkbox" name="Mario_PS" id="Mario_ps_checkbox" checked="checked">
+                                                                                   <i></i>Practical Salinity
+                                                                               </label>
+                                                                           </div>
+                                                                       </div>
+                                                                   </section>
+                                                               </fieldset>
+
+                                                               <fieldset>
+                                                                   <section>
+                                                                       <label class="label"><h4>Actuators</h4></label>
+                                                                       <section class="col-lg-6">
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Light_#1_checkbox" checked="checked">
+                                                                               <i></i>Light #1
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Light_#2_checkbox" checked="checked">
+                                                                               <i></i>Light #2
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Water_Pump_#1_checkbox" checked="checked">
+                                                                               <i></i>Water Pump #1
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Nutrient_Pump_#1_checkbox" checked="checked">
+                                                                               <i></i>Nutrient Pump #1
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Nutrient_Pump_#2_checkbox" checked="checked">
+                                                                               <i></i>Nutrient Pump #2
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="Nutrient_Pump_#3_checkbox" checked="checked">
+                                                                               <i></i>Nutrient Pump #3
+                                                                           </label>
+                                                                       </section>
+                                                                       <section class="col-lg-6">
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="pH_Upper_#1_checkbox" checked="checked">
+                                                                               <i></i>pH Upper #1
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="pH_Upper_#2_checkbox" checked="checked">
+                                                                               <i></i>pH Upper #2
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="pH_Downer_#1_checkbox" checked="checked">
+                                                                               <i></i>pH Downer #1
+                                                                           </label>
+                                                                           <label class="checkbox">
+                                                                               <input type="checkbox" name="Mario_PS" id="pH_Downer_#2_checkbox" checked="checked">
+                                                                               <i></i>pH Downer #2
+                                                                           </label>
+                                                                       </section>
+                                                                   </section>
+                                                               </fieldset>
+                                                           </section>
+                                                           <div class="modal-footer">
+                                                               <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
+                                                               <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                                                           </div>
+                                                       </form>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div id="link_modal" class="modal fade" role="dialog">
+                                           <div class="modal-dialog">
+                                               <!-- Modal content-->
+                                               <div class="modal-content">
+                                                   <div class="modal-header">
+                                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                       <h4 class="modal-title">Link Device To Plant</h4>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                       <div class="row">
+                                                           <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="wid-id-Mario_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                                                               <header>
+                                                                   <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                                                                   <h2><strong>Mario:</strong> <i>Arduino</i></h2>
+                                                               </header>
+
+                                                               <!-- widget div-->
+                                                               <div>
+                                                                   <!-- widget content -->
+                                                                   <div class="widget-body">
+                                                                       <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                                                       <button id="Mario_link_btn" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                                                   </div>
+                                                                   <!-- end widget content -->
+
+                                                               </div>
+                                                               <!-- end widget div -->
+
+                                                           </div>
+                                                           <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="wid-id-Luigi_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                                                               <header>
+                                                                   <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                                                                   <h2><strong>Luigi:</strong> <i>Arduino</i></h2>
+                                                               </header>
+
+                                                               <!-- widget div-->
+                                                               <div>
+                                                                   <!-- widget content -->
+                                                                   <div class="widget-body">
+                                                                       <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                                                       <button id="Luigi_link_btn" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                                                   </div>
+                                                                   <!-- end widget content -->
+
+                                                               </div>
+                                                               <!-- end widget div -->
+
+                                                           </div>
+                                                       </div>
+                                                       <div class="row">
+                                                           <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="wid-id-Wario_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                                                               <header>
+                                                                   <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                                                                   <h2><strong>Wario:</strong> <i>Arduino</i></h2>
+                                                               </header>
+
+                                                               <!-- widget div-->
+                                                               <div>
+                                                                   <!-- widget content -->
+                                                                   <div class="widget-body">
+                                                                       <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                                                       <button id="Wario_link_btn" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                                                   </div>
+                                                                   <!-- end widget content -->
+
+                                                               </div>
+                                                               <!-- end widget div -->
+
+                                                           </div>
+                                                           <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="wid-id-Toad_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                                                               <header>
+                                                                   <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                                                                   <h2><strong>Toad:</strong> <i>Raspberry Pi</i></h2>
+                                                               </header>
+
+                                                               <!-- widget div-->
+                                                               <div>
+                                                                   <!-- widget content -->
+                                                                   <div class="widget-body">
+                                                                       <img src="img/raspberry_pi2.png">
+                                                                       <button id="Toad_link_btn" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                                                   </div>
+                                                                   <!-- end widget content -->
+
+                                                               </div>
+                                                               <!-- end widget div -->
+
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="tab-pane fade" id="controls_tab">
+                                       <p>
+                                           Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
+                                       </p>
+                                   </div>
+                                   <div class="tab-pane fade" id="photos_tab">
+                                       <p>
+                                           Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
+                                       </p>
+                                   </div>
+                               </div>
+
+                           </div>
+                           <!-- end widget content -->
+
+                       </div>
+                       <!-- end widget div -->
+
+                   </div>
+                   <!-- end widget -->
+
+               </article>
+               <!-- WIDGET END -->
+               <!-- NEW WIDGET START -->
+               <article class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+
+                    <!-- Widget ID (each widget will need unique ID)-->
+                    <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-custombutton="false" data-widget-sortable="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                            <h2>Graphs</h2>
+
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+
+                            <!-- widget edit box -->
+                            <div class="jarviswidget-editbox">
+                                <!-- This area used as dropdown edit box -->
+
                             </div>
+                            <!-- end widget edit box -->
+
+                            <!-- widget content -->
+                            <div class="widget-body no-padding">
+                                <hr class="simple">
+                                <ul id="plant_tab_list" class="nav nav-tabs bordered">
+                                    <li class="active">
+                                        <a href="#pH_chart_tab" data-toggle="tab"><span class="typcn_lrg typcn-beaker"></span> pH</a>
+                                    </li>
+                                    <li class="dropdown" title="test">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="typcn_lrg typcn-flash"></span> EC <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#ec_overview_chart_tab" data-toggle="tab">Overview</a>
+                                            </li>
+                                            <li>
+                                                <a href="#ec_chart_tab" data-toggle="tab">EC</a>
+                                            </li>
+                                            <li>
+                                                <a href="#tds_chart_tab" data-toggle="tab">TDS</a>
+                                            </li>
+                                            <li>
+                                                <a href="#ps_chart_tab" data-toggle="tab">PS</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#lux_chart_tab" data-toggle="tab"><i class="typcn_lrg typcn-weather-sunny"></i>Lux</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"> <span class="typcn_lrg typcn-thermometer"></span> Temp <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#temp_overview_chart_tab" data-toggle="tab">Overview</a>
+                                            </li>
+                                            <li>
+                                                <a href="#airTemp_chart_tab" data-toggle="tab">Air Temp</a>
+                                            </li>
+                                            <li>
+                                                <a href="#waterTemp_chart_tab" data-toggle="tab">Water Temp</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#humidity_chart_tab" data-toggle="tab"><i class="typcn_lrg typcn-waves-outline"></i>Humidity</a>
+                                    </li>
+                                </ul>
+
+                                <div id="plant_data_content" class="tab-content padding-10">
+                                    <div class="tab-pane fade in active" id="pH_chart_tab">
+                                        <div id="pH_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ec_overview_chart_tab">
+                                        <div id="ec_overview_chartdiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ec_chart_tab">
+                                        <div id="ec_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="tds_chart_tab">
+                                        <div id="tds_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ps_chart_tab">
+                                        <div id="ps_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="lux_chart_tab">
+                                        <div id="lux_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="temp_overview_chart_tab">
+                                        <div id="temp_overview_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="airTemp_chart_tab">
+                                        <div id="airTemp_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="waterTemp_chart_tab">
+                                        <div id="waterTemp_chartDiv" style="width:100%"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="humidity_chart_tab">
+                                        <div id="humidity_chartDiv" style="width:100%"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- end widget content -->
 
                         </div>
-                        <!-- end widget content -->
+                        <!-- end widget div -->
 
                     </div>
-                    <!-- end widget div -->
+                    <!-- end widget -->
 
-                </div>
+                </article>
+               <!-- WIDGET END -->
             </div>
-            <!-- end row -->
-        </section>
-        <section id="current_plant" class="col col-lg-6">
-            <!-- start row -->
-            <div class="row">
-                <div class="jarviswidget well" id="wid-id-3" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-custombutton="false" data-widget-sortable="false">
-
-                    <!-- widget div-->
-                    <div>
-                        <!-- widget content -->
-                        <div class="widget-body">
-
-                            <p>
-                                Graphs
-                            </p>
-                            <hr class="simple">
-                            <ul id="plant_tab_list" class="nav nav-tabs bordered">
-                                <li class="active">
-                                    <a href="#pH_chart_tab" data-toggle="tab"><span class="typcn_lrg typcn-beaker"></span> pH</a>
-                                </li>
-                                <li class="dropdown" title="test">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="typcn_lrg typcn-flash"></span> EC <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#ec_overview_chart_tab" data-toggle="tab">Overview</a>
-                                        </li>
-                                        <li>
-                                            <a href="#ec_chart_tab" data-toggle="tab">EC</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tds_chart_tab" data-toggle="tab">TDS</a>
-                                        </li>
-                                        <li>
-                                            <a href="#ps_chart_tab" data-toggle="tab">PS</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#lux_chart_tab" data-toggle="tab"><i class="typcn_lrg typcn-weather-sunny"></i>Lux</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"> <span class="typcn_lrg typcn-thermometer"></span> Temp <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#temp_overview_chart_tab" data-toggle="tab">Overview</a>
-                                        </li>
-                                        <li>
-                                            <a href="#airTemp_chart_tab" data-toggle="tab">Air Temp</a>
-                                        </li>
-                                        <li>
-                                            <a href="#waterTemp_chart_tab" data-toggle="tab">Water Temp</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#humidity_chart_tab" data-toggle="tab"><i class="typcn_lrg typcn-waves-outline"></i>Humidity</a>
-                                </li>
-                            </ul>
-
-                            <div id="plant_data_content" class="tab-content padding-10">
-                                <div class="tab-pane fade in active" id="pH_chart_tab">
-                                    <div id="pH_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="ec_overview_chart_tab">
-                                    <div id="ec_overview_chartdiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="ec_chart_tab">
-                                    <div id="ec_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="tds_chart_tab">
-                                    <div id="tds_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="ps_chart_tab">
-                                    <div id="ps_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="lux_chart_tab">
-                                    <div id="lux_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="temp_overview_chart_tab">
-                                    <div id="temp_overview_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="airTemp_chart_tab">
-                                    <div id="airTemp_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="waterTemp_chart_tab">
-                                    <div id="waterTemp_chartDiv" style="width:100%"></div>
-                                </div>
-                                <div class="tab-pane fade" id="humidity_chart_tab">
-                                    <div id="humidity_chartDiv" style="width:100%"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- end widget content -->
-
-                    </div>
-                    <!-- end widget div -->
-
-                </div>
-            </div>
-            <!-- end row -->
-        </section>
+       </section>
         <!-- end widget grid -->
     </div>
     <!-- END MAIN CONTENT -->
@@ -2093,6 +2817,7 @@ you can add as many as you like
         /*Graphing*/
         /*Graph Sizing*/
         var page_height = $(window).height();
+        var graph_state = 0;
         $('#pH_chartDiv').css("height", page_height/1.8+"px");
         $('#ec_overview_chartdiv').css("height", page_height/1.8+"px");
         $('#ec_chartDiv').css("height", page_height/1.8+"px");
@@ -2103,6 +2828,36 @@ you can add as many as you like
         $('#airTemp_chartDiv').css("height", page_height/1.8+"px");
         $('#waterTemp_chartDiv').css("height", page_height/1.8+"px");
         $('#humidity_chartDiv').css("height", page_height/1.8+"px");
+
+        $('a[class="button-icon jarviswidget-fullscreen-btn"]').click(function () {
+            if (graph_state == 0){
+                $('#pH_chartDiv').css("height", (page_height - 128) + "px");
+                $('#ec_overview_chartdiv').css("height", (page_height - 128) + "px");
+                $('#ec_chartDiv').css("height", (page_height - 128) + "px");
+                $('#tds_chartDiv').css("height", page_height + "px");
+                $('#ps_chartDiv').css("height", page_height + "px");
+                $('#lux_chartDiv').css("height", page_height + "px");
+                $('#temp_overview_chartDiv').css("height", page_height + "px");
+                $('#airTemp_chartDiv').css("height", page_height + "px");
+                $('#waterTemp_chartDiv').css("height", page_height + "px");
+                $('#humidity_chartDiv').css("height", page_height + "px");
+                $('.amChartsLegend').css("display", "block");
+                graph_state = 1;
+            } else if (graph_state == 1) {
+                $('#pH_chartDiv').css("height", page_height/1.8+"px");
+                $('#ec_overview_chartdiv').css("height", page_height/1.8+"px");
+                $('#ec_chartDiv').css("height", page_height/1.8+"px");
+                $('#tds_chartDiv').css("height", page_height/1.8+"px");
+                $('#ps_chartDiv').css("height", page_height/1.8+"px");
+                $('#lux_chartDiv').css("height", page_height/1.8+"px");
+                $('#temp_overview_chartDiv').css("height", page_height/1.8+"px");
+                $('#airTemp_chartDiv').css("height", page_height/1.8+"px");
+                $('#waterTemp_chartDiv').css("height", page_height/1.8+"px");
+                $('#humidity_chartDiv').css("height", page_height/1.8+"px");
+                $('.amChartsLegend').css("display", "none");
+                graph_state = 0;
+            }
+        });
     });
 
 </script>
