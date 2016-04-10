@@ -51,7 +51,7 @@ Background Mods
 =============*/
 .bg-color-greenLight {
     background-color:#3DFFF2 !important;
-    color: #737373 !important;
+    color: #666666 !important;
 }
 
 .bg-color-greenDark {
@@ -60,7 +60,20 @@ Background Mods
 }
 
 .bg-color-orange {
-    background-color: #FF8048 !important;
+    background-color: #FF9E3A !important;
+}
+
+.bg-color-pH-upper {
+    background-color: #FF6C85 !important;
+}
+
+.bg-color-pH-downer {
+    background-color: #87ACFF !important;
+}
+
+.bg-color-time {
+    background-color: #607d8b;
+    color: #FFF;
 }
 
 /*=================
@@ -852,4 +865,38 @@ Linking Devices Mods
 
 .device_link_tile {
     padding: 0 5px !important;
+}
+
+/*============
+Grow Page Mods
+============*/
+
+#controls_tab img{
+    max-width: 35%;
+}
+
+.grow_add_button_div {
+    height: 40px;
+    padding-right: 20px;
+}
+
+.select {
+    margin-bottom: 10px !important;
+}
+
+/*#actuator_controls label {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}*/
+
+.actuator_select {
+    padding: 0 15px !important;
+}
+
+.actuator_select i {
+    right: 25px !important;
+}
+
+.smart-form #actuator_controls .select i {
+
 }

@@ -1632,10 +1632,127 @@
                                        </div>
                                    </div>
                                    <div class="tab-pane fade" id="controls_tab">
-                                       <p>
-                                           Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
-                                       </p>
+                                       <h6>Avi: <em>Avocado</em></h6>
+                                       <img class="plant_img" src="img/avocado_icon.png">
+                                       <div class="panel-group" role="tablist">
+                                           <div class="panel panel-default">
+                                               <div class="panel-heading" role="tab" id="collapseListGroupHeading_time_controls">
+                                                   <h4 class="panel-title">
+                                                       <a role="button" data-toggle="collapse" href="#collapseListGroup_time_controls" aria-expanded="true" >
+                                                           Time Based Actions
+                                                       </a>
+                                                   </h4>
+                                               </div>
+                                               <div id="collapseListGroup_time_controls" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="collapseListGroupHeading_time_controls">
+                                                   <ul class="list-group">
+                                                       <li class="list-group-item"><strong>Lights:</strong> <span class="pull-right">Toggle Lights <span class="badge bg-color-time">Every <span class="badge bg-color-orange">12 Hours</span></span></span></li>
+                                                       <li class="list-group-item"><strong>Water</strong><span class="pull-right">Toggle Water Pump <span class="badge bg-color-time">Every <span class="badge bg-color-red">15 Minutes</span></span></span></li>
+                                                   </ul>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="panel-group" role="tablist">
+                                           <div class="panel panel-default">
+                                               <div class="panel-heading" role="tab" id="collapseListGroupHeading_condition_controls">
+                                                   <h4 class="panel-title">
+                                                       <a role="button" data-toggle="collapse" href="#collapseListGroup_condition_controls" aria-expanded="false" aria-controls="collapseListGroup_condition_controls">
+                                                           Condition Based Actions
+                                                       </a>
+                                                   </h4>
+                                               </div>
+                                               <div id="collapseListGroup_condition_controls" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="collapseListGroupHeading_condition_controls">
+                                                   <ul class="list-group">
+                                                       <li class="list-group-item"><strong>Nutrient Pump On If:</strong> <span class="badge bg-color-greenDark txt-color-white">TDS < 100</span></li>
+                                                       <li class="list-group-item"><strong>Nutrient Pump Off If:</strong> <span class="badge bg-color-greenDark txt-color-white">TDS > 100</span></li>
+                                                       <li class="list-group-item"><strong>pH Upper On If: </strong><span class="badge bg-color-pH-upper txt-color-white">pH < 5.5</span></li>
+                                                       <li class="list-group-item"><strong>pH Upper Off If: </strong><span class="badge bg-color-pH-upper txt-color-white">pH > 5.5</span></li>
+                                                       <li class="list-group-item"><strong>pH Downer On If: </strong><span class="badge bg-color-pH-downer txt-color-white">pH > 7</span></li>
+                                                       <li class="list-group-item"><strong>pH Downer Off If: </strong><span class="badge bg-color-pH-downer txt-color-white">pH < 7</span></li>
+                                                   </ul>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <button id="controls_edit_btn" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#controls_modal"><span class="fa fa-lg fa-pencil"></span> Edit</button>
+                                       <div id="controls_modal" class="modal fade" role="dialog">
+                                           <div class="modal-dialog">
+                                               <!-- Modal content-->
+                                               <div class="modal-content">
+                                                   <div class="modal-header">
+                                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                       <h4 class="modal-title">Set Grow Controls</h4>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                    <form id="grow_controls" class="smart-form">
+                                                        <fieldset>
+                                                            <section id="actuator_controls">
+                                                                <label class="label"><strong>What To Do:</strong></label>
+                                                                <label for="actuator_control_1_actuator" class="label" >Time Based Activity 1: </label>
+                                                                <label for="actuator_control_1_actuator" class="label">Actuator:</label>
+                                                                <label id="actuator_control_1_actuator" class="select actuator_select">
+                                                                    <select name="actuator_control_1_actuator">
+                                                                        <option value="no_actuator_chosen">Choose an Actuator</option>
+                                                                        <option value="Light_1">Light #1</option>
+                                                                        <option value="Light_2">Light #2</option>
+                                                                        <option value="Water_Pump_1">Water Pump #1</option>
+                                                                        <option value="Nutrient_Pump_1">Nutrient Pump #1</option>
+                                                                    </select><i></i>
+                                                                </label>
+                                                                <label for="actuator_control_1_time_int" class="label">Every: </label>
+                                                                <section class="col col-6">
+                                                                    <label id="actuator_control_1_time_int" class="select">
+                                                                        <select name="time_int">
+                                                                            <option value="1">1</option>
+                                                                            <option value="2">2</option>
+                                                                            <option value="3">3</option>
+                                                                            <option value="4">4</option>
+                                                                            <option value="5">5</option>
+                                                                            <option value="6">6</option>
+                                                                            <option value="7">7</option>
+                                                                            <option value="8">8</option>
+                                                                            <option value="9">9</option>
+                                                                            <option value="10">10</option>
+                                                                            <option value="11">11</option>
+                                                                            <option value="12">12</option>
+                                                                            <option value="12">13</option>
+                                                                            <option value="12">14</option>
+                                                                            <option value="12">15</option>
+                                                                            <option value="12">30</option>
+                                                                            <option value="12">45</option>
+                                                                        </select> <i></i>
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-6">
+                                                                    <label id="actuator_control_1_time_hour_min" class="select">
+                                                                        <select name="time_hour_min">
+                                                                            <option value="hours">Hours</option>
+                                                                            <option value="min">Minutes</option>
+                                                                        </select> <i></i>
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-6">
+                                                                    <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                                                                        <input type="text" name="startdate" id="startdate" placeholder="Start date">
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-6">
+                                                                    <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                                                                        <input type="text" name="finishdate" id="finishdate" placeholder="Finish date">
+                                                                    </label>
+                                                                </section>
+                                                            </section>
+                                                        </fieldset>
+                                                    </form>
+                                                    <div class="grow_add_button_div"><button id="add_actuator" class="btn btn-primary pull-right">Add Control</button></div>
+                                                    <div class="modal-footer">
+                                                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
+                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
                                    </div>
+
                                    <div class="tab-pane fade" id="photos_tab">
                                        <p>
                                            Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
@@ -2856,6 +2973,42 @@ you can add as many as you like
                 $('#humidity_chartDiv').css("height", page_height/1.8+"px");
                 $('.amChartsLegend').css("display", "none");
                 graph_state = 0;
+            }
+        });
+
+        var actuator_control_number = 1;
+
+        $('#add_actuator').click(function() {
+            $('#actuator_controls').append('' +
+                    '<label for="actuator_control_'+ actuator_control_number +'" class="label">Actuator:</label>' +
+                    '<label id="actuator_control_'+ actuator_control_number + '" class="select">' +
+                    '<select>' +
+                    '<option value="0">Choose an Actuator</option>' +
+                    '<option value="1">Light #1</option>' +
+                    '<option value="2">Light #2</option>' +
+                    '<option value="3">Water Pump #1</option>' +
+                    '<option value="4">Nutrient Pump #1</option>' +
+                    '</select> <i></i>' +
+                    '</label>'
+            );
+        });
+
+        // START AND FINISH DATE
+        $('#startdate').datepicker({
+            //dateFormat : 'dd.mm.yy',
+            prevText : '<i class="fa fa-chevron-left"></i>',
+            nextText : '<i class="fa fa-chevron-right"></i>',
+            onSelect : function(selectedDate) {
+                $('#finishdate').datepicker('option', 'minDate', selectedDate);
+            }
+        });
+
+        $('#finishdate').datepicker({
+            //dateFormat : 'dd.mm.yy',
+            prevText : '<i class="fa fa-chevron-left"></i>',
+            nextText : '<i class="fa fa-chevron-right"></i>',
+            onSelect : function(selectedDate) {
+                $('#startdate').datepicker('option', 'maxDate', selectedDate);
             }
         });
     });
