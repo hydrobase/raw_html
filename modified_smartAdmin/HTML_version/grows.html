@@ -422,7 +422,7 @@
             var ecGraph = new AmCharts.AmGraph();
             ecGraph.valueField = "ec_value";
             ecGraph.title = "ec_value";
-            ecGraph.type = "line";
+            ecGraph.type = "smoothedLine";
             ecGraph.bullet = "round";
             ecGraph.bulletSize = 10;
             //ecGraph.fillAlphas = 0.1;
@@ -457,7 +457,7 @@
             //tdsGraph.bulletColor = "#40BF9E";
             //tdsGraph.labelText = "[[value]]"; // not all data points has townName2 specified, that's why labels are displayed only near some of the bullets.
             tdsGraph.labelPosition = "right";
-            tdsGraph.balloonText = "TDS:[[value]]";
+            tdsGraph.balloonText = "TDS:[[value]] ppm";
             tdsGraph.showBalloon = true;
             tdsGraph.animationPlayed = true;
             ec_overview_chart.addGraph(tdsGraph);
@@ -1685,12 +1685,12 @@
                                                     <form id="grow_controls" class="smart-form">
                                                         <fieldset>
                                                             <section id="actuator_controls">
-                                                                <label class="label"><strong>What To Do:</strong></label>
+                                                                <label class="label"><strong>What To Do On A Schedule:</strong></label>
                                                                 <label for="actuator_control_1_actuator" class="label" >Time Based Activity 1: </label>
                                                                 <label for="actuator_control_1_actuator" class="label">Actuator:</label>
                                                                 <label id="actuator_control_1_actuator" class="select actuator_select">
                                                                     <select name="actuator_control_1_actuator">
-                                                                        <option value="no_actuator_chosen">Choose an Actuator</option>
+                                                                        <option value="">Choose an Actuator</option>
                                                                         <option value="Light_1">Light #1</option>
                                                                         <option value="Light_2">Light #2</option>
                                                                         <option value="Water_Pump_1">Water Pump #1</option>
@@ -1701,6 +1701,7 @@
                                                                 <section class="col col-6">
                                                                     <label id="actuator_control_1_time_int" class="select">
                                                                         <select name="time_int">
+                                                                            <option value="">Choose a Time</option>
                                                                             <option value="1">1</option>
                                                                             <option value="2">2</option>
                                                                             <option value="3">3</option>
@@ -1724,6 +1725,7 @@
                                                                 <section class="col col-6">
                                                                     <label id="actuator_control_1_time_hour_min" class="select">
                                                                         <select name="time_hour_min">
+                                                                            <option value="">Choose Hour/Min</option>
                                                                             <option value="hours">Hours</option>
                                                                             <option value="min">Minutes</option>
                                                                         </select> <i></i>
@@ -1741,13 +1743,20 @@
                                                                 </section>
                                                             </section>
                                                         </fieldset>
-                                                        <div class="modal-footer">
-                                                            <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
-                                                            <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
-                                                        </div>
+                                                        <hr>
+                                                        <fieldset>
+                                                            <label class="label"><strong>What To Do If...:</strong></label>
+                                                        </fieldset>
+                                                        <hr class="last_hr">
                                                     </form>
-                                                    <div class="grow_add_button_div"><button id="add_actuator" class="btn btn-primary pull-right">Add Control</button></div>
-
+                                                    <div class="grow_add_button_div">
+                                                        <button id="add_actuator" class="btn btn-primary">Add Control</button>
+                                                        <button id="add_condition" class="btn btn-primary">Add Condition</button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button style="margin-top: 20px" type="button" id="external_contron_submit" class="btn btn-primary btn-xs">Save Edits</button>
+                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                                                    </div>
                                                    </div>
                                                </div>
                                            </div>
@@ -2977,6 +2986,8 @@ you can add as many as you like
             }
         });
 
+
+        //For dynamically adding Chron events to form
         var actuator_control_number = 1;
 
         $('#add_actuator').click(function() {
@@ -3061,7 +3072,7 @@ you can add as many as you like
 
         });
 
-        // START AND FINISH DATE
+        // Initial date controls for Chron events
         $('#startdate_activity_1').datepicker({
             //dateFormat : 'dd.mm.yy',
             prevText : '<i class="fa fa-chevron-left"></i>',
@@ -3080,6 +3091,11 @@ you can add as many as you like
                 $('#startdate_activity_1').datepicker('option', 'maxDate', selectedDate);
             }
         });
+
+        $('#external_contron_submit').click(function() {
+            $('#grow_controls').submit();
+        });
+
     });
 
 </script>
