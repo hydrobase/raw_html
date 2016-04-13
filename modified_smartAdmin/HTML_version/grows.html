@@ -422,7 +422,7 @@
             var ecGraph = new AmCharts.AmGraph();
             ecGraph.valueField = "ec_value";
             ecGraph.title = "ec_value";
-            ecGraph.type = "line";
+            ecGraph.type = "smoothedLine";
             ecGraph.bullet = "round";
             ecGraph.bulletSize = 10;
             //ecGraph.fillAlphas = 0.1;
@@ -457,7 +457,7 @@
             //tdsGraph.bulletColor = "#40BF9E";
             //tdsGraph.labelText = "[[value]]"; // not all data points has townName2 specified, that's why labels are displayed only near some of the bullets.
             tdsGraph.labelPosition = "right";
-            tdsGraph.balloonText = "TDS:[[value]]";
+            tdsGraph.balloonText = "TDS:[[value]] ppm";
             tdsGraph.showBalloon = true;
             tdsGraph.animationPlayed = true;
             ec_overview_chart.addGraph(tdsGraph);
@@ -1685,12 +1685,12 @@
                                                     <form id="grow_controls" class="smart-form">
                                                         <fieldset>
                                                             <section id="actuator_controls">
-                                                                <label class="label"><strong>What To Do:</strong></label>
+                                                                <label class="label"><strong>What To Do On A Schedule (Controls):</strong></label>
                                                                 <label for="actuator_control_1_actuator" class="label" >Time Based Activity 1: </label>
                                                                 <label for="actuator_control_1_actuator" class="label">Actuator:</label>
                                                                 <label id="actuator_control_1_actuator" class="select actuator_select">
                                                                     <select name="actuator_control_1_actuator">
-                                                                        <option value="no_actuator_chosen">Choose an Actuator</option>
+                                                                        <option value="">Choose an Actuator</option>
                                                                         <option value="Light_1">Light #1</option>
                                                                         <option value="Light_2">Light #2</option>
                                                                         <option value="Water_Pump_1">Water Pump #1</option>
@@ -1701,6 +1701,7 @@
                                                                 <section class="col col-6">
                                                                     <label id="actuator_control_1_time_int" class="select">
                                                                         <select name="time_int">
+                                                                            <option value="">Choose a Time</option>
                                                                             <option value="1">1</option>
                                                                             <option value="2">2</option>
                                                                             <option value="3">3</option>
@@ -1724,6 +1725,7 @@
                                                                 <section class="col col-6">
                                                                     <label id="actuator_control_1_time_hour_min" class="select">
                                                                         <select name="time_hour_min">
+                                                                            <option value="">Choose Hour/Min</option>
                                                                             <option value="hours">Hours</option>
                                                                             <option value="min">Minutes</option>
                                                                         </select> <i></i>
@@ -1741,13 +1743,239 @@
                                                                 </section>
                                                             </section>
                                                         </fieldset>
-                                                        <div class="modal-footer">
-                                                            <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save Edits</button>
-                                                            <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
-                                                        </div>
+                                                        <hr>
+                                                        <fieldset name="condition_1">
+                                                            <label class="label"><strong>What To Do If...(Conditions):</strong></label>
+                                                            <section id="actuator_conditions">
+                                                                <section class="col col-3">
+                                                                    <label class="label">If This</label>
+                                                                    <label class="select">
+                                                                        <select id="if_this_condition_1" name="if_this_condition_1" class="input-sm">
+                                                                            <option value="">Choose</option>
+                                                                            <option value="pH">pH</option>
+                                                                            <option value="TDS">TDS</option>
+                                                                        </select> <i></i> </label>
+                                                                </section>
+                                                                <section class="col col-3">
+                                                                    <label class="label">Is</label>
+                                                                    <label class="select">
+                                                                        <select id="is_condition_1" name="is_condition_1" class="input-sm">
+                                                                            <option value="">Choose</option>
+                                                                            <option value=">">Greater Than</option>
+                                                                            <option value=">=">Greater Than Or Equal To</option>
+                                                                            <option value="<">Less Than</option>
+                                                                            <option value="<=">Less Than Or Equal To</option>
+                                                                            <option value="=">Equals</option>
+                                                                        </select> <i></i> </label>
+                                                                </section>
+                                                                <section class="col col-3">
+                                                                    <label class="label">To This</label>
+                                                                    <label class="select">
+                                                                        <select id="to_this_condition_1" name="to_this_condition_1" class="input-sm">
+                                                                            <option value="">Choose</option>
+                                                                            <option value="0">0</option>
+                                                                            <option value="0.25">0.25</option>
+                                                                            <option value="0.5">0.5</option>
+                                                                            <option value="0.75">0.75</option>
+                                                                            <option value="1.0">1.0</option>
+                                                                            <option value="1.25">1.25</option>
+                                                                            <option value="1.5">1.5</option>
+                                                                            <option value="1.75">1.75</option>
+                                                                            <option value="2.0">2.0</option>
+                                                                            <option value="2.25">2.25</option>
+                                                                            <option value="2.5">2.5</option>
+                                                                            <option value="2.75">2.75</option>
+                                                                            <option value="3.0">3.0</option>
+                                                                            <option value="3.25">3.25</option>
+                                                                            <option value="3.5">3.5</option>
+                                                                            <option value="3.75">3.75</option>
+                                                                            <option value="4.0">4.0</option>
+                                                                            <option value="4.25">4.25</option>
+                                                                            <option value="4.5">4.5</option>
+                                                                            <option value="4.75">4.75</option>
+                                                                            <option value="5.0">5.0</option>
+                                                                            <option value="5.25">5.25</option>
+                                                                            <option value="5.5">5.5</option>
+                                                                            <option value="5.75">5.75</option>
+                                                                            <option value="6.0">6.0</option>
+                                                                            <option value="6.25">6.25</option>
+                                                                            <option value="6.5">6.5</option>
+                                                                            <option value="6.75">6.75</option>
+                                                                            <option value="7.0">7.0</option>
+                                                                            <option value="7.25">7.25</option>
+                                                                            <option value="7.5">7.5</option>
+                                                                            <option value="7.75">7.75</option>
+                                                                            <option value="8.0">8.0</option>
+                                                                            <option value="8.25">8.25</option>
+                                                                            <option value="8.5">8.5</option>
+                                                                            <option value="8.75">8.75</option>
+                                                                            <option value="9.0">9.0</option>
+                                                                            <option value="9.25">9.25</option>
+                                                                            <option value="9.5">9.5</option>
+                                                                            <option value="9.75">9.75</option>
+                                                                            <option value="10.0">10.0</option>
+                                                                            <option value="10.25">10.25</option>
+                                                                            <option value="10.5">10.5</option>
+                                                                            <option value="10.75">10.75</option>
+                                                                            <option value="11.0">11.0</option>
+                                                                            <option value="11.25">11.25</option>
+                                                                            <option value="11.5">11.5</option>
+                                                                            <option value="11.75">11.75</option>
+                                                                            <option value="12.0">12.0</option>
+                                                                            <option value="12.25">12.25</option>
+                                                                            <option value="12.5">12.5</option>
+                                                                            <option value="12.75">12.75</option>
+                                                                            <option value="13.0">13.0</option>
+                                                                            <option value="13.25">13.25</option>
+                                                                            <option value="13.5">13.5</option>
+                                                                            <option value="13.75">13.75</option>
+                                                                            <option value="14.0">14.0</option>
+                                                                            <option value="15">15</option>
+                                                                            <option value="25">25</option>
+                                                                            <option value="35">35</option>
+                                                                            <option value="45">45</option>
+                                                                            <option value="55">55</option>
+                                                                            <option value="65">65</option>
+                                                                            <option value="75">75</option>
+                                                                            <option value="85">85</option>
+                                                                            <option value="95">95</option>
+                                                                            <option value="105">105</option>
+                                                                            <option value="115">115</option>
+                                                                            <option value="125">125</option>
+                                                                            <option value="135">135</option>
+                                                                            <option value="145">145</option>
+                                                                            <option value="155">155</option>
+                                                                            <option value="165">165</option>
+                                                                            <option value="175">175</option>
+                                                                            <option value="185">185</option>
+                                                                            <option value="195">195</option>
+                                                                            <option value="205">205</option>
+                                                                            <option value="215">215</option>
+                                                                            <option value="225">225</option>
+                                                                            <option value="235">235</option>
+                                                                            <option value="245">245</option>
+                                                                            <option value="255">255</option>
+                                                                            <option value="265">265</option>
+                                                                            <option value="275">275</option>
+                                                                            <option value="285">285</option>
+                                                                            <option value="295">295</option>
+                                                                            <option value="305">305</option>
+                                                                            <option value="315">315</option>
+                                                                            <option value="325">325</option>
+                                                                            <option value="335">335</option>
+                                                                            <option value="345">345</option>
+                                                                            <option value="355">355</option>
+                                                                            <option value="365">365</option>
+                                                                            <option value="375">375</option>
+                                                                            <option value="385">385</option>
+                                                                            <option value="395">395</option>
+                                                                            <option value="405">405</option>
+                                                                            <option value="415">415</option>
+                                                                            <option value="425">425</option>
+                                                                            <option value="435">435</option>
+                                                                            <option value="445">445</option>
+                                                                            <option value="455">455</option>
+                                                                            <option value="465">465</option>
+                                                                            <option value="475">475</option>
+                                                                            <option value="485">485</option>
+                                                                            <option value="495">495</option>
+                                                                            <option value="505">505</option>
+                                                                            <option value="515">515</option>
+                                                                            <option value="525">525</option>
+                                                                            <option value="535">535</option>
+                                                                            <option value="545">545</option>
+                                                                            <option value="555">555</option>
+                                                                            <option value="565">565</option>
+                                                                            <option value="575">575</option>
+                                                                            <option value="585">585</option>
+                                                                            <option value="595">595</option>
+                                                                            <option value="605">605</option>
+                                                                            <option value="615">615</option>
+                                                                            <option value="625">625</option>
+                                                                            <option value="635">635</option>
+                                                                            <option value="645">645</option>
+                                                                            <option value="655">655</option>
+                                                                            <option value="665">665</option>
+                                                                            <option value="675">675</option>
+                                                                            <option value="685">685</option>
+                                                                            <option value="695">695</option>
+                                                                            <option value="705">705</option>
+                                                                            <option value="715">715</option>
+                                                                            <option value="725">725</option>
+                                                                            <option value="735">735</option>
+                                                                            <option value="745">745</option>
+                                                                            <option value="755">755</option>
+                                                                            <option value="765">765</option>
+                                                                            <option value="775">775</option>
+                                                                            <option value="785">785</option>
+                                                                            <option value="795">795</option>
+                                                                            <option value="805">805</option>
+                                                                            <option value="815">815</option>
+                                                                            <option value="825">825</option>
+                                                                            <option value="835">835</option>
+                                                                            <option value="845">845</option>
+                                                                            <option value="855">855</option>
+                                                                            <option value="865">865</option>
+                                                                            <option value="875">875</option>
+                                                                            <option value="885">885</option>
+                                                                            <option value="895">895</option>
+                                                                            <option value="905">905</option>
+                                                                            <option value="915">915</option>
+                                                                            <option value="925">925</option>
+                                                                            <option value="935">935</option>
+                                                                            <option value="945">945</option>
+                                                                            <option value="955">955</option>
+                                                                            <option value="965">965</option>
+                                                                            <option value="975">975</option>
+                                                                            <option value="985">985</option>
+                                                                            <option value="995">995</option>
+                                                                            <option value="1005">1005</option>
+                                                                            <option value="1015">1015</option>
+                                                                            <option value="1025">1025</option>
+                                                                            <option value="1035">1035</option>
+                                                                            <option value="1045">1045</option>
+                                                                            <option value="1055">1055</option>
+                                                                            <option value="1065">1065</option>
+                                                                            <option value="1075">1075</option>
+                                                                            <option value="1085">1085</option>
+                                                                            <option value="1095">1095</option>
+                                                                            <option value="1105">1105</option>
+                                                                            <option value="1115">1115</option>
+                                                                            <option value="1125">1125</option>
+                                                                            <option value="1135">1135</option>
+                                                                            <option value="1145">1145</option>
+                                                                            <option value="1155">1155</option>
+                                                                            <option value="1165">1165</option>
+                                                                            <option value="1175">1175</option>
+                                                                            <option value="1185">1185</option>
+                                                                            <option value="1200">1200</option>
+                                                                        </select> <i></i> </label>
+                                                                </section>
+                                                                <section class="col col-3">
+                                                                    <label class="label">Then Do</label>
+                                                                    <label class="select">
+                                                                        <select id="do_this_condition_1" name="do_this_condition_1" class="input-sm">
+                                                                            <option value="">Choose</option>
+                                                                            <option value="pH_Upper_On">pH Upper On</option>
+                                                                            <option value="pH_Upper_Off">pH Upper Off</option>
+                                                                            <option value="pH_Downer_On">pH Downer On</option>
+                                                                            <option value="pH_Downer_Off">pH Downer Off</option>
+                                                                            <option value="nutrient_On">Nutrient Pump On</option>
+                                                                            <option value="nutrient_On">Nutrient Pump Off</option>
+                                                                        </select> <i></i> </label>
+                                                                </section>
+                                                            </section>
+                                                        </fieldset>
+                                                        <hr class="last_hr">
                                                     </form>
-                                                    <div class="grow_add_button_div"><button id="add_actuator" class="btn btn-primary pull-right">Add Control</button></div>
-
+                                                    <div class="grow_add_button_div">
+                                                        <button id="add_control" class="btn btn-primary">Add Control</button>
+                                                        <button id="add_condition" class="btn btn-primary">Add Condition</button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button style="margin-top: 20px" type="button" id="external_contron_submit" class="btn btn-primary btn-xs">Save Edits</button>
+                                                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                                                    </div>
                                                    </div>
                                                </div>
                                            </div>
@@ -2977,9 +3205,11 @@ you can add as many as you like
             }
         });
 
-        var actuator_control_number = 1;
 
-        $('#add_actuator').click(function() {
+        //For dynamically adding Chron events to form
+        var actuator_control_number = 1;
+        var actuator_condition_number = 1;
+        $('#add_control').click(function() {
             if (($('#startdate_activity_'+actuator_control_number).val() != "") &&  ($('#finishdate_activity_'+actuator_control_number).val() != "")){
                 actuator_control_number += 1;
                 $('#actuator_controls').append('' +
@@ -3061,7 +3291,238 @@ you can add as many as you like
 
         });
 
-        // START AND FINISH DATE
+        //dynamically add conditions
+        $('#add_condition').click(function() {
+            if (($('#if_this_condition_'+actuator_control_number).val() != "") && ($('#is_condition_'+actuator_control_number).val() != "") && ($('#to_this_condition_'+actuator_control_number).val() != "") && ($('#do_this_condition_'+actuator_control_number).val() != "")){
+                actuator_condition_number += 1;
+                $('#actuator_conditions').append('' +
+                        '<section id="actuator_conditions">'+
+                        '<section class="col col-3">'+
+                        '<label class="label">If This</label>'+
+                        '<label class="select">'+
+                        '<select id="if_this_condition_'+actuator_condition_number+'" name="if_this_condition_'+actuator_condition_number+'" class="input-sm">'+
+                        '<option value="">Choose</option>'+
+                        '<option value="pH">pH</option>'+
+                        '<option value="TDS">TDS</option>'+
+                        '</select> <i></i> </label>'+
+                        '</section>'+
+                        '<section class="col col-3">'+
+                        '<label class="label">Is</label>'+
+                        '<label class="select">'+
+                        '<select id="is_condition_'+actuator_condition_number+'" name="is_condition_'+actuator_condition_number+'" class="input-sm">'+
+                        '<option value="">Choose</option>'+
+                        '<option value=">">Greater Than</option>'+
+                        '<option value=">=">Greater Than Or Equal To</option>'+
+                        '<option value="<">Less Than</option>'+
+                        '<option value="<=">Less Than Or Equal To</option>'+
+                        '<option value="=">Equals</option>'+
+                        '</select> <i></i> </label>'+
+                        '</section>'+
+                        '<section class="col col-3">'+
+                        '<label class="label">To This</label>'+
+                        '<label class="select">'+
+                        '<select id="to_this_condition_'+actuator_condition_number+'" name="to_this_condition_'+actuator_condition_number+'" class="input-sm">'+
+                        '<option value="">Choose</option>'+
+                        '<option value="0">0</option>'+
+                        '<option value="0.25">0.25</option>'+
+                        '<option value="0.5">0.5</option>'+
+                        '<option value="0.75">0.75</option>'+
+                        '<option value="1.0">1.0</option>'+
+                        '<option value="1.25">1.25</option>'+
+                        '<option value="1.5">1.5</option>'+
+                        '<option value="1.75">1.75</option>'+
+                        '<option value="2.0">2.0</option>'+
+                        '<option value="2.25">2.25</option>'+
+                        '<option value="2.5">2.5</option>'+
+                        '<option value="2.75">2.75</option>'+
+                        '<option value="3.0">3.0</option>'+
+                        '<option value="3.25">3.25</option>'+
+                        '<option value="3.5">3.5</option>'+
+                        '<option value="3.75">3.75</option>'+
+                        '<option value="4.0">4.0</option>'+
+                        '<option value="4.25">4.25</option>'+
+                        '<option value="4.5">4.5</option>'+
+                        '<option value="4.75">4.75</option>'+
+                        '<option value="5.0">5.0</option>'+
+                        '<option value="5.25">5.25</option>'+
+                        '<option value="5.5">5.5</option>'+
+                        '<option value="5.75">5.75</option>'+
+                        '<option value="6.0">6.0</option>'+
+                        '<option value="6.25">6.25</option>'+
+                        '<option value="6.5">6.5</option>'+
+                        '<option value="6.75">6.75</option>'+
+                        '<option value="7.0">7.0</option>'+
+                        '<option value="7.25">7.25</option>'+
+                        '<option value="7.5">7.5</option>'+
+                        '<option value="7.75">7.75</option>'+
+                        '<option value="8.0">8.0</option>'+
+                        '<option value="8.25">8.25</option>'+
+                        '<option value="8.5">8.5</option>'+
+                        '<option value="8.75">8.75</option>'+
+                        '<option value="9.0">9.0</option>'+
+                        '<option value="9.25">9.25</option>'+
+                        '<option value="9.5">9.5</option>'+
+                        '<option value="9.75">9.75</option>'+
+                        '<option value="10.0">10.0</option>'+
+                        '<option value="10.25">10.25</option>'+
+                        '<option value="10.5">10.5</option>'+
+                        '<option value="10.75">10.75</option>'+
+                        '<option value="11.0">11.0</option>'+
+                        '<option value="11.25">11.25</option>'+
+                        '<option value="11.5">11.5</option>'+
+                        '<option value="11.75">11.75</option>'+
+                        '<option value="12.0">12.0</option>'+
+                        '<option value="12.25">12.25</option>'+
+                        '<option value="12.5">12.5</option>'+
+                        '<option value="12.75">12.75</option>'+
+                        '<option value="13.0">13.0</option>'+
+                        '<option value="13.25">13.25</option>'+
+                        '<option value="13.5">13.5</option>'+
+                        '<option value="13.75">13.75</option>'+
+                        '<option value="14.0">14.0</option>'+
+                        '<option value="15">15</option>'+
+                        '<option value="25">25</option>'+
+                        '<option value="35">35</option>'+
+                        '<option value="45">45</option>'+
+                        '<option value="55">55</option>'+
+                        '<option value="65">65</option>'+
+                        '<option value="75">75</option>'+
+                        '<option value="85">85</option>'+
+                        '<option value="95">95</option>'+
+                        '<option value="105">105</option>'+
+                        '<option value="115">115</option>'+
+                        '<option value="125">125</option>'+
+                        '<option value="135">135</option>'+
+                        '<option value="145">145</option>'+
+                        '<option value="155">155</option>'+
+                        '<option value="165">165</option>'+
+                        '<option value="175">175</option>'+
+                        '<option value="185">185</option>'+
+                        '<option value="195">195</option>'+
+                        '<option value="205">205</option>'+
+                        '<option value="215">215</option>'+
+                        '<option value="225">225</option>'+
+                        '<option value="235">235</option>'+
+                        '<option value="245">245</option>'+
+                        '<option value="255">255</option>'+
+                        '<option value="265">265</option>'+
+                        '<option value="275">275</option>'+
+                        '<option value="285">285</option>'+
+                        '<option value="295">295</option>'+
+                        '<option value="305">305</option>'+
+                        '<option value="315">315</option>'+
+                        '<option value="325">325</option>'+
+                        '<option value="335">335</option>'+
+                        '<option value="345">345</option>'+
+                        '<option value="355">355</option>'+
+                        '<option value="365">365</option>'+
+                        '<option value="375">375</option>'+
+                        '<option value="385">385</option>'+
+                        '<option value="395">395</option>'+
+                        '<option value="405">405</option>'+
+                        '<option value="415">415</option>'+
+                        '<option value="425">425</option>'+
+                        '<option value="435">435</option>'+
+                        '<option value="445">445</option>'+
+                        '<option value="455">455</option>'+
+                        '<option value="465">465</option>'+
+                        '<option value="475">475</option>'+
+                        '<option value="485">485</option>'+
+                        '<option value="495">495</option>'+
+                        '<option value="505">505</option>'+
+                        '<option value="515">515</option>'+
+                        '<option value="525">525</option>'+
+                        '<option value="535">535</option>'+
+                        '<option value="545">545</option>'+
+                        '<option value="555">555</option>'+
+                        '<option value="565">565</option>'+
+                        '<option value="575">575</option>'+
+                        '<option value="585">585</option>'+
+                        '<option value="595">595</option>'+
+                        '<option value="605">605</option>'+
+                        '<option value="615">615</option>'+
+                        '<option value="625">625</option>'+
+                        '<option value="635">635</option>'+
+                        '<option value="645">645</option>'+
+                        '<option value="655">655</option>'+
+                        '<option value="665">665</option>'+
+                        '<option value="675">675</option>'+
+                        '<option value="685">685</option>'+
+                        '<option value="695">695</option>'+
+                        '<option value="705">705</option>'+
+                        '<option value="715">715</option>'+
+                        '<option value="725">725</option>'+
+                        '<option value="735">735</option>'+
+                        '<option value="745">745</option>'+
+                        '<option value="755">755</option>'+
+                        '<option value="765">765</option>'+
+                        '<option value="775">775</option>'+
+                        '<option value="785">785</option>'+
+                        '<option value="795">795</option>'+
+                        '<option value="805">805</option>'+
+                        '<option value="815">815</option>'+
+                        '<option value="825">825</option>'+
+                        '<option value="835">835</option>'+
+                        '<option value="845">845</option>'+
+                        '<option value="855">855</option>'+
+                        '<option value="865">865</option>'+
+                        '<option value="875">875</option>'+
+                        '<option value="885">885</option>'+
+                        '<option value="895">895</option>'+
+                        '<option value="905">905</option>'+
+                        '<option value="915">915</option>'+
+                        '<option value="925">925</option>'+
+                        '<option value="935">935</option>'+
+                        '<option value="945">945</option>'+
+                        '<option value="955">955</option>'+
+                        '<option value="965">965</option>'+
+                        '<option value="975">975</option>'+
+                        '<option value="985">985</option>'+
+                        '<option value="995">995</option>'+
+                        '<option value="1005">1005</option>'+
+                        '<option value="1015">1015</option>'+
+                        '<option value="1025">1025</option>'+
+                        '<option value="1035">1035</option>'+
+                        '<option value="1045">1045</option>'+
+                        '<option value="1055">1055</option>'+
+                        '<option value="1065">1065</option>'+
+                        '<option value="1075">1075</option>'+
+                        '<option value="1085">1085</option>'+
+                        '<option value="1095">1095</option>'+
+                        '<option value="1105">1105</option>'+
+                        '<option value="1115">1115</option>'+
+                        '<option value="1125">1125</option>'+
+                        '<option value="1135">1135</option>'+
+                        '<option value="1145">1145</option>'+
+                        '<option value="1155">1155</option>'+
+                        '<option value="1165">1165</option>'+
+                        '<option value="1175">1175</option>'+
+                        '<option value="1185">1185</option>'+
+                        '<option value="1200">1200</option>'+
+                        '</select> <i></i> </label>'+
+                        '</section>'+
+                        '<section class="col col-3">'+
+                        '<label class="label">Then Do</label>'+
+                        '<label class="select">'+
+                        '<select id="do_this_condition_'+actuator_condition_number+'" name="do_this_condition_'+actuator_condition_number+'" class="input-sm">'+
+                        '<option value="">Choose</option>'+
+                        '<option value="pH_Upper_On">pH Upper On</option>'+
+                        '<option value="pH_Upper_Off">pH Upper Off</option>'+
+                        '<option value="pH_Downer_On">pH Downer On</option>'+
+                        '<option value="pH_Downer_Off">pH Downer Off</option>'+
+                        '<option value="nutrient_On">Nutrient Pump On</option>'+
+                        '<option value="nutrient_On">Nutrient Pump Off</option>'+
+                        '</select> <i></i> </label>'+
+                        '</section>'+
+                        '</section>'
+                );
+            } else {
+                alert("dude fill your shit out");
+            }
+
+        });
+
+        // Initial date controls for Chron events
         $('#startdate_activity_1').datepicker({
             //dateFormat : 'dd.mm.yy',
             prevText : '<i class="fa fa-chevron-left"></i>',
@@ -3080,6 +3541,11 @@ you can add as many as you like
                 $('#startdate_activity_1').datepicker('option', 'maxDate', selectedDate);
             }
         });
+
+        $('#external_contron_submit').click(function() {
+            $('#grow_controls').submit();
+        });
+
     });
 
 </script>

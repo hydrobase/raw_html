@@ -875,9 +875,9 @@ Grow Page Mods
     max-width: 35%;
 }
 
-.grow_add_button_div {
-    height: 40px;
-    padding-right: 20px;
+.grow_add_button_div button{
+    width: 45%;
+    margin: 0 2.34% 40px 2.34%
 }
 
 .select {
@@ -897,6 +897,6 @@ Grow Page Mods
     right: 25px !important;
 }
 
-.smart-form #actuator_controls .select i {
-
+.last_hr {
+    margin-bottom: 40px;
 }
