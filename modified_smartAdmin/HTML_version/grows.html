@@ -68,8 +68,7 @@
         var pHchartData = [];
         var ecChartData = [];
         var luxChartData = [];
-        var waterTempData = [];
-        var airTempData = [];
+        var tempData = [];
         var humidityData = [];
 
         //Random Value Generator Function
@@ -180,7 +179,7 @@
                 );
             }
         }
-        function fill_waterTempData (){
+        function fill_tempData (){
             var temp_hour = 0;
             var temp_min = 0;
             var temp_value = 0;
@@ -205,43 +204,11 @@
                 }
                 temp_value += 1;
 
-                waterTempData.push(
+                tempData.push(
                         {
                             "date": new Date('March 15, 2016'+ hour + min + ':00'),
-                            "value": get_rando_value(32, 100)
-                        }
-                );
-            }
-        }
-        function fill_airTempData (){
-            var temp_hour = 0;
-            var temp_min = 0;
-            var temp_value = 0;
-            for (i = 0; i < 95; i++){
-                if (temp_min == 0 || temp_min == 15 || temp_min == 30){
-                    temp_min += 15;
-                } else if (temp_min == 45) {
-                    temp_min = 0;
-                    temp_hour += 1;
-                }
-                if (temp_hour < 10){
-                    var hour = " 0" + temp_hour;
-                }
-                else {
-                    var hour = " " + temp_hour;
-                }
-                if (temp_min == 0){
-                    var min = ":0" + temp_min;
-                }
-                else {
-                    var min = ":" + temp_min;
-                }
-                temp_value += 1;
-
-                airTempData.push(
-                        {
-                            "date": new Date('March 15, 2016'+ hour + min + ':00'),
-                            "value": get_rando_value(32, 100)
+                            "waterTemp": get_rando_value(32, 120),
+                            "airTemp": get_rando_value(32,120)
                         }
                 );
             }
@@ -284,8 +251,7 @@
         fill_phData();
         fill_ecData();
         fill_luxData();
-        fill_waterTempData();
-        fill_airTempData();
+        fill_tempData();
         fill_humidityData();
 
         //Create pH Graph
@@ -788,12 +754,135 @@
             lux_chart.write("lux_chartDiv");
         });
 
+        //Create Temp_Overview Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var temp_overview_chart = new AmCharts.AmSerialChart();
+            //chart.addClassNames = true;
+            temp_overview_chart.dataProvider = tempData;
+            temp_overview_chart.categoryField = "date";
+            //chart.dataDateFormat = "YYYY-MM-DD";
+            //chart.startDuration = 1;
+            //chart.color = "#000";
+            temp_overview_chart.marginLeft = 0;
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            temp_overview_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
+                temp_overview_chart.zoomToIndexes(ecChartData.length - 8,ecChartData.length);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = temp_overview_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based
+            categoryAxis.minPeriod = "mm";
+            categoryAxis.autoGridCount = true;
+            //categoryAxis.gridCount = 50;
+            categoryAxis.gridAlpha = 0.1;
+            categoryAxis.gridColor = "#000";
+            categoryAxis.axisColor = "#000";
+
+            // as we have data of different units, we create two different value axes
+            // waterTemp value axis
+            var waterTempAxis = new AmCharts.ValueAxis();
+            waterTempAxis.title = "Water Temperature";
+            waterTempAxis.gridAlpha = 0;
+            waterTempAxis.axisAlpha = 0;
+            temp_overview_chart.addValueAxis(waterTempAxis);
+
+            // tds value axis
+            var airTempAxis = new AmCharts.ValueAxis();
+
+            airTempAxis.gridAlpha = 0;
+            airTempAxis.axisAlpha = 0;
+            airTempAxis.offset = 0;
+            airTempAxis.position = "right";
+            temp_overview_chart.addValueAxis(airTempAxis);
+
+            // GRAPHS
+            // waterTemp graph
+            var waterTempGraph = new AmCharts.AmGraph();
+            waterTempGraph.valueField = "waterTemp";
+            waterTempGraph.title = "Water Temperature";
+            waterTempGraph.type = "smoothedLine";
+            waterTempGraph.bullet = "round";
+            waterTempGraph.bulletSize = 10;
+            //ecGraph.fillAlphas = 0.1;
+            waterTempGraph.valueAxis = waterTempAxis; // indicate which axis should be used
+            waterTempGraph.balloonText = "Water Temp.: [[value]] F";
+            waterTempGraph.legendValueText = " ";
+            //ecGraph.legendPeriodValueText = "total: [[value.sum]] &mu;S";
+            waterTempGraph.lineColor = "#3D73B5";
+            waterTempGraph.alphaField = "alpha";
+            temp_overview_chart.addGraph(waterTempGraph);
+
+            // airTemp graph
+            var airTempGraph = new AmCharts.AmGraph();
+            airTempGraph.valueField = "airTemp";
+            airTempGraph.id = "airTemp_overview_graph";
+            //tdsGraph.classNameField = "bulletClass";
+            airTempGraph.title = "Air Temperature";
+            airTempGraph.type = "line";
+            airTempGraph.valueAxis = airTempAxis; // indicate which axis should be used
+            airTempGraph.lineColor = "#40BF9E";
+            //tdsGraph.fillColors = "#40BF9E";
+            //tdsGraph.fillAlphas = 0.7;
+            airTempGraph.columnWidth = 4;
+            //tdsGraph.lineThickness = 2;
+            airTempGraph.legendValueText = " ";
+            //tdsGraph.descriptionField = "townName";
+            airTempGraph.bullet = "round";
+            airTempGraph.bulletSize = 10; // indicate which field should be used for bullet size
+            airTempGraph.bulletBorderColor = "#359E83";
+            //tdsGraph.bulletBorderAlpha = 1;
+            //tdsGraph.bulletBorderThickness = 2;
+            //tdsGraph.bulletColor = "#40BF9E";
+            //tdsGraph.labelText = "[[value]]"; // not all data points has townName2 specified, that's why labels are displayed only near some of the bullets.
+            airTempGraph.labelPosition = "right";
+            airTempGraph.balloonText = "Air Temp.:[[value]] F";
+            airTempGraph.showBalloon = true;
+            airTempGraph.animationPlayed = true;
+            temp_overview_chart.addGraph(airTempGraph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.zoomable = true;
+            chartCursor.categoryBalloonDateFormat = undefined;
+            chartCursor.cursorAlpha = 0;
+            chartCursor.valueBalloonsEnabled = false;
+            chartCursor.valueLineBalloonEnabled = true;
+            chartCursor.valueLineEnabled = true;
+            chartCursor.valueLineAlpha = 0.5;
+            chartCursor.cursorColor = "#41A6A8";
+            temp_overview_chart.addChartCursor(chartCursor);
+
+            // LEGEND
+            var legend = new AmCharts.AmLegend();
+            legend.bulletType = "round";
+            legend.equalWidths = false;
+            legend.valueWidth = 120;
+            legend.useGraphSettings = true;
+            legend.color = "#000";
+            temp_overview_chart.addLegend(legend);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            temp_overview_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            temp_overview_chart.write("temp_overview_chartDiv");
+
+        });
+
         //Create AirTemp Graph
         AmCharts.ready(function () {
             // SERIAL CHART
             var airTemp_chart = new AmCharts.AmSerialChart();
 
-            airTemp_chart.dataProvider = airTempData;
+            airTemp_chart.dataProvider = tempData;
             airTemp_chart.marginLeft = 10;
             airTemp_chart.categoryField = "date";
 
@@ -835,7 +924,7 @@
             airTemp_graph.bulletBorderAlpha = 1;
             airTemp_graph.bulletBorderThickness = 2;
             airTemp_graph.lineThickness = 2;
-            airTemp_graph.valueField = "value";
+            airTemp_graph.valueField = "airTemp";
             airTemp_graph.selectedBackgroundColor = "#FFF";
             airTemp_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
             airTemp_chart.addGraph(airTemp_graph);
@@ -861,7 +950,7 @@
             // SERIAL CHART
             var waterTemp_chart = new AmCharts.AmSerialChart();
 
-            waterTemp_chart.dataProvider = waterTempData;
+            waterTemp_chart.dataProvider = tempData;
             waterTemp_chart.marginLeft = 10;
             waterTemp_chart.categoryField = "date";
 
@@ -903,7 +992,7 @@
             waterTemp_graph.bulletBorderAlpha = 1;
             waterTemp_graph.bulletBorderThickness = 2;
             waterTemp_graph.lineThickness = 2;
-            waterTemp_graph.valueField = "value";
+            waterTemp_graph.valueField = "waterTemp";
             waterTemp_graph.selectedBackgroundColor = "#FFF";
             waterTemp_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
             waterTemp_chart.addGraph(waterTemp_graph);
@@ -1365,9 +1454,6 @@
                                    </li>
                                    <li>
                                        <a href="#controls_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i> Controls</a>
-                                   </li>
-                                   <li>
-                                       <a href="#photos_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-camera"></i> Photos</a>
                                    </li>
                                </ul>
 
