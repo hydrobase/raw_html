@@ -440,18 +440,18 @@
             tdsGraph.id = "tds_overview_graph";
             //tdsGraph.classNameField = "bulletClass";
             tdsGraph.title = "Total Disolved Solids";
-            tdsGraph.type = "column";
+            tdsGraph.type = "line";
             tdsGraph.valueAxis = tdsAxis; // indicate which axis should be used
             tdsGraph.lineColor = "#40BF9E";
-            tdsGraph.fillColors = "#40BF9E";
-            tdsGraph.fillAlphas = 0.7;
+            //tdsGraph.fillColors = "#40BF9E";
+            //tdsGraph.fillAlphas = 0.7;
             tdsGraph.columnWidth = 4;
             //tdsGraph.lineThickness = 2;
             tdsGraph.legendValueText = " ";
             //tdsGraph.descriptionField = "townName";
-            //tdsGraph.bullet = "round";
-            //tdsGraph.bulletSize = 10; // indicate which field should be used for bullet size
-            //tdsGraph.bulletBorderColor = "#359E83";
+            tdsGraph.bullet = "round";
+            tdsGraph.bulletSize = 10; // indicate which field should be used for bullet size
+            tdsGraph.bulletBorderColor = "#359E83";
             //tdsGraph.bulletBorderAlpha = 1;
             //tdsGraph.bulletBorderThickness = 2;
             //tdsGraph.bulletColor = "#40BF9E";
@@ -467,7 +467,7 @@
             psGraph.id = "ps_overview_graph";
             psGraph.title = "Practical Salinity";
             psGraph.valueField = "ps";
-            psGraph.type = "line";
+            psGraph.type = "step";
             psGraph.valueAxis = psAxis; // indicate which axis should be used
             psGraph.negativeBase = "0.5";
             psGraph.negativeLineColor = "#0FFF99";
@@ -1537,7 +1537,7 @@
                                                </div>
                                            </div>
                                        </div>
-                                       <div id="link_modal" class="modal fade" role="dialog">
+                                       <div id="link_device_modal" class="modal fade" role="dialog">
                                            <div class="modal-dialog">
                                                <!-- Modal content-->
                                                <div class="modal-content">
@@ -1981,12 +1981,6 @@
                                            </div>
                                        </div>
                                    </div>
-
-                                   <div class="tab-pane fade" id="photos_tab">
-                                       <p>
-                                           Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
-                                       </p>
-                                   </div>
                                </div>
 
                            </div>
@@ -2013,13 +2007,6 @@
 
                         <!-- widget div-->
                         <div>
-
-                            <!-- widget edit box -->
-                            <div class="jarviswidget-editbox">
-                                <!-- This area used as dropdown edit box -->
-
-                            </div>
-                            <!-- end widget edit box -->
 
                             <!-- widget content -->
                             <div class="widget-body no-padding">

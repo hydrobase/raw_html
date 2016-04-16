@@ -900,3 +900,13 @@ Grow Page Mods
 .last_hr {
     margin-bottom: 40px;
 }
+
+/*=====================
+Plant Profile Page Mods
+=====================*/
+
+.add_plant_btn {
+    width: 100%;
+    margin: 10px auto 0px auto;
+    display: block;
+}
