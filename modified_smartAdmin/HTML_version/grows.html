@@ -68,9 +68,8 @@
         var pHchartData = [];
         var ecChartData = [];
         var luxChartData = [];
-        var waterTempData = [];
-        var airTempData = [];
-        var humidityData = [];
+        var tempChartData = [];
+        var humidityChartData = [];
 
         //Random Value Generator Function
         function get_rando_value (min, max){
@@ -140,7 +139,7 @@
                         {
                             "date": new Date('March 15, 2016'+ hour + min + ':00'),
                             "ec_value": get_rando_value(0, 1500),
-                            "tds": get_rando_value(0, 800),
+                            "tds": get_rando_value(0, 1200),
                             "ps": get_rando_value(0,1)
 
                         }
@@ -180,7 +179,7 @@
                 );
             }
         }
-        function fill_waterTempData (){
+        function fill_tempData (){
             var temp_hour = 0;
             var temp_min = 0;
             var temp_value = 0;
@@ -205,43 +204,11 @@
                 }
                 temp_value += 1;
 
-                waterTempData.push(
+                tempChartData.push(
                         {
                             "date": new Date('March 15, 2016'+ hour + min + ':00'),
-                            "value": get_rando_value(32, 100)
-                        }
-                );
-            }
-        }
-        function fill_airTempData (){
-            var temp_hour = 0;
-            var temp_min = 0;
-            var temp_value = 0;
-            for (i = 0; i < 95; i++){
-                if (temp_min == 0 || temp_min == 15 || temp_min == 30){
-                    temp_min += 15;
-                } else if (temp_min == 45) {
-                    temp_min = 0;
-                    temp_hour += 1;
-                }
-                if (temp_hour < 10){
-                    var hour = " 0" + temp_hour;
-                }
-                else {
-                    var hour = " " + temp_hour;
-                }
-                if (temp_min == 0){
-                    var min = ":0" + temp_min;
-                }
-                else {
-                    var min = ":" + temp_min;
-                }
-                temp_value += 1;
-
-                airTempData.push(
-                        {
-                            "date": new Date('March 15, 2016'+ hour + min + ':00'),
-                            "value": get_rando_value(32, 100)
+                            "waterTemp": get_rando_value(32, 120),
+                            "airTemp": get_rando_value(32,120)
                         }
                 );
             }
@@ -271,7 +238,7 @@
                 }
                 temp_value += 1;
 
-                humidityData.push(
+                humidityChartData.push(
                         {
                             "date": new Date('March 15, 2016'+ hour + min + ':00'),
                             "value": get_rando_value(0, 100)
@@ -284,8 +251,7 @@
         fill_phData();
         fill_ecData();
         fill_luxData();
-        fill_waterTempData();
-        fill_airTempData();
+        fill_tempData();
         fill_humidityData();
 
         //Create pH Graph
@@ -300,9 +266,7 @@
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             ph_chart.addListener("dataUpdated", zoomChart);
             function zoomChart() {
-                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                ph_chart.zoomToIndexes(0,30);
+                ph_chart.zoomToIndexes(pHchartData.length - 8,pHchartData.length);
             }
 
             // AXES
@@ -311,9 +275,6 @@
             categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
             categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
             categoryAxis.dashLength = 3;
-            categoryAxis.minorGridEnabled = true;
-            categoryAxis.minorGridAlpha = 0.1;
-            //categoryAxis.offset = 83;
 
             // value
             var valueAxis = new AmCharts.ValueAxis();
@@ -321,16 +282,26 @@
             valueAxis.inside = true;
             valueAxis.dashLength = 3;
             valueAxis.labelOffset = -30;
+            valueAxis.title = "pH Value";
+            valueAxis.guides = [{
+                "above": 'true',
+                "fillAlpha": 0.2,
+                "fillColor": "#ADADAD",
+                "lineAlpha": 0.5,
+                "lineColor": "#757575",
+                "toValue": 8,
+                "value": 6
+            }];
             ph_chart.addValueAxis(valueAxis);
 
             // GRAPH
             var ph_graph = new AmCharts.AmGraph();
             ph_graph.type = "line"; // this line makes the graph smoothed line.
             ph_graph.fillAlphas = 0.2;
-            ph_graph.lineColor = "#FF9E3A";
-            ph_graph.negativeBase = "6.5";
-            ph_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
-            ph_graph.negativeFillAlphas = 0;
+            ph_graph.lineColor = "#485A78";
+            ph_graph.negativeBase = "7";
+            ph_graph.negativeLineColor = "#C84B69"; // this line makes the graph to change color when it drops below 0
+            ph_graph.negativeFillAlphas = 0.2;
             ph_graph.bullet = "round";
             ph_graph.bulletSize = 8;
             ph_graph.bulletBorderColor = "#FFFFFF";
@@ -339,7 +310,7 @@
             ph_graph.lineThickness = 2;
             ph_graph.valueField = "value";
             ph_graph.selectedBackgroundColor = "#FFF";
-            ph_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            ph_graph.balloonText = "[[category]]<br><b>[[value]]</b>";
             ph_chart.addGraph(ph_graph);
 
             // CURSOR
@@ -383,8 +354,7 @@
             var categoryAxis = ec_overview_chart.categoryAxis;
             categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
             categoryAxis.minPeriod = "mm"; // our data is daily, so we set minPeriod to DD
-            categoryAxis.autoGridCount = true;
-            //categoryAxis.gridCount = 50;
+            categoryAxis.dashLength = 3;
             categoryAxis.gridAlpha = 0.1;
             categoryAxis.gridColor = "#000";
             categoryAxis.axisColor = "#000";
@@ -393,8 +363,9 @@
             // ec value axis
             var ecAxis = new AmCharts.ValueAxis();
             ecAxis.title = "EC Value";
-            ecAxis.gridAlpha = 0;
+            ecAxis.gridAlpha = 0.2;
             ecAxis.axisAlpha = 0;
+            ecAxis.dashLength = 3;
             ec_overview_chart.addValueAxis(ecAxis);
 
             // tds value axis
@@ -413,18 +384,44 @@
             psAxis.gridAlpha = 0;
             psAxis.axisAlpha = 0;
             psAxis.title = "TDS & PS";
-            psAxis.offset = 30;
+            psAxis.offset = 35;
             psAxis.position = "right";
             ec_overview_chart.addValueAxis(psAxis);
 
             // GRAPHS
+            // ps graph
+            var psGraph = new AmCharts.AmGraph();
+            psGraph.id = "ps_overview_graph";
+            psGraph.title = "Practical Salinity";
+            psGraph.valueField = "ps";
+            psGraph.type = "step";
+            psGraph.valueAxis = psAxis; // indicate which axis should be used
+            psGraph.negativeBase = "0.5";
+            psGraph.negativeLineColor = "#0FFF99";
+            psGraph.negativeLineAlpha = 0;
+            psGraph.negativeFillColor = "#0FFF99";
+            psGraph.negativeFillAlphas = 0.05;
+            psGraph.lineColor = "#FF8048";
+            psGraph.lineAlpha = 0;
+            psGraph.fillColors = "#FF8048"
+            psGraph.fillAlphas = 0.7;
+            psGraph.balloonText = "PS: [[value]]";
+            psGraph.lineThickness = 1;
+            psGraph.legendValueText = "[[value]]";
+            psGraph.bullet = "square";
+            //psGraph.bulletBorderColor = "#ff5755";
+            //psGraph.bulletBorderThickness = 1;
+            //psGraph.bulletBorderAlpha = 1;
+            psGraph.animationPlayed = true;
+            ec_overview_chart.addGraph(psGraph);
+
             // EC graph
             var ecGraph = new AmCharts.AmGraph();
             ecGraph.valueField = "ec_value";
             ecGraph.title = "ec_value";
             ecGraph.type = "smoothedLine";
             ecGraph.bullet = "round";
-            ecGraph.bulletSize = 10;
+            ecGraph.bulletSize = 5;
             //ecGraph.fillAlphas = 0.1;
             ecGraph.valueAxis = ecAxis; // indicate which axis should be used
             ecGraph.balloonText = "EC: [[value]] &mu;S";
@@ -443,49 +440,23 @@
             tdsGraph.type = "line";
             tdsGraph.valueAxis = tdsAxis; // indicate which axis should be used
             tdsGraph.lineColor = "#40BF9E";
+            tdsGraph.lineThickness = 3;
+            tdsGraph.lineAlpha = 1;
             //tdsGraph.fillColors = "#40BF9E";
             //tdsGraph.fillAlphas = 0.7;
             tdsGraph.columnWidth = 4;
-            //tdsGraph.lineThickness = 2;
             tdsGraph.legendValueText = " ";
-            //tdsGraph.descriptionField = "townName";
             tdsGraph.bullet = "round";
             tdsGraph.bulletSize = 10; // indicate which field should be used for bullet size
-            tdsGraph.bulletBorderColor = "#359E83";
-            //tdsGraph.bulletBorderAlpha = 1;
-            //tdsGraph.bulletBorderThickness = 2;
-            //tdsGraph.bulletColor = "#40BF9E";
-            //tdsGraph.labelText = "[[value]]"; // not all data points has townName2 specified, that's why labels are displayed only near some of the bullets.
+            tdsGraph.bulletBorderColor = "#FFFFFF";
+            tdsGraph.bulletBorderAlpha = 1;
+            tdsGraph.bulletBorderThickness = 2;
             tdsGraph.labelPosition = "right";
             tdsGraph.balloonText = "TDS:[[value]] ppm";
             tdsGraph.showBalloon = true;
+            tdsGraph.legendValueText = "[[value]]";
             tdsGraph.animationPlayed = true;
             ec_overview_chart.addGraph(tdsGraph);
-
-            // ps graph
-            var psGraph = new AmCharts.AmGraph();
-            psGraph.id = "ps_overview_graph";
-            psGraph.title = "Practical Salinity";
-            psGraph.valueField = "ps";
-            psGraph.type = "step";
-            psGraph.valueAxis = psAxis; // indicate which axis should be used
-            psGraph.negativeBase = "0.5";
-            psGraph.negativeLineColor = "#0FFF99";
-            psGraph.negativeFillColor = "#0FFF99";
-            psGraph.negativeFillAlphas = 0;
-            psGraph.lineColor = "#FF8048";
-            psGraph.fillColors = "#FF8048"
-            psGraph.fillAlphas = 0.7;
-            psGraph.balloonText = "PS: [[value]]";
-            psGraph.lineThickness = 1;
-            psGraph.legendValueText = "[[value]]";
-            psGraph.bullet = "square";
-            //psGraph.bulletBorderColor = "#ff5755";
-            psGraph.bulletBorderThickness = 1;
-            psGraph.bulletBorderAlpha = 1;
-            psGraph.dashLengthField = "dashLength";
-            psGraph.animationPlayed = true;
-            ec_overview_chart.addGraph(psGraph);
 
             // CURSOR
             var chartCursor = new AmCharts.ChartCursor();
@@ -529,9 +500,7 @@
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             ec_chart.addListener("dataUpdated", zoomChart);
             function zoomChart() {
-                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                ec_chart.zoomToIndexes(0,30);
+                ec_chart.zoomToIndexes(ecChartData.length - 8,ecChartData.length);
             }
             // AXES
             // category
@@ -539,9 +508,6 @@
             categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
             categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
             categoryAxis.dashLength = 3;
-            categoryAxis.minorGridEnabled = true;
-            categoryAxis.minorGridAlpha = 0.1;
-            //categoryAxis.offset = 83;
 
             // value
             var valueAxis = new AmCharts.ValueAxis();
@@ -549,14 +515,24 @@
             valueAxis.inside = true;
             valueAxis.dashLength = 3;
             valueAxis.labelOffset = -30;
+            valueAxis.offset = 15;
+            valueAxis.title = "EC Value (μ Siemens)";
+            valueAxis.guides = [{
+                "fillAlpha": 0.2,
+                "fillColor": "#3D73B5",
+                "lineAlpha": 0.5,
+                "lineColor": "#757575",
+                "toValue": 1050,
+                "value": 400
+            }];
             ec_chart.addValueAxis(valueAxis);
 
             // GRAPH
             var ec_graph = new AmCharts.AmGraph();
             ec_graph.type = "smoothedLine"; // this line makes the graph smoothed line.
-            ec_graph.lineColor = "#FF9E3A";
-            ec_graph.negativeBase = "1000";
-            ec_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            ec_graph.lineColor = "#3D73B5";
+            ec_graph.negativeBase = "200";
+            ec_graph.negativeLineColor = "#E56F62"; // this line makes the graph to change color when it drops below 0
             ec_graph.bullet = "round";
             ec_graph.bulletSize = 8;
             ec_graph.bulletBorderColor = "#FFFFFF";
@@ -565,7 +541,7 @@
             ec_graph.lineThickness = 2;
             ec_graph.valueField = "ec_value";
             ec_graph.selectedBackgroundColor = "#FFF";
-            ec_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            ec_graph.balloonText = "[[category]]<br><b>[[value]] μS</b>";
             ec_chart.addGraph(ec_graph);
 
             // CURSOR
@@ -596,9 +572,7 @@
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             tds_chart.addListener("dataUpdated", zoomChart);
             function zoomChart() {
-                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                tds_chart.zoomToIndexes(0,30);
+                tds_chart.zoomToIndexes(ecChartData.length - 8,ecChartData.length);
             }
 
             // AXES
@@ -607,9 +581,6 @@
             categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
             categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
             categoryAxis.dashLength = 3;
-            categoryAxis.minorGridEnabled = true;
-            categoryAxis.minorGridAlpha = 0.1;
-            //categoryAxis.offset = 83;
 
             // value
             var valueAxis = new AmCharts.ValueAxis();
@@ -617,14 +588,25 @@
             valueAxis.inside = true;
             valueAxis.dashLength = 3;
             valueAxis.labelOffset = -30;
+            valueAxis.title = "Total Disolved Solids (PPM)";
+            valueAxis.offset = 15;
+            valueAxis.guides = [{
+                "fillAlpha": 0.2,
+                "fillColor": "#40BF9E",
+                "lineAlpha": 0.5,
+                "lineColor": "#757575",
+                "toValue": 600,
+                "value": 300
+            }];
             tds_chart.addValueAxis(valueAxis);
 
             // GRAPH
             var tds_graph = new AmCharts.AmGraph();
             tds_graph.type = "line"; // this line makes the graph smoothed line.
-            tds_graph.lineColor = "#FF9E3A";
-            tds_graph.negativeBase = "1000";
-            tds_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            tds_graph.lineColor = "#40BF9E";
+            tds_graph.lineThickness = 2;
+            tds_graph.negativeBase = "200";
+            tds_graph.negativeLineColor = "#E56F62"; // this line makes the graph to change color when it drops below 0
             tds_graph.bullet = "round";
             tds_graph.bulletSize = 8;
             tds_graph.bulletBorderColor = "#FFFFFF";
@@ -633,7 +615,7 @@
             tds_graph.lineThickness = 2;
             tds_graph.valueField = "tds";
             tds_graph.selectedBackgroundColor = "#FFF";
-            tds_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            tds_graph.balloonText = "[[category]]<br><b>[[value]] ppm</b>";
             tds_chart.addGraph(tds_graph);
 
             // CURSOR
@@ -666,7 +648,7 @@
             function zoomChart() {
                 // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
                 //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                ps_chart.zoomToIndexes(0,30);
+                ps_chart.zoomToIndexes(ecChartData.length - 8,ecChartData.length);
             }
 
             // AXES
@@ -675,9 +657,6 @@
             categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
             categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
             categoryAxis.dashLength = 3;
-            categoryAxis.minorGridEnabled = true;
-            categoryAxis.minorGridAlpha = 0.1;
-            //categoryAxis.offset = 83;
 
             // value
             var valueAxis = new AmCharts.ValueAxis();
@@ -685,24 +664,31 @@
             valueAxis.inside = true;
             valueAxis.dashLength = 3;
             valueAxis.labelOffset = -30;
+            valueAxis.title = "Practical Salinity"
             ps_chart.addValueAxis(valueAxis);
 
             // GRAPH
-            ps_graph = new AmCharts.AmGraph();
-            ps_graph.type = "line"; // this line makes the graph smoothed line.
-            ps_graph.lineColor = "#FF9E3A";
-            ps_graph.negativeBase = "1000";
-            ps_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
-            ps_graph.bullet = "round";
-            ps_graph.bulletSize = 8;
-            ps_graph.bulletBorderColor = "#FFFFFF";
-            ps_graph.bulletBorderAlpha = 1;
-            ps_graph.bulletBorderThickness = 2;
-            ps_graph.lineThickness = 2;
-            ps_graph.valueField = "ps";
-            ps_graph.selectedBackgroundColor = "#FFF";
-            ps_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
-            ps_chart.addGraph(ps_graph);
+            var ps_Graph = new AmCharts.AmGraph();
+            ps_Graph.id = "ps_overview_graph";
+            ps_Graph.title = "Practical Salinity";
+            ps_Graph.valueField = "ps";
+            ps_Graph.type = "step";
+            ps_Graph.valueAxis = valueAxis; // indicate which axis should be used
+            ps_Graph.negativeBase = "0.5";
+            ps_Graph.negativeLineColor = "#0FFF99";
+            ps_Graph.negativeLineAlpha = 0;
+            ps_Graph.negativeFillColor = "#0FFF99";
+            ps_Graph.negativeFillAlphas = 0.05;
+            ps_Graph.lineColor = "#FF8048";
+            ps_Graph.lineAlpha = 0;
+            ps_Graph.fillColors = "#FF8048"
+            ps_Graph.fillAlphas = 0.7;
+            ps_Graph.balloonText = "PS: [[value]]";
+            ps_Graph.lineThickness = 1;
+            ps_Graph.legendValueText = "[[value]]";
+            ps_Graph.bullet = "square";
+            ps_Graph.animationPlayed = true;
+            ps_chart.addGraph(ps_Graph);
 
             // CURSOR
             var chartCursor = new AmCharts.ChartCursor();
@@ -734,7 +720,7 @@
             function zoomChart() {
                 // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
                 //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                lux_chart.zoomToIndexes(0,30);
+                lux_chart.zoomToIndexes(luxChartData.length - 8,luxChartData.length);
             }
 
             // AXES
@@ -743,9 +729,6 @@
             categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
             categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
             categoryAxis.dashLength = 3;
-            categoryAxis.minorGridEnabled = true;
-            categoryAxis.minorGridAlpha = 0.1;
-            //categoryAxis.offset = 83;
 
             // value
             var valueAxis = new AmCharts.ValueAxis();
@@ -753,6 +736,15 @@
             valueAxis.inside = true;
             valueAxis.dashLength = 3;
             valueAxis.labelOffset = -30;
+            valueAxis.title = "Ambient Light Level (Lux)";
+            valueAxis.guides = [{
+                "fillAlpha": 0.2,
+                "fillColor": "#FF9E3A",
+                "lineAlpha": 0.5,
+                "lineColor": "#757575",
+                "toValue": 800,
+                "value": 90
+            }];
             lux_chart.addValueAxis(valueAxis);
 
             // GRAPH
@@ -769,7 +761,7 @@
             lux_graph.lineThickness = 2;
             lux_graph.valueField = "value";
             lux_graph.selectedBackgroundColor = "#FFF";
-            lux_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            lux_graph.balloonText = "[[category]]<br><b>[[value]] lux</b>";
             lux_chart.addGraph(lux_graph);
 
             // CURSOR
@@ -788,21 +780,150 @@
             lux_chart.write("lux_chartDiv");
         });
 
+        //Create Temp_Overview Graph
+        AmCharts.ready(function () {
+            // SERIAL CHART
+            var temp_overview_chart = new AmCharts.AmSerialChart();
+            //chart.addClassNames = true;
+            temp_overview_chart.dataProvider = tempChartData;
+            temp_overview_chart.categoryField = "date";
+            //chart.dataDateFormat = "YYYY-MM-DD";
+            //chart.startDuration = 1;
+            //chart.color = "#000";
+            temp_overview_chart.marginLeft = 0;
+
+            // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
+            temp_overview_chart.addListener("dataUpdated", zoomChart);
+            function zoomChart() {
+                temp_overview_chart.zoomToIndexes(tempChartData.length - 8,tempChartData.length);
+            }
+
+            // AXES
+            // category
+            var categoryAxis = temp_overview_chart.categoryAxis;
+            categoryAxis.parseDates = true; // as our data is date-based
+            categoryAxis.minPeriod = "mm";
+            categoryAxis.dashLength = 3;
+            categoryAxis.autoGridCount = true;
+            categoryAxis.gridAlpha = 0.1;
+            categoryAxis.gridColor = "#000";
+            categoryAxis.axisColor = "#000";
+
+            // as we have data of different units, we create two different value axes
+            // waterTemp value axis
+            var tempValueAxis = new AmCharts.ValueAxis();
+            tempValueAxis.title = "Temperature (F°)";
+            tempValueAxis.gridAlpha = 0.2;
+            tempValueAxis.axisAlpha = 0;
+            tempValueAxis.dashLength = 3;
+            tempValueAxis.guides = [
+                {
+                    "fillAlpha": 0.2,
+                    "fillColor": "#3D73B5",
+                    "lineAlpha": 0.5,
+                    "lineColor": "#757575",
+                    "toValue": 75, //end value for guide
+                    "value": 65 //start value for guide
+                },
+                {
+                    "fillAlpha": 0.2,
+                    "fillColor": "#41A6A8",
+                    "lineAlpha": 0.5,
+                    "lineColor": "#757575",
+                    "toValue": 80, //end value for guide
+                    "value": 70 //start value for guide
+                }
+            ];
+            temp_overview_chart.addValueAxis(tempValueAxis);
+
+            // GRAPHS
+            // waterTemp graph
+            var waterTempGraph = new AmCharts.AmGraph();
+            waterTempGraph.valueField = "waterTemp";
+            waterTempGraph.title = "Water Temperature";
+            waterTempGraph.type = "line";
+            waterTempGraph.bullet = "round";
+            waterTempGraph.bulletSize = 10;
+            //waterTempGraph.fillAlphas = 0.1;
+            waterTempGraph.valueAxis = tempValueAxis; // indicate which axis should be used
+            waterTempGraph.balloonText = "Water Temp: [[value]] F°";
+            waterTempGraph.legendValueText = " ";
+            //waterTempGraph.legendPeriodValueText = "total: [[value.sum]] &mu;S";
+            waterTempGraph.lineColor = "#3D73B5";
+            waterTempGraph.alphaField = "alpha";
+            temp_overview_chart.addGraph(waterTempGraph);
+
+            // airTemp graph
+            var airTempGraph = new AmCharts.AmGraph();
+            airTempGraph.valueField = "airTemp";
+            airTempGraph.id = "airTemp_overview_graph";
+            //tdsGraph.classNameField = "bulletClass";
+            airTempGraph.title = "Air Temperature";
+            airTempGraph.type = "line";
+            airTempGraph.valueAxis = tempValueAxis; // indicate which axis should be used
+            airTempGraph.lineColor = "#40BF9E";
+            //tdsGraph.fillColors = "#40BF9E";
+            //tdsGraph.fillAlphas = 0.7;
+            airTempGraph.columnWidth = 4;
+            //tdsGraph.lineThickness = 2;
+            airTempGraph.legendValueText = " ";
+            //tdsGraph.descriptionField = "townName";
+            airTempGraph.bullet = "round";
+            airTempGraph.bulletSize = 10; // indicate which field should be used for bullet size
+            airTempGraph.bulletBorderColor = "#359E83";
+            //tdsGraph.bulletBorderAlpha = 1;
+            //tdsGraph.bulletBorderThickness = 2;
+            //tdsGraph.bulletColor = "#40BF9E";
+            //tdsGraph.labelText = "[[value]]"; // not all data points has townName2 specified, that's why labels are displayed only near some of the bullets.
+            airTempGraph.labelPosition = "right";
+            airTempGraph.balloonText = "Air Temp:[[value]] F°";
+            airTempGraph.showBalloon = true;
+            airTempGraph.animationPlayed = true;
+            temp_overview_chart.addGraph(airTempGraph);
+
+            // CURSOR
+            var chartCursor = new AmCharts.ChartCursor();
+            chartCursor.zoomable = true;
+            chartCursor.categoryBalloonDateFormat = undefined;
+            chartCursor.cursorAlpha = 0;
+            chartCursor.valueBalloonsEnabled = false;
+            chartCursor.valueLineBalloonEnabled = true;
+            chartCursor.valueLineEnabled = true;
+            chartCursor.valueLineAlpha = 0.5;
+            chartCursor.cursorColor = "#41A6A8";
+            temp_overview_chart.addChartCursor(chartCursor);
+
+            // LEGEND
+            var legend = new AmCharts.AmLegend();
+            legend.bulletType = "round";
+            legend.equalWidths = false;
+            legend.valueWidth = 120;
+            legend.useGraphSettings = true;
+            legend.color = "#000";
+            temp_overview_chart.addLegend(legend);
+
+            // SCROLLBAR
+            var chartScrollbar = new AmCharts.ChartScrollbar();
+            temp_overview_chart.addChartScrollbar(chartScrollbar);
+
+            // WRITE
+            temp_overview_chart.write("temp_overview_chartDiv");
+
+        });
+
         //Create AirTemp Graph
         AmCharts.ready(function () {
             // SERIAL CHART
             var airTemp_chart = new AmCharts.AmSerialChart();
 
-            airTemp_chart.dataProvider = airTempData;
+            airTemp_chart.dataProvider = tempChartData;
             airTemp_chart.marginLeft = 10;
             airTemp_chart.categoryField = "date";
 
             // listen for "dataUpdated" event (fired when chart is inited) and call zoomChart method when it happens
             airTemp_chart.addListener("dataUpdated", zoomChart);
             function zoomChart() {
-                // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-                //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                airTemp_chart.zoomToIndexes(0,30);
+                airTemp_chart.zoomToIndexes(tempChartData.length - 8,tempChartData.length);
             }
 
             // AXES
@@ -811,8 +932,6 @@
             categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
             categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
             categoryAxis.dashLength = 3;
-            categoryAxis.minorGridEnabled = true;
-            categoryAxis.minorGridAlpha = 0.1;
             //categoryAxis.offset = 83;
 
             // value
@@ -821,12 +940,21 @@
             valueAxis.inside = true;
             valueAxis.dashLength = 3;
             valueAxis.labelOffset = -30;
+            valueAxis.title = "Temperature (F°)";
+            valueAxis.guides = [{
+                "fillAlpha": 0.2,
+                "fillColor": "#41A6A8",
+                "lineAlpha": 0.5,
+                "lineColor": "#757575",
+                "toValue": 80,
+                "value": 65
+            }];
             airTemp_chart.addValueAxis(valueAxis);
 
             // GRAPH
             airTemp_graph = new AmCharts.AmGraph();
             airTemp_graph.type = "line"; // this line makes the graph smoothed line.
-            airTemp_graph.lineColor = "#FF9E3A";
+            airTemp_graph.lineColor = "#40BF9E";
             airTemp_graph.negativeBase = "50";
             airTemp_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
             airTemp_graph.bullet = "round";
@@ -835,9 +963,9 @@
             airTemp_graph.bulletBorderAlpha = 1;
             airTemp_graph.bulletBorderThickness = 2;
             airTemp_graph.lineThickness = 2;
-            airTemp_graph.valueField = "value";
+            airTemp_graph.valueField = "airTemp";
             airTemp_graph.selectedBackgroundColor = "#FFF";
-            airTemp_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            airTemp_graph.balloonText = "[[category]]<br><b>[[value]] F°</b>";
             airTemp_chart.addGraph(airTemp_graph);
 
             // CURSOR
@@ -861,7 +989,7 @@
             // SERIAL CHART
             var waterTemp_chart = new AmCharts.AmSerialChart();
 
-            waterTemp_chart.dataProvider = waterTempData;
+            waterTemp_chart.dataProvider = tempChartData;
             waterTemp_chart.marginLeft = 10;
             waterTemp_chart.categoryField = "date";
 
@@ -870,7 +998,7 @@
             function zoomChart() {
                 // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
                 //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                waterTemp_chart.zoomToIndexes(0,30);
+                waterTemp_chart.zoomToIndexes(tempChartData.length - 8,tempChartData.length);
             }
 
             // AXES
@@ -879,9 +1007,6 @@
             categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
             categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
             categoryAxis.dashLength = 3;
-            categoryAxis.minorGridEnabled = true;
-            categoryAxis.minorGridAlpha = 0.1;
-            //categoryAxis.offset = 83;
 
             // value
             var valueAxis = new AmCharts.ValueAxis();
@@ -889,12 +1014,21 @@
             valueAxis.inside = true;
             valueAxis.dashLength = 3;
             valueAxis.labelOffset = -30;
+            valueAxis.title = "Temperature (F°)";
+            valueAxis.guides = [{
+                "fillAlpha": 0.2,
+                "fillColor": "#3D73B5",
+                "lineAlpha": 0.5,
+                "lineColor": "#757575",
+                "toValue": 75,
+                "value": 65
+            }];
             waterTemp_chart.addValueAxis(valueAxis);
 
             // GRAPH
             waterTemp_graph = new AmCharts.AmGraph();
             waterTemp_graph.type = "line"; // this line makes the graph smoothed line.
-            waterTemp_graph.lineColor = "#FF9E3A";
+            waterTemp_graph.lineColor = "#3D73B5";
             waterTemp_graph.negativeBase = "50";
             waterTemp_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
             waterTemp_graph.bullet = "round";
@@ -903,9 +1037,9 @@
             waterTemp_graph.bulletBorderAlpha = 1;
             waterTemp_graph.bulletBorderThickness = 2;
             waterTemp_graph.lineThickness = 2;
-            waterTemp_graph.valueField = "value";
+            waterTemp_graph.valueField = "waterTemp";
             waterTemp_graph.selectedBackgroundColor = "#FFF";
-            waterTemp_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            waterTemp_graph.balloonText = "[[category]]<br><b>[[value]] F°</b>";
             waterTemp_chart.addGraph(waterTemp_graph);
 
             // CURSOR
@@ -929,7 +1063,7 @@
             // SERIAL CHART
             var humidity_chart = new AmCharts.AmSerialChart();
 
-            humidity_chart.dataProvider = humidityData;
+            humidity_chart.dataProvider = humidityChartData;
             humidity_chart.marginLeft = 10;
             humidity_chart.categoryField = "date";
 
@@ -938,7 +1072,7 @@
             function zoomChart() {
                 // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
                 //ph_chart.zoomToDates(new Date(1972, 0), new Date(1984, 0));
-                humidity_chart.zoomToIndexes(humidityData.length - 12,humidityData.length);
+                humidity_chart.zoomToIndexes(humidityChartData.length - 8,humidityChartData.length);
             }
 
             // AXES
@@ -947,9 +1081,6 @@
             categoryAxis.parseDates = true; // as our data is date-based, we set parseDates to true
             categoryAxis.minPeriod = "mm"; // our data is yearly, so we set minPeriod to YYYY
             categoryAxis.dashLength = 3;
-            categoryAxis.minorGridEnabled = true;
-            categoryAxis.minorGridAlpha = 0.1;
-            //categoryAxis.offset = 83;
 
             // value
             var valueAxis = new AmCharts.ValueAxis();
@@ -957,14 +1088,15 @@
             valueAxis.inside = true;
             valueAxis.dashLength = 3;
             valueAxis.labelOffset = -30;
+            valueAxis.title = "Relative Humidity (%)"
             humidity_chart.addValueAxis(valueAxis);
 
             // GRAPH
             humidity_graph = new AmCharts.AmGraph();
             humidity_graph.type = "line"; // this line makes the graph smoothed line.
-            humidity_graph.lineColor = "#FF9E3A";
-            humidity_graph.negativeBase = "50";
-            humidity_graph.negativeLineColor = "#41A6A8"; // this line makes the graph to change color when it drops below 0
+            humidity_graph.lineColor = "#7BE9FF";
+            humidity_graph.negativeBase = "10";
+            humidity_graph.negativeLineColor = "#E5BA9F"; // this line makes the graph to change color when it drops below 0
             humidity_graph.bullet = "round";
             humidity_graph.bulletSize = 8;
             humidity_graph.bulletBorderColor = "#FFFFFF";
@@ -973,7 +1105,7 @@
             humidity_graph.lineThickness = 2;
             humidity_graph.valueField = "value";
             humidity_graph.selectedBackgroundColor = "#FFF";
-            humidity_graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+            humidity_graph.balloonText = "[[category]]<br><b>[[value]] %</b>";
             humidity_chart.addGraph(humidity_graph);
 
             // CURSOR
@@ -1366,14 +1498,11 @@
                                    <li>
                                        <a href="#controls_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i> Controls</a>
                                    </li>
-                                   <li>
-                                       <a href="#photos_tab" data-toggle="tab"><i class="fa fa-fw fa-lg fa-camera"></i> Photos</a>
-                                   </li>
                                </ul>
 
                                <div id="plant_info_tabContent" class="tab-content padding-10">
                                    <div class="tab-pane fade in active" id="devices_tab">
-                                       <button class="pull-right btn-primary btn" data-toggle="modal" data-target="#link_modal"><span class="fa fa-lg fa-link"></span> Device</button>
+                                       <button class="pull-right btn-primary btn" data-toggle="modal" data-target="#link_device_modal"><span class="fa fa-lg fa-link"></span> Device</button>
                                        <h6>Mario: <em>Arduino</em></h6>
                                        <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
                                        <div class="panel-group" role="tablist">
