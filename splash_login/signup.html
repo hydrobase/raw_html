@@ -28,8 +28,8 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="css/demo.min.css">
 
 		<!-- #FAVICONS -->
-		<link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="img/favicon/favicon_new.ico" type="image/x-icon">
+		<link rel="icon" href="img/favicon/favicon_new.ico" type="image/x-icon">
 
 		<!-- #GOOGLE FONT -->
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
@@ -121,7 +121,7 @@
 					</div>
 					<div id="login-box" class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 						<div class="well no-padding">
-							<form action="dashboard.html" id="signup-form" class="smart-form client-form">
+							<form id="signup-form" method="post" action="NO_IDEA_WHERE_TO_SEND" class="smart-form client-form">
 								<header>
 									Create an Account
 								</header>
@@ -131,14 +131,14 @@
 									<section>
 										<label class="label">Name</label>
 										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="text" name="name">
+											<input type="text" id="name" name="name">
 											<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Enter your name</b></label>
 									</section>
 
 									<section>
                                     <label class="label">Email</label>
-										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="email" name="email">
+										<label class="input"> <i class="icon-append fa fa-envelope"></i>
+											<input type="email" id="email" name="email">
 											<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Enter your email</b> </label>
                                         <!--
                                         <div class="note">
@@ -149,22 +149,22 @@
                                     
                                     <section>
 										<label class="label">Password</label>
-										<label class="input"> <i class="icon-append fa fa-lock"></i>
-											<input type="password" name="password">
+										<label class="input"> <i class="icon-append fa fa-key"></i>
+											<input type="password" id="password" name="password">
 											<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b></label>
 									</section>
 
                                     <section>
 										<label class="label">Confirm Password</label>
 										<label class="input"> <i class="icon-append fa fa-lock"></i>
-											<input type="password" name="password">
+											<input type="password" id="password_confirm" name="password_confirm">
 											<b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Confirm your password</b></label>
 									</section>
 
                                     <section>
 										<label class="label">ZIP</label>
-										<label class="input"> <i class="icon-append fa fa-user"></i>
-											<input type="number" name="zip">
+										<label class="input"> <i class="icon-append fa fa-map-marker"></i>
+											<input type="zip" id="zip" name="zip">
 											<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Enter your ZIP</b></label>
 									</section>
 
@@ -178,7 +178,7 @@
 									</section>
 								</fieldset>
 								<footer>
-									<button type="submit" onclick="window.location.href='/login'" class="btn btn-danger btn-login">
+									<button type="submit" class="btn btn-danger btn-login">
 										Create Account
                                     </button>
 
@@ -251,13 +251,16 @@
 		<script src="js/app.min.js"></script>
 
 		<script type="text/javascript">
-			runAllForms();
 
 			$(function() {
 				// Validation
-				$("#login-form").validate({
+				$("#signup-form").validate({
 					// Rules for form validation
 					rules : {
+						name : {
+							required : true,
+							minlength: 2
+						},
 						email : {
 							required : true,
 							email : true
@@ -266,6 +269,16 @@
 							required : true,
 							minlength : 3,
 							maxlength : 20
+						},
+						password_confirm : {
+							required : true,
+							equalTo: '#password'
+						},
+						zip: {
+							required: true,
+							digits: true,
+							minlength: 5,
+							maxlength: 5
 						}
 					},
 
@@ -286,6 +299,8 @@
 					}
 				});
 			});
+
+			runAllForms();
 		</script>
 
 	</body>
