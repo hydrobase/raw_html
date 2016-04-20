@@ -203,58 +203,15 @@
                 <a href="#"><i class="fa fa-lg fa-fw fa-pagelines"></i> <span class="menu-item-parent">Grows</span></a>
                 <ul>
                     <li>
-                        <a href="flot.html">Avi</a>
+                        <a href="grows.html">Avi</a>
                     </li>
                     <li>
-                        <a href="morris.html">Lilly</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-lg fa-fw fa-flask"></i> <span class="menu-item-parent">Experiments</span></a>
-                <ul>
-                    <li>
-                        <a href="table.html">Salinity Test</a>
-                    </li>
-                    <li>
-                        <a href="datatables.html">pH Test</a>
+                        <a href="grows.html">Lilly</a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Plant Profiles</span></a>
-                <ul>
-                    <li>
-                        <a href="form-elements.html">Smart Form Elements</a>
-                    </li>
-                    <li>
-                        <a href="form-templates.html">Smart Form Layouts</a>
-                    </li>
-                    <li>
-                        <a href="validation.html">Smart Form Validation</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-forms.html">Bootstrap Form Elements</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-validator.html">Bootstrap Form Validation</a>
-                    </li>
-                    <li>
-                        <a href="plugins.html">Form Plugins</a>
-                    </li>
-                    <li>
-                        <a href="wizard.html">Wizards</a>
-                    </li>
-                    <li>
-                        <a href="other-editors.html">Bootstrap Editors</a>
-                    </li>
-                    <li>
-                        <a href="dropzone.html">Dropzone </a>
-                    </li>
-                    <li>
-                        <a href="image-editor.html">Image Cropping <span class="badge pull-right inbox-badge bg-color-yellow">new</span></a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a href="#"><i class="fa fa-lg fa-fw fa-file-text"></i> <span class="menu-item-parent">Documentation</span></a>
@@ -364,7 +321,7 @@
 
         <!-- breadcrumb -->
         <ol class="breadcrumb">
-            <li>Hydrobase</li><li>Grows</li><li>Avi</li>
+            <li>Hydrobase</li><li>Plant Profiles</li>
         </ol>
         <!-- end breadcrumb -->
 
@@ -457,7 +414,7 @@
                         <div>
                             <!-- widget content -->
                             <div class="widget-body">
-                                <img src="http://tacticalintelligence.net/wp-content/uploads/2010/04/dandelion.jpg">
+                                <img src="img/plant_photos/dandelion.jpg">
                                 <div class="panel-group" role="tablist">
                                     <div class="panel panel-default">
                                         <div class="panel-heading" role="tab" id="collapseListGroupHeading_taraxacum_officinale">
@@ -487,7 +444,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <button id="taraxacum_officinale_add_btn" class="btn btn-primary add_plant_btn" data-toggle="modal" data-target="#add_plant_device_modal">Add Plant to Device</button>
+                                    <button id="taraxacum_officinale_add_btn" class="btn btn-primary add_plant_btn" data-toggle="modal" data-target="#add_new_grow_modal">Add Plant to Device</button>
                                 </div>
                             </div>
                             <!-- end widget content -->
@@ -499,8 +456,435 @@
             </div>
         </section>
         <!-- end widget grid -->
+
+        <!--link to plant modal-->
+        <div id="add_new_grow_modal" class="modal fade test" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create Grow From Plant Profile</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="smart-form" id="new_grow_form">
+                            <fieldset>
+                                <section>
+                                    <label class="label">Grow Name</label>
+                                    <label class="input">
+                                        <input name="grow_name" id="grow_name" type="text">
+                                    </label>
+                                    <input type="text" name="plant_type" id="add_grow_plant_type" value="" hidden="hidden">
+                                </section>
+                                <section>
+                                    <label class="label">Do You Want To Help Us With An Experiment?</label>
+                                    <div class="inline-group">
+                                        <label class="radio">
+                                            <input type="radio" name="experiment" value="true" id="experiment_yes">
+                                            <i></i>Yes
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="experiment" value="false" id="experiment_no">
+                                            <i></i>No
+                                        </label>
+                                    </div>
+                                </section>
+                                <section id="default_profile_radio">
+                                    <label class="label">Do You Want To Use The Defaul Profile?</label>
+                                    <div class="inline-group">
+                                        <label class="radio">
+                                            <input type="radio" name="default_profile" value="true" id="default_profile_yes">
+                                            <i></i>Yes
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="default_profile" value="false" id="default_profile_no">
+                                            <i></i>No
+                                        </label>
+                                    </div>
+                                </section>
+                            </fieldset>
+                            <section id="grow_options">
+                                <header>
+                                    Grow Set Up
+                                </header>
+                                <fieldset name="grow_mods" id="grow_mods">
+                                    <section>
+                                        <label class="label"><strong>pH Range</strong></label>
+                                        <div class="inline-group">
+                                                <label class="radio">
+                                                    <input type="radio" name="pH" value="pH_below_default">
+                                                    <i></i>.25 Below Default ()
+                                                </label>
+                                                <label class="radio">
+                                                    <input type="radio" name="pH" value="pH_above_default">
+                                                    <i></i>.25 Below Default ()
+                                                </label>
+                                        </div>
+                                    </section>
+                                    <section>
+                                        <label class="label"><strong>EC Range</strong></label>
+                                        <div class="inline-group">
+                                            <label class="radio">
+                                                <input type="radio" name="ec" value="ec_below_default">
+                                                <i></i>.25 Below Default ()
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="ec" value="ec_above_default">
+                                                <i></i>.25 Below Default ()
+                                            </label>
+                                        </div>
+                                    </section>
+                                    <section>
+                                        <label class="label"><strong>Lights</strong></label>
+                                        <div class="inline-group">
+                                            <label class="radio">
+                                                <input type="radio" name="lights" value="lights_24on">
+                                                <i></i>24H On
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="lights" value="12H_on">
+                                                <i></i>12H On 12H Off
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="lights" value="6H_on">
+                                                <i></i>6H On 6H Off
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="lights" value="4H_on">
+                                                <i></i>4H on 4H off
+                                            </label>
+                                        </div>
+                                    </section>
+                                    <section>
+                                        <label class="label"><strong>Water Cycle</strong></label>
+                                        <div class="inline-group">
+                                            <label class="radio">
+                                                <input type="radio" name="water" value="5min_on">
+                                                <i></i>5Min On 5Min Off
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="water" value="15min_on">
+                                                <i></i>15Min On 15Min Off
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="water" value="30min_on">
+                                                <i></i>30Min on 30Min off
+                                            </label>
+                                        </div>
+                                    </section>
+                                </fieldset>
+                            </section>
+
+
+
+                            <!--start of conditional controls-->
+                            <section id="user_controls">
+                                <fieldset id="actuator_controls">
+                                    <label class="label"><strong>What To Do On A Schedule (Controls):</strong></label>
+                                    <section id="actuator_control1">
+                                        <label for="actuator_control_1_actuator" class="label" >Time Based Activity 1: </label>
+                                        <label for="actuator_control_1_actuator" class="label">Actuator:</label>
+                                        <label id="actuator_control_1_actuator" class="select actuator_select">
+                                            <select name="actuator_control_1_actuator">
+                                                <option value="">Choose an Actuator</option>
+                                                <option value="Light_1">Light #1</option>
+                                                <option value="Light_2">Light #2</option>
+                                                <option value="Water_Pump_1">Water Pump #1</option>
+                                                <option value="Nutrient_Pump_1">Nutrient Pump #1</option>
+                                            </select><i></i>
+                                        </label>
+                                        <label for="actuator_control_1_time_int" class="label">Every: </label>
+                                        <section class="col col-6">
+                                            <label id="actuator_control_1_time_int" class="select">
+                                                <select name="time_int">
+                                                    <option value="">Choose a Time</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="12">13</option>
+                                                    <option value="12">14</option>
+                                                    <option value="12">15</option>
+                                                    <option value="12">30</option>
+                                                    <option value="12">45</option>
+                                                </select> <i></i>
+                                            </label>
+                                        </section>
+                                        <section class="col col-6">
+                                            <label id="actuator_control_1_time_hour_min" class="select">
+                                                <select name="time_hour_min">
+                                                    <option value="">Choose Hour/Min</option>
+                                                    <option value="hours">Hours</option>
+                                                    <option value="min">Minutes</option>
+                                                </select> <i></i>
+                                            </label>
+                                        </section>
+                                        <section class="col col-6">
+                                            <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="startdate_activity_1" id="startdate_activity_1" placeholder="Start date">
+                                            </label>
+                                        </section>
+                                        <section class="col col-6">
+                                            <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="finishdate_activity_1" id="finishdate_activity_1" placeholder="Finish date">
+                                            </label>
+                                        </section>
+                                    </section>
+                                </fieldset>
+                                <hr>
+                                <fieldset name="grow_conditions">
+                                    <label class="label"><strong>What To Do If...(Conditions):</strong></label>
+                                    <section id="actuator_conditions">
+                                        <section class="col col-3">
+                                            <label class="label">If This</label>
+                                            <label class="select">
+                                                <select id="if_this_condition_1" name="if_this_condition_1" class="input-sm">
+                                                    <option value="">Choose</option>
+                                                    <option value="pH">pH</option>
+                                                    <option value="TDS">TDS</option>
+                                                </select> <i></i>
+                                            </label>
+                                        </section>
+                                        <section class="col col-3">
+                                            <label class="label">Is</label>
+                                            <label class="select">
+                                                <select id="is_condition_1" name="is_condition_1" class="input-sm">
+                                                    <option value="">Choose</option>
+                                                    <option value=">">Greater Than</option>
+                                                    <option value=">=">Greater Than Or Equal To</option>
+                                                    <option value="<">Less Than</option>
+                                                    <option value="<=">Less Than Or Equal To</option>
+                                                    <option value="=">Equals</option>
+                                                </select> <i></i> </label>
+                                        </section>
+                                        <section class="col col-3">
+                                            <label class="label">To This</label>
+                                            <label class="select">
+                                                <select id="to_this_condition_1" name="to_this_condition_1" class="input-sm">
+                                                    <option value="">Choose</option>
+                                                    <option value="0">0</option>
+                                                    <option value="0.25">0.25</option>
+                                                    <option value="0.5">0.5</option>
+                                                    <option value="0.75">0.75</option>
+                                                    <option value="1.0">1.0</option>
+                                                    <option value="1.25">1.25</option>
+                                                    <option value="1.5">1.5</option>
+                                                    <option value="1.75">1.75</option>
+                                                    <option value="2.0">2.0</option>
+                                                    <option value="2.25">2.25</option>
+                                                    <option value="2.5">2.5</option>
+                                                    <option value="2.75">2.75</option>
+                                                    <option value="3.0">3.0</option>
+                                                    <option value="3.25">3.25</option>
+                                                    <option value="3.5">3.5</option>
+                                                    <option value="3.75">3.75</option>
+                                                    <option value="4.0">4.0</option>
+                                                    <option value="4.25">4.25</option>
+                                                    <option value="4.5">4.5</option>
+                                                    <option value="4.75">4.75</option>
+                                                    <option value="5.0">5.0</option>
+                                                    <option value="5.25">5.25</option>
+                                                    <option value="5.5">5.5</option>
+                                                    <option value="5.75">5.75</option>
+                                                    <option value="6.0">6.0</option>
+                                                    <option value="6.25">6.25</option>
+                                                    <option value="6.5">6.5</option>
+                                                    <option value="6.75">6.75</option>
+                                                    <option value="7.0">7.0</option>
+                                                    <option value="7.25">7.25</option>
+                                                    <option value="7.5">7.5</option>
+                                                    <option value="7.75">7.75</option>
+                                                    <option value="8.0">8.0</option>
+                                                    <option value="8.25">8.25</option>
+                                                    <option value="8.5">8.5</option>
+                                                    <option value="8.75">8.75</option>
+                                                    <option value="9.0">9.0</option>
+                                                    <option value="9.25">9.25</option>
+                                                    <option value="9.5">9.5</option>
+                                                    <option value="9.75">9.75</option>
+                                                    <option value="10.0">10.0</option>
+                                                    <option value="10.25">10.25</option>
+                                                    <option value="10.5">10.5</option>
+                                                    <option value="10.75">10.75</option>
+                                                    <option value="11.0">11.0</option>
+                                                    <option value="11.25">11.25</option>
+                                                    <option value="11.5">11.5</option>
+                                                    <option value="11.75">11.75</option>
+                                                    <option value="12.0">12.0</option>
+                                                    <option value="12.25">12.25</option>
+                                                    <option value="12.5">12.5</option>
+                                                    <option value="12.75">12.75</option>
+                                                    <option value="13.0">13.0</option>
+                                                    <option value="13.25">13.25</option>
+                                                    <option value="13.5">13.5</option>
+                                                    <option value="13.75">13.75</option>
+                                                    <option value="14.0">14.0</option>
+                                                    <option value="15">15</option>
+                                                    <option value="25">25</option>
+                                                    <option value="35">35</option>
+                                                    <option value="45">45</option>
+                                                    <option value="55">55</option>
+                                                    <option value="65">65</option>
+                                                    <option value="75">75</option>
+                                                    <option value="85">85</option>
+                                                    <option value="95">95</option>
+                                                    <option value="105">105</option>
+                                                    <option value="115">115</option>
+                                                    <option value="125">125</option>
+                                                    <option value="135">135</option>
+                                                    <option value="145">145</option>
+                                                    <option value="155">155</option>
+                                                    <option value="165">165</option>
+                                                    <option value="175">175</option>
+                                                    <option value="185">185</option>
+                                                    <option value="195">195</option>
+                                                    <option value="205">205</option>
+                                                    <option value="215">215</option>
+                                                    <option value="225">225</option>
+                                                    <option value="235">235</option>
+                                                    <option value="245">245</option>
+                                                    <option value="255">255</option>
+                                                    <option value="265">265</option>
+                                                    <option value="275">275</option>
+                                                    <option value="285">285</option>
+                                                    <option value="295">295</option>
+                                                    <option value="305">305</option>
+                                                    <option value="315">315</option>
+                                                    <option value="325">325</option>
+                                                    <option value="335">335</option>
+                                                    <option value="345">345</option>
+                                                    <option value="355">355</option>
+                                                    <option value="365">365</option>
+                                                    <option value="375">375</option>
+                                                    <option value="385">385</option>
+                                                    <option value="395">395</option>
+                                                    <option value="405">405</option>
+                                                    <option value="415">415</option>
+                                                    <option value="425">425</option>
+                                                    <option value="435">435</option>
+                                                    <option value="445">445</option>
+                                                    <option value="455">455</option>
+                                                    <option value="465">465</option>
+                                                    <option value="475">475</option>
+                                                    <option value="485">485</option>
+                                                    <option value="495">495</option>
+                                                    <option value="505">505</option>
+                                                    <option value="515">515</option>
+                                                    <option value="525">525</option>
+                                                    <option value="535">535</option>
+                                                    <option value="545">545</option>
+                                                    <option value="555">555</option>
+                                                    <option value="565">565</option>
+                                                    <option value="575">575</option>
+                                                    <option value="585">585</option>
+                                                    <option value="595">595</option>
+                                                    <option value="605">605</option>
+                                                    <option value="615">615</option>
+                                                    <option value="625">625</option>
+                                                    <option value="635">635</option>
+                                                    <option value="645">645</option>
+                                                    <option value="655">655</option>
+                                                    <option value="665">665</option>
+                                                    <option value="675">675</option>
+                                                    <option value="685">685</option>
+                                                    <option value="695">695</option>
+                                                    <option value="705">705</option>
+                                                    <option value="715">715</option>
+                                                    <option value="725">725</option>
+                                                    <option value="735">735</option>
+                                                    <option value="745">745</option>
+                                                    <option value="755">755</option>
+                                                    <option value="765">765</option>
+                                                    <option value="775">775</option>
+                                                    <option value="785">785</option>
+                                                    <option value="795">795</option>
+                                                    <option value="805">805</option>
+                                                    <option value="815">815</option>
+                                                    <option value="825">825</option>
+                                                    <option value="835">835</option>
+                                                    <option value="845">845</option>
+                                                    <option value="855">855</option>
+                                                    <option value="865">865</option>
+                                                    <option value="875">875</option>
+                                                    <option value="885">885</option>
+                                                    <option value="895">895</option>
+                                                    <option value="905">905</option>
+                                                    <option value="915">915</option>
+                                                    <option value="925">925</option>
+                                                    <option value="935">935</option>
+                                                    <option value="945">945</option>
+                                                    <option value="955">955</option>
+                                                    <option value="965">965</option>
+                                                    <option value="975">975</option>
+                                                    <option value="985">985</option>
+                                                    <option value="995">995</option>
+                                                    <option value="1005">1005</option>
+                                                    <option value="1015">1015</option>
+                                                    <option value="1025">1025</option>
+                                                    <option value="1035">1035</option>
+                                                    <option value="1045">1045</option>
+                                                    <option value="1055">1055</option>
+                                                    <option value="1065">1065</option>
+                                                    <option value="1075">1075</option>
+                                                    <option value="1085">1085</option>
+                                                    <option value="1095">1095</option>
+                                                    <option value="1105">1105</option>
+                                                    <option value="1115">1115</option>
+                                                    <option value="1125">1125</option>
+                                                    <option value="1135">1135</option>
+                                                    <option value="1145">1145</option>
+                                                    <option value="1155">1155</option>
+                                                    <option value="1165">1165</option>
+                                                    <option value="1175">1175</option>
+                                                    <option value="1185">1185</option>
+                                                    <option value="1200">1200</option>
+                                                </select> <i></i> </label>
+                                        </section>
+                                        <section class="col col-3">
+                                            <label class="label">Then Do</label>
+                                            <label class="select">
+                                                <select id="do_this_condition_1" name="do_this_condition_1" class="input-sm">
+                                                    <option value="">Choose</option>
+                                                    <option value="pH_Upper_On">pH Upper On</option>
+                                                    <option value="pH_Upper_Off">pH Upper Off</option>
+                                                    <option value="pH_Downer_On">pH Downer On</option>
+                                                    <option value="pH_Downer_Off">pH Downer Off</option>
+                                                    <option value="nutrient_On">Nutrient Pump On</option>
+                                                    <option value="nutrient_On">Nutrient Pump Off</option>
+                                                </select> <i></i> </label>
+                                        </section>
+                                    </section>
+                                </fieldset>
+                                <hr class="last_hr">
+
+                                <!--end of conditioncontrols-->
+                                <div class="grow_add_button_div">
+                                    <button id="add_control" class="btn btn-primary">Add Control</button>
+                                    <button id="add_condition" class="btn btn-primary">Add Condition</button>
+                                </div>
+                            </section>
+
+                            <div class="modal-footer">
+                                <button style="margin-top: 20px" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".test">Next</button>
+                                <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--end plant modal -->
         <!--link to device modal-->
-        <div id="add_plant_device_modal" class="modal fade" role="dialog">
+        <div id="add_plant_device_modal" class="modal fade test" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -522,12 +906,11 @@
                                     <div class="widget-body">
                                         <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
                                         <!--Anubhav!!!! NOT SURE IF THIS IS THE ACTION YOU WANT, FEEL FREE TO FUCK WITH IT!-->
-                                        <form>
-                                            <!--this is super important but can be all the same-->
-                                            <input class="plant_device_input" name="plant_type" type="hidden" value="">
-                                            <button id="Mario_link_btn" name="device" value="Mario" type="submit" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
-                                        </form>
 
+                                        <!--this is super important but can be all the same-->
+                                        <form class="device_link_forms">
+                                        <button id="Mario_link_btn" name="device" value="Mario" type="submit" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                        </form>
                                     </div>
                                     <!-- end widget content -->
 
@@ -546,8 +929,7 @@
                                     <!-- widget content -->
                                     <div class="widget-body">
                                         <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
-                                        <form>
-                                            <input class="plant_device_input" name="plant_type" type="hidden" value="">
+                                        <form class="device_link_forms">
                                             <button id="Luigi_link_btn" name="device" value="Luigi" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
                                         </form>
                                     </div>
@@ -570,8 +952,7 @@
                                     <!-- widget content -->
                                     <div class="widget-body">
                                         <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
-                                        <form>
-                                            <input class="plant_device_input" name="plant_type" type="hidden" value="">
+                                        <form class="device_link_forms">
                                             <button id="Wario_link_btn" name="device" value="Wario" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
                                         </form>
                                     </div>
@@ -592,8 +973,7 @@
                                     <!-- widget content -->
                                     <div class="widget-body">
                                         <img src="img/raspberry_pi2.png">
-                                        <form>
-                                            <input class="plant_device_input" name="plant_type" type="hidden" value="">
+                                        <form class="device_link_forms">
                                             <button id="Toad_link_btn" name="device" value="Toad" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
                                         </form>
                                     </div>
@@ -611,876 +991,11 @@
         <!--end link to device modal-->
     </div>
     <!-- END MAIN CONTENT -->
+    <!-- Add Device Modal -->
+
+    <!-- End Add Device Button -->
 </div>
 <!-- END MAIN PANEL -->
-
-<!-- Add Device Button -->
-<a class="add_device"  data-toggle="modal" data-target="#add_new_device_modal"><img src="img/flat_plus.png"></a>
-<!-- End of Button Device Button -->
-<!-- Add Device Modal -->
-<div id="add_new_device_modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add A New Device</h4>
-            </div>
-            <div class="modal-body">
-                <form class="smart-form" id="new_device_form">
-                    <fieldset>
-                        <section>
-                            <label class="label">Device Name</label>
-                            <label class="input">
-                                <input name="device_name" type="text" class="input-sm">
-                            </label>
-                        </section>
-                        <section>
-                            <label class="label">Did You Use Our Kit?</label>
-                            <div class="inline-group">
-                                <label class="radio">
-                                    <input type="radio" name="kit" value="true" id="kit_yes">
-                                    <i></i>Yes
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" name="kit" value="false" id="kit_no">
-                                    <i></i>No
-                                </label>
-                            </div>
-                        </section>
-                    </fieldset>
-                    <section id="setUp_options">
-                        <header>
-                            Set Up
-                        </header>
-                        <fieldset>
-                            <section>
-                                <label class="label">Device Type</label>
-                                <label class="input">
-                                    <input type="text" list="device_list">
-                                    <datalist id="device_list">
-                                        <option value="Arduino">Arduino</option>
-                                        <option value="Photon">Photon</option>
-                                        <option value="Raspberry Pi">Raspberry Pi</option>
-                                        <option value="Other">Other</option>
-                                    </datalist>
-                                </label>
-                            </section>
-                        </fieldset>
-
-                        <fieldset>
-                            <section>
-                                <label class="label"><h4>Sensors</h4></label>
-                                <div class="row">
-                                    <div class="col col-6">
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="Lux" id="lux_checkbox">
-                                            <i></i>Lux
-                                        </label>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="Water_Temp" id="waterTemp_checkbox">
-                                            <i></i>Water Temperature
-                                        </label>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="Air_Temp" id="airTemp_checkbox">
-                                            <i></i>Air Temperature
-                                        </label>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="Humidity" id="humidity_checkbox">
-                                            <i></i>Humidity
-                                        </label>
-                                    </div>
-                                    <div class="col col-6">
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="pH" id="ph_checkbox">
-                                            <i></i>pH
-                                        </label>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="EC" id="ec_checkbox">
-                                            <i></i>EC
-                                        </label>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="TDS" id="tds_checkbox">
-                                            <i></i>Total Dissolved Solids
-                                        </label>
-                                        <label class="checkbox">
-                                            <input type="checkbox" name="PS" id="ps_checkbox">
-                                            <i></i>Practical Salinity
-                                        </label>
-                                    </div>
-                                </div>
-                            </section>
-                        </fieldset>
-
-                        <fieldset>
-                            <section>
-                                <label class="label"><h4>Actuators</h4></label>
-                                <div class="col col-6">
-                                    <section>
-                                        <label class="label">Light 1</label>
-                                        <label class="input">
-                                            <input name="light_1_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
-                                        </label>
-                                    </section>
-                                </div>
-                                <div class="col col-6">
-                                    <section>
-                                        <label class="label">Light 2</label>
-                                        <label class="input">
-                                            <input name="light_2_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
-                                        </label>
-                                    </section>
-                                </div>
-                                <div class="col col-3">
-                                    <section>
-                                        <label class="label">Water Pump</label>
-                                        <label class="input">
-                                            <input name="water_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
-                                        </label>
-                                    </section>
-                                </div>
-                                <div class="col col-3">
-                                    <section>
-                                        <label class="label">Nutrient Pump</label>
-                                        <label class="input">
-                                            <input name="nutrient_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
-                                        </label>
-                                    </section>
-                                </div>
-                                <div class="col col-3">
-                                    <section>
-                                        <label class="label">pH Upper</label>
-                                        <label class="input">
-                                            <input name="phUpper_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
-                                        </label>
-                                    </section>
-                                </div>
-                                <div class="col col-3">
-                                    <section>
-                                        <label class="label">pH Downer</label>
-                                        <label class="input">
-                                            <input name="phDowner_pump_pin" type="text" class="input-xs" data-mask="99" placeholder="Pin #">
-                                        </label>
-                                    </section>
-                                </div>
-                            </section>
-                        </fieldset>
-                    </section>
-                    <div class="modal-footer">
-                        <button style="margin-top: 20px" type="submit" class="btn btn-primary btn-xs">Save New Device</button>
-                        <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-                <div style="margin-top: 20px" class="modal-footer" id="base_sketch">
-                    <div class="jarviswidget jarviswidget-color-greenDark" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
-                        <!-- widget options:
-                            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-                            data-widget-colorbutton="false"
-                            data-widget-editbutton="false"
-                            data-widget-togglebutton="false"
-                            data-widget-deletebutton="false"
-                            data-widget-fullscreenbutton="false"
-                            data-widget-custombutton="false"
-                            data-widget-collapsed="true"
-                            data-widget-sortable="false"
-
-                        -->
-                        <header>
-                            <span class="widget-icon"> <i class="fa fa-code"></i> </span>
-                            <h2><strong>Arduino Code</strong></h2>
-
-                        </header>
-
-                        <!-- widget div-->
-                        <div>
-                            <!-- widget content -->
-                            <div class="widget-body">
-                                <pre style="height: 200px">
-/**********************************************************************************
- ***********************************************************************************
- * Start Temp-Humid Set-Up
- ***********************************************************************************
- **********************************************************************************/
-#include "DHT.h"
-#define DHTPIN 2     // what digital pin we're connected to
-#define DHTTYPE DHT11
-DHT dht(DHTPIN, DHTTYPE);
-/***********************************************************************************
- ***********************************************************************************
- * End Temp-Humid Sensor Set-Up
- ***********************************************************************************
- ***********************************************************************************/
-
-/**********************************************************************************
- ***********************************************************************************
- * Start Water Temp Set-Up
- ***********************************************************************************
- **********************************************************************************/
-#include &lt;OneWire.h&gt;
-int DS18S20_Pin = 4;
-OneWire ds(DS18S20_Pin);
-/***********************************************************************************
- ***********************************************************************************
- * End Water Temp Sensor Set-Up
- ***********************************************************************************
- ***********************************************************************************/
-
-/**********************************************************************************
- ***********************************************************************************
- * Start Ethernet+PubNub Set-Up
- ***********************************************************************************
- **********************************************************************************/
-#include &lt;SPI.h&gt;
-#include &lt;Ethernet.h&gt;
-#include &lt;PubNub.h&gt;
-#include &lt;aJSON.h&gt;
-
-// Some Ethernet shields have a MAC address printed on a sticker on the shield;
-// fill in that address here, or choose your own at random:
-byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-
-char pubkey[] = "pub-c-5bef0e0e-e177-4a94-b06f-ce3c1355e5cd";
-char subkey[] = "sub-c-3c8b80da-de67-11e5-abb9-0619f8945a4f";
-char channel[] = "tester";
-
-aJsonObject *createMessage()
-{
-  aJsonObject *msg = aJson.createObject();
-
-  aJsonObject *sender = aJson.createObject();
-  aJson.addStringToObject(sender, "name", "Arduino--Mario");
-  aJson.addItemToObject(msg, "sender", sender);
-  return msg;
-}
-
-/* Process message like: { "pwm": { "8": 0, "9": 128 } } */
-void processActuatorInfo(aJsonObject *item)
-{
-  aJsonObject *actuators = aJson.getObjectItem(item, "actuators");
-  if (!actuators) {
-    Serial.println("no pwm data");
-    return;
-  }
-
-  const static int pins[] = { 30, 31, 32, 33, 34, 35 };
-  const static int pins_n = 6;
-  for (int i = 0; i &lt; pins_n; i++) {
-    char pinstr[3];
-    snprintf(pinstr, sizeof(pinstr), "%d", pins[i]);
-
-    aJsonObject *actuatorsVal = aJson.getObjectItem(actuators, pinstr);
-    if (!actuatorsVal) continue; /* Value not provided, ok. */
-    if (actuatorsVal-&gt;type != aJson_Int) {
-      Serial.print(" invalid data type ");
-      Serial.print(actuatorsVal-&gt;type, DEC);
-      Serial.print(" for pin ");
-      Serial.println(pins[i], DEC);
-      continue;
-    }
-
-    Serial.print(" setting pin ");
-    Serial.print(pins[i], DEC);
-    Serial.print(" to value ");
-    Serial.println(actuatorsVal-&gt;valueint, DEC);
-    analogWrite(pins[i], actuatorsVal-&gt;valueint);
-  }
-}
-
-void dumpMessage(Stream &s, aJsonObject *msg)
-{
-  int msg_count = aJson.getArraySize(msg);
-  for (int i = 0; i &lt; msg_count; i++) {
-    aJsonObject *item, *sender, *analog, *value;
-    //s.print("Msg #");
-    //s.println(i, DEC);
-
-    item = aJson.getArrayItem(msg, i);
-    if (!item) { s.println("item not acquired"); delay(1000); return; }
-
-    processActuatorInfo(item);
-
-    /* Below, we parse and dump messages from fellow Arduinos. */
-
-    sender = aJson.getObjectItem(item, "sender");
-    if (!sender) { s.println("sender not acquired"); delay(1000); return; }
-
-    s.print(" A2: ");
-    analog = aJson.getObjectItem(item, "analog");
-    if (!analog) { s.println("analog not acquired"); delay(1000); return; }
-    value = aJson.getArrayItem(analog, 2);
-    if (!value) { s.println("analog[2] not acquired"); delay(1000); return; }
-    s.print(value-&gt;valueint, DEC);
-
-    s.println();
-  }
-}
-
-/***********************************************************************************
- ***********************************************************************************
- * Actuator Pin Set-Up
- ***********************************************************************************
- **********************************************************************************/
-
-int light1 = 30;
-int light2 = 31;
-int waterTrigger = 32;
-int nutrientDoser = 33;
-int phUP = 34;
-int phDOWN = 35;
-
-/***********************************************************************************
- ***********************************************************************************
- * End Pin Set-Up
- ***********************************************************************************
- **********************************************************************************/
-
-
-
-/***********************************************************************************
- ***********************************************************************************
- * Lux Sensor Set-Up
- ***********************************************************************************
- **********************************************************************************/
-#include &lt;Wire.h&gt;
-#include &lt;Adafruit_Sensor.h&gt;
-#include &lt;Adafruit_TSL2561_U.h&gt;
-Adafruit_TSL2561_Unified tsl = Adafruit_TSL2561_Unified(TSL2561_ADDR_FLOAT, 12345);
-
-/*************************************************************************
-    Configures the gain and integration time for the TSL2561
-*************************************************************************/
-void configureSensor(void)
-{
-  /* You can also manually set the gain or enable auto-gain support */
-  tsl.enableAutoRange(true);            /* Auto-gain ... switches automatically between 1x and 16x */
-
-  /* Changing the integration time gives you better sensor resolution (402ms = 16-bit data) */
-  tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_13MS);      /* fast but low resolution */
-  // tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_101MS);  /* medium resolution and speed   */
-  // tsl.setIntegrationTime(TSL2561_INTEGRATIONTIME_402MS);  /* 16-bit data but slowest conversions */
-
-  /* Update these values depending on what you've set above!
-  Serial.println("------------------------------------");
-  Serial.print  ("Gain:         "); Serial.println("Auto");
-  Serial.print  ("Timing:       "); Serial.println("13 ms");
-  Serial.println("------------------------------------");
-  */
-}
-
-/***********************************************************************************
- ***********************************************************************************
- * End Lux Sensor Set-Up
- ***********************************************************************************
- **********************************************************************************/
-
-
-/***********************************************************************************
- ***********************************************************************************
- * Tentacle Set-Up
- ***********************************************************************************
- **********************************************************************************/
-
-#include &lt;SoftwareSerial.h&gt;              //Include the software serial library
-#include &lt;Wire.h&gt;                   //enable I2C.
-
-SoftwareSerial sSerial(11, 10);          // RX, TX  - Name the software serial library sSerial (this cannot be omitted)
-                                         // assigned to pins 10 and 11 for maximum compatibility
-
-const int s0 = 7;                        //Arduino pin 7 to control pin S0
-const int s1 = 6;                        //Arduino pin 6 to control pin S1
-const int enable_1 = 5;                //Arduino pin 5 to control pin E on shield 1
-const int enable_2 = 4;                  //Arduino pin 4 to control pin E on shield 2
-
-char sensordata[30];                     //A 30 byte character array to hold incoming data from the sensors
-byte computer_bytes_received = 0;        //We need to know how many characters bytes have been received
-byte sensor_bytes_received = 0;          //We need to know how many characters bytes have been received
-int tenticleChannel;                             //INT pointer for channel switching - 0-7 serial, 8-127 I2C addresses
-char *cmd;                               //Char pointer used in string parsing
-int retries;                             // com-check functions store number of retries here
-boolean answerReceived;                  // com-functions store here if a connection-attempt was successful
-byte error;                              // error-byte to store result of Wire.transmissionEnd()
-
-String stamp_type;                       // hold the name / type of the stamp
-char stamp_version[4];                   // hold the version of the stamp
-
-char computerdata[20];             //we make a 20 byte character array to hold incoming data from a pc/mac/other.
-
-byte i2c_response_code = 0;              //used to hold the I2C response code.
-byte in_char = 0;                    //used as a 1 byte buffer to store in bound bytes from an I2C stamp.
-
-/***********************************************************************************
- ***********************************************************************************
- * Tentacle Sensor Set-Up
- ***********************************************************************************
- **********************************************************************************/
-
-
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial.println("Serial set up");
-
-  pinMode(s1, OUTPUT);                   //Set the digital pin as output.
-  pinMode(s0, OUTPUT);                   //Set the digital pin as output.
-  pinMode(enable_1, OUTPUT);             //Set the digital pin as output.
-  pinMode(enable_2, OUTPUT);             //Set the digital pin as output.
-  sSerial.begin(38400);                  // Set the soft serial port to 38400
-  Wire.begin();                          // enable I2C port.
-
-
-  while (!Ethernet.begin(mac)) {
-    Serial.println("Ethernet setup error");
-    delay(1000);
-  }
-  Serial.println("Ethernet set up");
-
-  PubNub.begin(pubkey, subkey);
-  Serial.println("PubNub set up");
-
-   /******** Initialise the Lux Sensor ********/
-  if(!tsl.begin())
-  {
-    /* There was a problem detecting the ADXL345 ... check your connections */
-    Serial.print("Ooops, no TSL2561 detected ... Check your wiring or I2C ADDR!");
-    while(1);
-  }
-
-  configureSensor();
-  /******** End Lux initialization ********/
-
-  /******** Temp-Humid Sensor ********/
-  dht.begin();
-  /******** End Temp-Humid init ********/
-  pinMode(light1, OUTPUT);
-  pinMode(light2, OUTPUT);
-  pinMode(waterTrigger, OUTPUT);
-  pinMode(nutrientDoser, OUTPUT);
-  pinMode(phUP, OUTPUT);
-  pinMode(phDOWN, OUTPUT);
-  digitalWrite(light1, HIGH);
-  digitalWrite(light2, HIGH);
-  digitalWrite(waterTrigger, HIGH);
-  digitalWrite(nutrientDoser, HIGH);
-  digitalWrite(phUP, HIGH);
-  digitalWrite(phDOWN, HIGH);
-}
-
-/**********************************************************************************
- ***********************************************************************************
- * End Ethernet+PubNub Set-Up
- ***********************************************************************************
- **********************************************************************************/
-
-
-void loop() {
-  int lux = 0;
-  /********** Lux Sensor Start **********/
-  /* Get a new sensor event */
-  sensors_event_t event;
-  tsl.getEvent(&event);
-
-  /* Display the results (light is measured in lux) */
-  if (event.light)
-  {
-    lux = event.light;
-  }
-  else
-  {
-    /* If event.light = 0 lux the sensor is probably saturated
-       and no reliable data could be generated! */
-    Serial.println("Sensor overload");
-  }
-  /********** End Lux Sensor **********/
-
-
-  /********** Start Temp-Humid Sensor **********/
-  int h = dht.readHumidity();
-  int f = dht.readTemperature(true);
-
-  //Validate Temp-Humid Readings
-  if (isnan(h) || isnan(f)) {
-    Serial.println("Failed to read from DHT sensor!");
-    return;
-  }
-  /********** End Temp-Humid Sensor **********/
-
-  float waterTemp = getWaterTemp();
-  waterTemp = (waterTemp*1.8)+32.0;
-
-  Ethernet.maintain();
-
-  EthernetClient *client;
-
-  /* Publish */
-
-  Serial.print("publishing a message: ");
-  aJsonObject *msg = createMessage();
-
- /*Add to message aJsonObject */
-  aJsonObject *luxData = aJson.createItem(lux);
-  aJson.addItemToObject(msg, "lux", luxData);
-  aJsonObject *humidityData = aJson.createItem(h);
-  aJson.addItemToObject(msg, "humidity", humidityData);
-  aJsonObject *tempData = aJson.createItem(f);
-  aJson.addItemToObject(msg, "airTemp", tempData);
-  aJsonObject *watertempData = aJson.createItem(waterTemp);
-  aJson.addItemToObject(msg, "waterTemp", watertempData);
-
-  tenticleChannel = 99;
-  cmd = "r";
-  I2C_call();  // send i2c command and wait for answer
-  if (sensor_bytes_received &gt; 0) {
-    Serial.print("Current pH: ");
-    Serial.println(sensordata);       //print the data.
-    aJsonObject *phData = aJson.createItem(sensordata);
-    aJson.addItemToObject(msg, "pH", phData);
-  }
-
-  tenticleChannel = 100;
-  cmd = "r";
-  I2C_call();  // send i2c command and wait for answer
-  if (sensor_bytes_received &gt; 0) {
-    Serial.print("Current pH: ");
-    Serial.println(sensordata);       //print the data.
-    aJsonObject *ecData = aJson.createItem(sensordata);
-    aJson.addItemToObject(msg, "EC", ecData);
-  }
-
-
-
-  char *msgStr = aJson.print(msg);
-  aJson.deleteItem(msg);
-
-  // msgStr is returned in a buffer that can be potentially
-  // needlessly large; this call will "tighten" it
-  msgStr = (char *) realloc(msgStr, strlen(msgStr) + 1);
-
-  Serial.println(msgStr);
-  client = PubNub.publish(channel, msgStr);
-  free(msgStr);
-  if (!client) {
-    Serial.println("publishing error");
-    delay(1000);
-    return;
-  }
-  client-&gt;stop();
-
-  /* Subscribe and load reply */
-
-  Serial.println("waiting for a message (subscribe)");
-  client = PubNub.subscribe(channel);
-  if (!client) {
-    Serial.println("subscription error");
-    delay(1000);
-    return;
-  }
-
-  /* Parse */
-
-  aJsonClientStream stream(client);
-  msg = aJson.parse(&stream);
-  client-&gt;stop();
-  if (!msg) { Serial.println("parse error"); delay(1000); return; }
-  dumpMessage(Serial, msg);
-  aJson.deleteItem(msg);
-
-}
-
-
-/*tentacle shield stuffems*/
-
-byte I2C_call() {           //function to parse and call I2C commands.
-  sensor_bytes_received = 0;                            // reset data counter
-  memset(sensordata, 0, sizeof(sensordata));            // clear sensordata array;
-
-  Wire.beginTransmission(tenticleChannel);                  //call the circuit by its ID number.
-  Wire.write(cmd);                      //transmit the command that was sent through the serial port.
-  Wire.endTransmission();                           //end the I2C data transmission.
-
-  i2c_response_code = 254;
-  while (i2c_response_code == 254) {      // in case the cammand takes longer to process, we keep looping here until we get a success or an error
-
-    if (String(cmd).startsWith(F("cal")) || String(cmd).startsWith(F("Cal")) ) {
-      delay(1400);                        // cal-commands take 1300ms or more
-    } else if (String(cmd) == F("r") || String(cmd) == F("R")) {
-      delay(1000);                        // reading command takes about a second
-    }
-    else {
-      delay(300);                         // all other commands: wait 300ms
-    }
-
-    Wire.requestFrom(tenticleChannel, 48, 1);     //call the circuit and request 48 bytes (this is more then we need).
-    i2c_response_code = Wire.read();      //the first byte is the response code, we read this separately.
-
-    while (Wire.available()) {            //are there bytes to receive.
-      in_char = Wire.read();              //receive a byte.
-
-      if (in_char == 0) {                 //if we see that we have been sent a null command.
-        Wire.endTransmission();           //end the I2C data transmission.
-        break;                            //exit the while loop.
-      }
-      else {
-        sensordata[sensor_bytes_received] = in_char;        //load this byte into our array.
-        sensor_bytes_received++;
-      }
-    }
-
-    switch (i2c_response_code) {         //switch case based on what the response code is.
-      case 1:                          //decimal 1.
-        Serial.println( F("&lt; success"));     //means the command was successful.
-        break;                           //exits the switch case.
-
-      case 2:                          //decimal 2.
-        Serial.println( F("&lt; command failed"));     //means the command has failed.
-        break;                           //exits the switch case.
-
-      case 254:                        //decimal 254.
-        Serial.println( F("&lt; command pending"));    //means the command has not yet been finished calculating.
-        break;                           //exits the switch case.
-
-      case 255:                        //decimal 255.
-        Serial.println( F("No Data"));    //means there is no further data to send.
-        break;                           //exits the switch case.
-    }
-  }
-}
-
-boolean check_i2c_connection() {                      // check selected i2c channel/address. verify that it's working by requesting info about the stamp
-
-  retries = 0;
-
-  while (retries &lt; 3) {
-    retries++;
-    Wire.beginTransmission(tenticleChannel);      // just do a short connection attempt without command to scan i2c for devices
-    error = Wire.endTransmission();
-
-    if (error == 0)                       // if error is 0, there's a device
-    {
-
-      int r_retries = 0;
-      while (r_retries &lt; 3) {
-        cmd = "i";                          // set cmd to request info (in I2C_call())
-        I2C_call();
-
-        if (parseInfo()) {
-          return true;
-        }
-      }
-      return false;
-    }
-    else
-    {
-      return false;                      // no device at this address
-    }
-  }
-
-}
-
-
-
-boolean parseInfo() {                  // parses the answer to a "i" command. returns true if answer was parseable, false if not.
-
-  // example:
-  // PH EZO  -&gt; '?I,pH,1.1'
-  // ORP EZO -&gt; '?I,OR,1.0'   (-&gt; wrong in documentation 'OR' instead of 'ORP')
-  // DO EZO  -&gt; '?I,D.O.,1.0' || '?I,DO,1.7' (-&gt; exists in D.O. and DO form)
-  // EC EZO  -&gt; '?I,EC,1.0 '
-
-  // Legazy PH  -&gt; 'P,V5.0,5/13'
-  // Legazy ORP -&gt; 'O,V4.4,2/13'
-  // Legazy DO  -&gt; 'D,V5.0,1/13'
-  // Legazy EC  -&gt; 'E,V3.1,5/13'
-
-  if (sensordata[0] == '?' && sensordata[1] == 'I') {          // seems to be an EZO stamp
-
-    // PH EZO
-    if (sensordata[3] == 'p' && sensordata[4] == 'H') {
-      stamp_type = F("pH EZO");
-      stamp_version[0] = sensordata[6];
-      stamp_version[1] = sensordata[7];
-      stamp_version[2] = sensordata[8];
-      stamp_version[3] = 0;
-
-      return true;
-
-      // ORP EZO
-    }
-    else if (sensordata[3] == 'O' && sensordata[4] == 'R') {
-      stamp_type = F("ORP EZO");
-      stamp_version[0] = sensordata[6];
-      stamp_version[1] = sensordata[7];
-      stamp_version[2] = sensordata[8];
-      stamp_version[3] = 0;
-      return true;
-
-      // DO EZO
-    }
-    else if (sensordata[3] == 'D' && sensordata[4] == 'O') {
-      stamp_type = F("D.O. EZO");
-      stamp_version[0] = sensordata[6];
-      stamp_version[1] = sensordata[7];
-      stamp_version[2] = sensordata[8];
-      stamp_version[3] = 0;
-      return true;
-
-      // D.O. EZO
-    }
-    else if (sensordata[3] == 'D' && sensordata[4] == '.' && sensordata[5] == 'O' && sensordata[6] == '.') {
-      stamp_type = F("D.O. EZO");
-      stamp_version[0] = sensordata[8];
-      stamp_version[1] = sensordata[9];
-      stamp_version[2] = sensordata[10];
-      stamp_version[3] = 0;
-      return true;
-
-      // EC EZO
-    }
-    else if (sensordata[3] == 'E' && sensordata[4] == 'C') {
-      stamp_type = F("EC EZO");
-      stamp_version[0] = sensordata[6];
-      stamp_version[1] = sensordata[7];
-      stamp_version[2] = sensordata[8];
-      stamp_version[3] = 0;
-      return true;
-
-      // unknown EZO stamp
-    }
-    else {
-      stamp_type = F("unknown EZO stamp");
-      return true;
-    }
-
-  }
-
-  // it's a legacy stamp (non-EZO)
-  else
-  {
-    // Legacy pH
-    if ( sensordata[0] == 'P') {
-      stamp_type = F("pH (legacy)");
-      stamp_version[0] = sensordata[3];
-      stamp_version[1] = sensordata[4];
-      stamp_version[2] = sensordata[5];
-      stamp_version[3] = 0;
-      return true;
-
-      // legacy ORP
-    }
-    else if ( sensordata[0] == 'O') {
-      stamp_type = F("ORP (legacy)");
-      stamp_version[0] = sensordata[3];
-      stamp_version[1] = sensordata[4];
-      stamp_version[2] = sensordata[5];
-      stamp_version[3] = 0;
-      return true;
-
-      // Legacy D.O.
-    }
-    else if ( sensordata[0] == 'D') {
-      stamp_type = F("D.O. (legacy)");
-      stamp_version[0] = sensordata[3];
-      stamp_version[1] = sensordata[4];
-      stamp_version[2] = sensordata[5];
-      stamp_version[3] = 0;
-      return true;
-
-      // Lecagy EC
-    }
-    else if ( sensordata[0] == 'E') {
-      stamp_type = F("EC (legacy)");
-      stamp_version[0] = sensordata[3];
-      stamp_version[1] = sensordata[4];
-      stamp_version[2] = sensordata[5];
-      stamp_version[3] = 0;
-      return true;
-    }
-  }
-
-  /*
-  Serial.println("can not parse data: ");
-   Serial.print("'");
-   Serial.print(sensordata);
-   Serial.println("'");
-   */
-  return false;        // can not parse this info-string
-}
-
-
-
-void clearIncomingBuffer() {          // "clears" the incoming soft-serial buffer
-  while (sSerial.available() ) {
-    //Serial.print((char)sSerial.read());
-    sSerial.read();
-  }
-}
-
-/*end of tenticle stuffems*/
-
-
-/*Start of waterTemp stuffems*/
-float getWaterTemp(){
-  //returns the temperature from one DS18S20 in DEG Celsius
-
-  byte data[12];
-  byte addr[8];
-
-  if ( !ds.search(addr)) {
-      //no more sensors on chain, reset search
-      ds.reset_search();
-      return -1000;
-  }
-
-  if ( OneWire::crc8( addr, 7) != addr[7]) {
-      Serial.println("CRC is not valid!");
-      return -1000;
-  }
-
-  if ( addr[0] != 0x10 && addr[0] != 0x28) {
-      Serial.print("Device is not recognized");
-      return -1000;
-  }
-
-  ds.reset();
-  ds.select(addr);
-  ds.write(0x44,1); // start conversion, with parasite power on at the end
-
-  byte present = ds.reset();
-  ds.select(addr);
-  ds.write(0xBE); // Read Scratchpad
-
-
-  for (int i = 0; i &lt; 9; i++) { // we need 9 bytes
-    data[i] = ds.read();
-  }
-
-  ds.reset_search();
-
-  byte MSB = data[1];
-  byte LSB = data[0];
-
-  float tempRead = ((MSB &lt;&lt; 8) | LSB); //using two's compliment
-  float TemperatureSum = tempRead / 16;
-
-  return TemperatureSum;
-
-}</pre>
-                            </div>
-                            <!-- end widget content -->
-
-                        </div>
-                        <!-- end widget div -->
-
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-    </div>
-</div>
-<!-- End Add Device Button -->
 
 <!-- PAGE FOOTER -->
 <div class="page-footer">
@@ -1488,45 +1003,6 @@ float getWaterTemp(){
         <div class="col-xs-12 col-sm-12 text-right hidden-xs">
             <div class="txt-color-white inline-block">
                 <i class="txt-color-blueLight hidden-mobile">You Look Great Today </i>
-                <div class="btn-group dropup">
-                    <button class="btn btn-xs dropdown-toggle bg-color-blue txt-color-white" data-toggle="dropdown">
-                        <i class="fa fa-link"></i> <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu pull-right text-left">
-                        <li>
-                            <div class="padding-5">
-                                <p class="txt-color-darken font-sm no-margin">Download Progress</p>
-                                <div class="progress progress-micro no-margin">
-                                    <div class="progress-bar progress-bar-success" style="width: 50%;"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <div class="padding-5">
-                                <p class="txt-color-darken font-sm no-margin">Server Load</p>
-                                <div class="progress progress-micro no-margin">
-                                    <div class="progress-bar progress-bar-success" style="width: 20%;"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <div class="padding-5">
-                                <p class="txt-color-darken font-sm no-margin">Memory Load <span class="text-danger">*critical*</span></p>
-                                <div class="progress progress-micro no-margin">
-                                    <div class="progress-bar progress-bar-danger" style="width: 70%;"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <div class="padding-5">
-                                <button class="btn btn-block btn-default">refresh</button>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -1627,10 +1103,6 @@ you can add as many as you like
 <script src="js/app.min.js"></script>
 
 
-
-
-
-
 <script>
     $(document).ready(function() {
 
@@ -1651,10 +1123,403 @@ you can add as many as you like
 
         //Grab the plant name from the button ID and place it into all of the input fields for devices when modal is selected
         $('.add_plant_btn').click(function () {
-            $('input.plant_device_input').val(
+            $('#add_grow_plant_type').val(
                     $(this).attr('id').slice(0,-8)
             );
-        })
+        });
+
+        //Set up yes/no fade
+        $('#grow_options').fadeOut();
+        $('#default_profile_radio').fadeOut();
+        $('#user_controls').fadeOut();
+
+        $('#experiment_yes').click(function () {
+            $('#grow_options').fadeIn(600, "easeInOutQuint");
+            $('#default_profile_radio').fadeOut(500, "easeInOutQuint");
+        });
+        $('#experiment_no').click(function () {
+            $('#grow_options').fadeOut(500, "easeInOutQuint");
+            $('#default_profile_radio').fadeIn(500, "easeInOutQuint");
+        });
+        $('#default_profile_no').click(function () {
+            $('#user_controls').fadeIn(500, "easeInOutQuint");
+        });
+
+
+        //Plant Set Up Data
+        $('#new_grow_form').submit(function(event){
+            event.preventDefault();
+            var plantData = $(this).serializeArray();
+            console.log(plantData);
+            $('.hidden_grow_name').val(
+                    plantData[0]['value']
+            );
+            $('.hidden_plant_type').val(
+                    plantData[1]['value']
+            );
+            $('.hidden_default_profile').val(
+                    plantData[2]['value']
+            );
+            /*if (plantData[2]['value'] == 'false'){
+                $('.hidden_pH').val(
+                        plantData[3]['value']
+                );
+                $('.hidden_ec').val(
+                        plantData[4]['value']
+                );
+                $('.hidden_lights').val(
+                        plantData[5]['value']
+                );
+                $('.hidden_water').val(
+                        plantData[6]['value']
+                );
+            }*/
+            if(plantData[3]['value'] == 'false'){
+                for(i=0; i<plantData.length; i++){
+                    $('.device_link_forms').append(
+                            '<input hidden="hidden" name="'+plantData[i]['name']+'" value="'+plantData[i]['value']+'" '+'>'
+                    );
+                }
+            }
+
+        });
+
+        //For dynamically adding Chron events to form
+        var actuator_control_number = 1;
+        var actuator_condition_number = 1;
+        $('#add_control').click(function() {
+            if (($('#startdate_activity_'+actuator_control_number).val() != "") &&  ($('#finishdate_activity_'+actuator_control_number).val() != "")){
+                actuator_control_number += 1;
+                $('#actuator_controls').append('' +
+                        '<label for="actuator_control_'+ actuator_control_number +'_actuator" class="label" >Time Based Activity ' + actuator_control_number +': </label>' +
+                        '<label for="actuator_control_' + actuator_control_number + '_actuator" class="label">Actuator:</label>' +
+                        '<label id="actuator_control_' + actuator_control_number + '_actuator" class="select actuator_select">' +
+                        '<select name="actuator_control_' + actuator_control_number + '_actuator">' +
+                        '<option value="no_actuator_chosen">Choose an Actuator</option>' +
+                        '<option value="Light_1">Light #1</option>' +
+                        '<option value="Light_2">Light #2</option>' +
+                        '<option value="Water_Pump_1">Water Pump #1</option>' +
+                        '<option value="Nutrient_Pump_1">Nutrient Pump #1</option>' +
+                        '</select><i></i>' +
+                        '</label>' +
+                        '<label for="actuator_control_' + actuator_control_number + '_time_int" class="label">Every: </label>' +
+                        '<section class="col col-6">' +
+                        '<label id="actuator_control_' + actuator_control_number + '_time_int" class="select">' +
+                        '<select name="time_int">' +
+                        '<option value="1">1</option>' +
+                        '<option value="2">2</option>' +
+                        '<option value="3">3</option>' +
+                        '<option value="4">4</option>' +
+                        '<option value="5">5</option>' +
+                        '<option value="6">6</option>' +
+                        '<option value="7">7</option>' +
+                        '<option value="8">8</option>' +
+                        '<option value="9">9</option>' +
+                        '<option value="10">10</option>' +
+                        '<option value="11">11</option>' +
+                        '<option value="12">12</option>' +
+                        '<option value="15">15</option>' +
+                        '<option value="30">30</option>' +
+                        '<option value="45">45</option>' +
+                        '</select> <i></i>' +
+                        '</label>' +
+                        '</section>' +
+                        '<section class="col col-6">' +
+                        '<label id="actuator_control_' + actuator_control_number + '_time_hour_min" class="select">' +
+                        '<select name="time_hour_min">' +
+                        '<option value="hours">Hours</option>' +
+                        '<option value="min">Minutes</option>' +
+                        '</select> <i></i>' +
+                        '</label>' +
+                        '</section>' +
+                        '<section class="col col-6">' +
+                        '<label class="input"> <i class="icon-append fa fa-calendar"></i>' +
+                        '<input type="text" name="startdate_activity_'+ actuator_control_number +'" id="startdate_activity_' + actuator_control_number + '" placeholder="Start date">' +
+                        '</label>' +
+                        '</section>' +
+                        '<section class="col col-6">' +
+                        '<label class="input"> <i class="icon-append fa fa-calendar"></i>' +
+                        '<input type="text" name="finishdate_activity_'+ actuator_control_number +'" id="finishdate_activity_'+actuator_control_number+'" placeholder="Finish date">' +
+                        '</label>' +
+                        '</section>'
+                );
+
+
+                $('#startdate_activity_'+actuator_control_number).datepicker({
+                    //dateFormat : 'dd.mm.yy',
+                    prevText : '<i class="fa fa-chevron-left"></i>',
+                    nextText : '<i class="fa fa-chevron-right"></i>',
+                    onSelect : function(selectedDate) {
+                        $('#finishdate_activity_'+actuator_control_number).datepicker('option', 'minDate', selectedDate);
+                        console.log(selectedDate);
+                    }
+                });
+
+                $('#finishdate_activity_'+actuator_control_number).datepicker({
+                    //dateFormat : 'dd.mm.yy',
+                    prevText : '<i class="fa fa-chevron-left"></i>',
+                    nextText : '<i class="fa fa-chevron-right"></i>',
+                    onSelect : function(selectedDate) {
+                        $('#startdate_activity_'+actuator_control_number).datepicker('option', 'maxDate', selectedDate);
+                    }
+                });
+            } else {
+                alert("dude fill your shit out");
+            }
+
+        });
+
+        //dynamically add conditions
+        $('#add_condition').click(function() {
+            if (($('#if_this_condition_'+actuator_control_number).val() != "") && ($('#is_condition_'+actuator_control_number).val() != "") && ($('#to_this_condition_'+actuator_control_number).val() != "") && ($('#do_this_condition_'+actuator_control_number).val() != "")){
+                actuator_condition_number += 1;
+                $('#actuator_conditions').append('' +
+                        '<section id="actuator_conditions">'+
+                        '<section class="col col-3">'+
+                        '<label class="label">If This</label>'+
+                        '<label class="select">'+
+                        '<select id="if_this_condition_'+actuator_condition_number+'" name="if_this_condition_'+actuator_condition_number+'" class="input-sm">'+
+                        '<option value="">Choose</option>'+
+                        '<option value="pH">pH</option>'+
+                        '<option value="TDS">TDS</option>'+
+                        '</select> <i></i> </label>'+
+                        '</section>'+
+                        '<section class="col col-3">'+
+                        '<label class="label">Is</label>'+
+                        '<label class="select">'+
+                        '<select id="is_condition_'+actuator_condition_number+'" name="is_condition_'+actuator_condition_number+'" class="input-sm">'+
+                        '<option value="">Choose</option>'+
+                        '<option value=">">Greater Than</option>'+
+                        '<option value=">=">Greater Than Or Equal To</option>'+
+                        '<option value="<">Less Than</option>'+
+                        '<option value="<=">Less Than Or Equal To</option>'+
+                        '<option value="=">Equals</option>'+
+                        '</select> <i></i> </label>'+
+                        '</section>'+
+                        '<section class="col col-3">'+
+                        '<label class="label">To This</label>'+
+                        '<label class="select">'+
+                        '<select id="to_this_condition_'+actuator_condition_number+'" name="to_this_condition_'+actuator_condition_number+'" class="input-sm">'+
+                        '<option value="">Choose</option>'+
+                        '<option value="0">0</option>'+
+                        '<option value="0.25">0.25</option>'+
+                        '<option value="0.5">0.5</option>'+
+                        '<option value="0.75">0.75</option>'+
+                        '<option value="1.0">1.0</option>'+
+                        '<option value="1.25">1.25</option>'+
+                        '<option value="1.5">1.5</option>'+
+                        '<option value="1.75">1.75</option>'+
+                        '<option value="2.0">2.0</option>'+
+                        '<option value="2.25">2.25</option>'+
+                        '<option value="2.5">2.5</option>'+
+                        '<option value="2.75">2.75</option>'+
+                        '<option value="3.0">3.0</option>'+
+                        '<option value="3.25">3.25</option>'+
+                        '<option value="3.5">3.5</option>'+
+                        '<option value="3.75">3.75</option>'+
+                        '<option value="4.0">4.0</option>'+
+                        '<option value="4.25">4.25</option>'+
+                        '<option value="4.5">4.5</option>'+
+                        '<option value="4.75">4.75</option>'+
+                        '<option value="5.0">5.0</option>'+
+                        '<option value="5.25">5.25</option>'+
+                        '<option value="5.5">5.5</option>'+
+                        '<option value="5.75">5.75</option>'+
+                        '<option value="6.0">6.0</option>'+
+                        '<option value="6.25">6.25</option>'+
+                        '<option value="6.5">6.5</option>'+
+                        '<option value="6.75">6.75</option>'+
+                        '<option value="7.0">7.0</option>'+
+                        '<option value="7.25">7.25</option>'+
+                        '<option value="7.5">7.5</option>'+
+                        '<option value="7.75">7.75</option>'+
+                        '<option value="8.0">8.0</option>'+
+                        '<option value="8.25">8.25</option>'+
+                        '<option value="8.5">8.5</option>'+
+                        '<option value="8.75">8.75</option>'+
+                        '<option value="9.0">9.0</option>'+
+                        '<option value="9.25">9.25</option>'+
+                        '<option value="9.5">9.5</option>'+
+                        '<option value="9.75">9.75</option>'+
+                        '<option value="10.0">10.0</option>'+
+                        '<option value="10.25">10.25</option>'+
+                        '<option value="10.5">10.5</option>'+
+                        '<option value="10.75">10.75</option>'+
+                        '<option value="11.0">11.0</option>'+
+                        '<option value="11.25">11.25</option>'+
+                        '<option value="11.5">11.5</option>'+
+                        '<option value="11.75">11.75</option>'+
+                        '<option value="12.0">12.0</option>'+
+                        '<option value="12.25">12.25</option>'+
+                        '<option value="12.5">12.5</option>'+
+                        '<option value="12.75">12.75</option>'+
+                        '<option value="13.0">13.0</option>'+
+                        '<option value="13.25">13.25</option>'+
+                        '<option value="13.5">13.5</option>'+
+                        '<option value="13.75">13.75</option>'+
+                        '<option value="14.0">14.0</option>'+
+                        '<option value="15">15</option>'+
+                        '<option value="25">25</option>'+
+                        '<option value="35">35</option>'+
+                        '<option value="45">45</option>'+
+                        '<option value="55">55</option>'+
+                        '<option value="65">65</option>'+
+                        '<option value="75">75</option>'+
+                        '<option value="85">85</option>'+
+                        '<option value="95">95</option>'+
+                        '<option value="105">105</option>'+
+                        '<option value="115">115</option>'+
+                        '<option value="125">125</option>'+
+                        '<option value="135">135</option>'+
+                        '<option value="145">145</option>'+
+                        '<option value="155">155</option>'+
+                        '<option value="165">165</option>'+
+                        '<option value="175">175</option>'+
+                        '<option value="185">185</option>'+
+                        '<option value="195">195</option>'+
+                        '<option value="205">205</option>'+
+                        '<option value="215">215</option>'+
+                        '<option value="225">225</option>'+
+                        '<option value="235">235</option>'+
+                        '<option value="245">245</option>'+
+                        '<option value="255">255</option>'+
+                        '<option value="265">265</option>'+
+                        '<option value="275">275</option>'+
+                        '<option value="285">285</option>'+
+                        '<option value="295">295</option>'+
+                        '<option value="305">305</option>'+
+                        '<option value="315">315</option>'+
+                        '<option value="325">325</option>'+
+                        '<option value="335">335</option>'+
+                        '<option value="345">345</option>'+
+                        '<option value="355">355</option>'+
+                        '<option value="365">365</option>'+
+                        '<option value="375">375</option>'+
+                        '<option value="385">385</option>'+
+                        '<option value="395">395</option>'+
+                        '<option value="405">405</option>'+
+                        '<option value="415">415</option>'+
+                        '<option value="425">425</option>'+
+                        '<option value="435">435</option>'+
+                        '<option value="445">445</option>'+
+                        '<option value="455">455</option>'+
+                        '<option value="465">465</option>'+
+                        '<option value="475">475</option>'+
+                        '<option value="485">485</option>'+
+                        '<option value="495">495</option>'+
+                        '<option value="505">505</option>'+
+                        '<option value="515">515</option>'+
+                        '<option value="525">525</option>'+
+                        '<option value="535">535</option>'+
+                        '<option value="545">545</option>'+
+                        '<option value="555">555</option>'+
+                        '<option value="565">565</option>'+
+                        '<option value="575">575</option>'+
+                        '<option value="585">585</option>'+
+                        '<option value="595">595</option>'+
+                        '<option value="605">605</option>'+
+                        '<option value="615">615</option>'+
+                        '<option value="625">625</option>'+
+                        '<option value="635">635</option>'+
+                        '<option value="645">645</option>'+
+                        '<option value="655">655</option>'+
+                        '<option value="665">665</option>'+
+                        '<option value="675">675</option>'+
+                        '<option value="685">685</option>'+
+                        '<option value="695">695</option>'+
+                        '<option value="705">705</option>'+
+                        '<option value="715">715</option>'+
+                        '<option value="725">725</option>'+
+                        '<option value="735">735</option>'+
+                        '<option value="745">745</option>'+
+                        '<option value="755">755</option>'+
+                        '<option value="765">765</option>'+
+                        '<option value="775">775</option>'+
+                        '<option value="785">785</option>'+
+                        '<option value="795">795</option>'+
+                        '<option value="805">805</option>'+
+                        '<option value="815">815</option>'+
+                        '<option value="825">825</option>'+
+                        '<option value="835">835</option>'+
+                        '<option value="845">845</option>'+
+                        '<option value="855">855</option>'+
+                        '<option value="865">865</option>'+
+                        '<option value="875">875</option>'+
+                        '<option value="885">885</option>'+
+                        '<option value="895">895</option>'+
+                        '<option value="905">905</option>'+
+                        '<option value="915">915</option>'+
+                        '<option value="925">925</option>'+
+                        '<option value="935">935</option>'+
+                        '<option value="945">945</option>'+
+                        '<option value="955">955</option>'+
+                        '<option value="965">965</option>'+
+                        '<option value="975">975</option>'+
+                        '<option value="985">985</option>'+
+                        '<option value="995">995</option>'+
+                        '<option value="1005">1005</option>'+
+                        '<option value="1015">1015</option>'+
+                        '<option value="1025">1025</option>'+
+                        '<option value="1035">1035</option>'+
+                        '<option value="1045">1045</option>'+
+                        '<option value="1055">1055</option>'+
+                        '<option value="1065">1065</option>'+
+                        '<option value="1075">1075</option>'+
+                        '<option value="1085">1085</option>'+
+                        '<option value="1095">1095</option>'+
+                        '<option value="1105">1105</option>'+
+                        '<option value="1115">1115</option>'+
+                        '<option value="1125">1125</option>'+
+                        '<option value="1135">1135</option>'+
+                        '<option value="1145">1145</option>'+
+                        '<option value="1155">1155</option>'+
+                        '<option value="1165">1165</option>'+
+                        '<option value="1175">1175</option>'+
+                        '<option value="1185">1185</option>'+
+                        '<option value="1200">1200</option>'+
+                        '</select> <i></i> </label>'+
+                        '</section>'+
+                        '<section class="col col-3">'+
+                        '<label class="label">Then Do</label>'+
+                        '<label class="select">'+
+                        '<select id="do_this_condition_'+actuator_condition_number+'" name="do_this_condition_'+actuator_condition_number+'" class="input-sm">'+
+                        '<option value="">Choose</option>'+
+                        '<option value="pH_Upper_On">pH Upper On</option>'+
+                        '<option value="pH_Upper_Off">pH Upper Off</option>'+
+                        '<option value="pH_Downer_On">pH Downer On</option>'+
+                        '<option value="pH_Downer_Off">pH Downer Off</option>'+
+                        '<option value="nutrient_On">Nutrient Pump On</option>'+
+                        '<option value="nutrient_On">Nutrient Pump Off</option>'+
+                        '</select> <i></i> </label>'+
+                        '</section>'+
+                        '</section>'
+                );
+            } else {
+                alert("dude fill your shit out");
+            }
+
+        });
+
+        // Initial date controls for Chron events
+        $('#startdate_activity_1').datepicker({
+            //dateFormat : 'dd.mm.yy',
+            prevText : '<i class="fa fa-chevron-left"></i>',
+            nextText : '<i class="fa fa-chevron-right"></i>',
+            onSelect : function(selectedDate) {
+                $('#finishdate_activity_1').datepicker('option', 'minDate', selectedDate);
+                console.log(selectedDate);
+            }
+        });
+
+        $('#finishdate_activity_1').datepicker({
+            //dateFormat : 'dd.mm.yy',
+            prevText : '<i class="fa fa-chevron-left"></i>',
+            nextText : '<i class="fa fa-chevron-right"></i>',
+            onSelect : function(selectedDate) {
+                $('#startdate_activity_1').datepicker('option', 'maxDate', selectedDate);
+            }
+        });
+
 
     });
 
