@@ -910,3 +910,36 @@ Plant Profile Page Mods
     margin: 10px auto 0px auto;
     display: block;
 }
+
+/* No longer used
+label.radio.grow_options{
+    border-radius: 10px;
+    padding-right: 10px;
+    padding-left: 30px;
+}
+
+.grow_options.default{
+    background-color: #CCC;
+}
+
+.grow_options.below{
+    background-color: #6D98D4;
+}
+
+.grow_options.above{
+    background-color: #EF7464;
+}
+
+.inline-group .radio i {
+    margin-left: 5px;
+}
+*/
+
+#grow_mods section{
+    margin-bottom: 30px;
+}
+
+div.grow_add_button_div button{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
