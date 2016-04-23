@@ -1151,36 +1151,12 @@ you can add as many as you like
             event.preventDefault();
             var plantData = $(this).serializeArray();
             console.log(plantData);
-            $('.hidden_grow_name').val(
-                    plantData[0]['value']
-            );
-            $('.hidden_plant_type').val(
-                    plantData[1]['value']
-            );
-            $('.hidden_default_profile').val(
-                    plantData[2]['value']
-            );
-            /*if (plantData[2]['value'] == 'false'){
-                $('.hidden_pH').val(
-                        plantData[3]['value']
+            for(i=0; i<plantData.length; i++){
+                $('.device_link_forms').append(
+                        '<input hidden="hidden" name="'+plantData[i]['name']+'" value="'+plantData[i]['value']+'" '+'>'
                 );
-                $('.hidden_ec').val(
-                        plantData[4]['value']
-                );
-                $('.hidden_lights').val(
-                        plantData[5]['value']
-                );
-                $('.hidden_water').val(
-                        plantData[6]['value']
-                );
-            }*/
-            if(plantData[3]['value'] == 'false'){
-                for(i=0; i<plantData.length; i++){
-                    $('.device_link_forms').append(
-                            '<input hidden="hidden" name="'+plantData[i]['name']+'" value="'+plantData[i]['value']+'" '+'>'
-                    );
-                }
             }
+
 
         });
 
