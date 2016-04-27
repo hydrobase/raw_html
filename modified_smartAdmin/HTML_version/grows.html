@@ -2197,7 +2197,7 @@
 <a class="add_device"  data-toggle="modal" data-target="#add_new_grow_modal"><img src="img/flat_plus.png"></a>
 <!-- End of Button Device Button -->
 
-<div id="add_new_grow_modal" class="modal fade" role="dialog">
+<div id="add_new_grow_modal" class="modal fade switch" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
@@ -2207,6 +2207,12 @@
             </div>
             <div class="modal-body">
                 <form name="new_grow_controls" id="new_grow_controls" class="smart-form">
+                    <section>
+                        <label class="label">Grow Name</label>
+                        <label class="input">
+                            <input name="new_grow_name" id="new_grow_name" type="text">
+                        </label>
+                    </section>
                     <fieldset name="new_actuator_controls">
                         <label class="label"><strong>What To Do On A Schedule (Controls):</strong></label>
                         <section id="new_grow_actuator_controls">
@@ -2498,8 +2504,112 @@
                     <button id="new_grow_add_condition" class="btn btn-primary">Add Condition</button>
                 </div>
                 <div class="modal-footer">
-                    <button style="margin-top: 20px" type="button" id="new_grow_external_control_submit" class="btn btn-primary btn-xs">Save Edits</button>
+                    <button style="margin-top: 20px" type="button" id="new_grow_external_next" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".switch">Next</button>
                     <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="add_plant_device_modal" class="modal fade switch" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Link Device To Plant</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="new_grow_wid-id-Mario_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                            <h2><strong>Mario:</strong> <i>Arduino</i></h2>
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                <!--Anubhav!!!! NOT SURE IF THIS IS THE ACTION YOU WANT, FEEL FREE TO FUCK WITH IT!-->
+
+                                <!--this is super important but can be all the same-->
+                                <form class="device_link_forms">
+                                    <button id="new_grow_Mario_link_btn" name="device" value="Mario" type="submit" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                </form>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="new_grow_wid-id-Luigi_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                            <h2><strong>Luigi:</strong> <i>Arduino</i></h2>
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                <form class="device_link_forms">
+                                    <button id="new_grow_Luigi_link_btn" name="device" value="Luigi" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                </form>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="new_grow_wid-id-Wario_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                            <h2><strong>Wario:</strong> <i>Arduino</i></h2>
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <img src="https://www.arduino.cc/en/uploads/Tutorial/ArduinoUNO_bb.png">
+                                <form class="device_link_forms">
+                                    <button id="new_grow_Wario_link_btn" name="device" value="Wario" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                </form>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <div class="jarviswidget jarviswidget-color-greenDark device_link_tile col-lg-6" id="new_grow_wid-id-Toad_link" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-code-fork"></i> </span>
+                            <h2><strong>Toad:</strong> <i>Raspberry Pi</i></h2>
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+                            <!-- widget content -->
+                            <div class="widget-body">
+                                <img src="img/raspberry_pi2.png">
+                                <form class="device_link_forms">
+                                    <button id="new_grow_Toad_link_btn" name="device" value="Toad" class="btn btn-primary edit-btn"><span class="fa fa-lg fa-link"></span> Link</button>
+                                </form>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -3394,7 +3504,7 @@ you can add as many as you like
             }
         });
 
-        $('#new_grow_external_control_submit').click(function() {
+        $('#new_grow_external_next').click(function() {
             if (($('#new_grow_if_this_condition_'+new_grow_actuator_condition_number).val() != "") &&
                     ($('#new_grow_is_condition_'+new_grow_actuator_condition_number).val() != "") &&
                     ($('#new_grow_to_this_condition_'+new_grow_actuator_condition_number).val() != "") &&
@@ -3408,9 +3518,22 @@ you can add as many as you like
                 $('#new_grow_controls').submit();
             };
         });
+
+        $('#new_grow_controls').submit(function(event){
+            event.preventDefault();
+            var plantData = $(this).serializeArray();
+            console.log(plantData);
+            for(i=0; i<plantData.length; i++){
+                $('.device_link_forms').append(
+                        '<input hidden="hidden" name="'+plantData[i]['name']+'" value="'+plantData[i]['value']+'" '+'>'
+                );
+            }
+        });
         /* ======END OF DYNAMIC CONTROL FOR GROWS ======*/
 
-        // Initial date controls for Chron events
+        $('').click(function () {
+            //code for closing modal
+        })
 
 
     });

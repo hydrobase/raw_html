@@ -458,7 +458,7 @@
         <!-- end widget grid -->
 
         <!--link to plant modal-->
-        <div id="add_new_grow_modal" class="modal fade test" role="dialog">
+        <div id="add_new_grow_modal" class="modal fade switch" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -873,7 +873,7 @@
                             </section>
 
                             <div class="modal-footer">
-                                <button style="margin-top: 20px" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".test">Next</button>
+                                <button style="margin-top: 20px" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".switch">Next</button>
                                 <button style="margin-top: 20px" type="button" class="btn btn-default btn-xs" data-dismiss="modal">Cancel</button>
                             </div>
                         </form>
@@ -884,7 +884,7 @@
         </div>
         <!--end plant modal -->
         <!--link to device modal-->
-        <div id="add_plant_device_modal" class="modal fade test" role="dialog">
+        <div id="add_plant_device_modal" class="modal fade switch" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
@@ -1156,8 +1156,6 @@ you can add as many as you like
                         '<input hidden="hidden" name="'+plantData[i]['name']+'" value="'+plantData[i]['value']+'" '+'>'
                 );
             }
-
-
         });
 
         //For dynamically adding Chron events to form
