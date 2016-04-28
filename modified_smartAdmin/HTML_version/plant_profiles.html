@@ -1136,13 +1136,20 @@ you can add as many as you like
         $('#experiment_yes').click(function () {
             $('#grow_options').fadeIn(600, "easeInOutQuint");
             $('#default_profile_radio').fadeOut(500, "easeInOutQuint");
+            $('#user_controls').fadeOut(500, "easeInOutQuint");
         });
         $('#experiment_no').click(function () {
             $('#grow_options').fadeOut(500, "easeInOutQuint");
             $('#default_profile_radio').fadeIn(500, "easeInOutQuint");
+            if ($('#default_profile_no').prop('checked') == true) {
+                $('#user_controls').fadeIn(500, "easeInOutQuint");
+            }
         });
         $('#default_profile_no').click(function () {
             $('#user_controls').fadeIn(500, "easeInOutQuint");
+        });
+        $('#default_profile_yes').click(function () {
+            $('#user_controls').fadeOut(500, "easeInOutQuint");
         });
 
 
